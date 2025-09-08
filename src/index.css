@@ -156,7 +156,7 @@
   .hero-title {
     font-size: var(--text-hero);
     line-height: 0.9;
-    font-weight: 900;
+    font-weight: 400;
     letter-spacing: -0.025em;
     text-transform: uppercase;
   }
@@ -164,7 +164,7 @@
   .display-title {
     font-size: var(--text-display);
     line-height: 1.1;
-    font-weight: 800;
+    font-weight: 400;
     letter-spacing: -0.02em;
     text-transform: uppercase;
   }
@@ -172,7 +172,7 @@
   .section-title {
     font-size: var(--text-title);
     line-height: 1.2;
-    font-weight: 700;
+    font-weight: 400;
     letter-spacing: -0.015em;
     text-transform: uppercase;
   }
