@@ -2,7 +2,7 @@ import { ChevronDown } from "lucide-react";
 
 export const Hero = () => {
   return (
-    <section className="w-full bg-brand-red text-white relative overflow-hidden">
+    <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
       {/* Marc Hodulich Wordmark - aligned with content */}
       <div className="absolute top-9 left-0 right-0 z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -33,7 +33,7 @@ export const Hero = () => {
       </div>
       
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 flex items-start lg:items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
         <div className="max-w-2xl animate-fade-in">
           <h1 className="hero-title text-white mb-6">
             Cartographer of Limits
@@ -53,8 +53,17 @@ export const Hero = () => {
         </div>
       </div>
 
+      {/* Tablet Hero Image - Below content with appropriate sizing */}
+      <div className="hidden md:block lg:hidden relative w-full h-96">
+        <img 
+          src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
+          alt="Marc Hodulich - Endurance athlete and entrepreneur" 
+          className="w-full h-full object-cover object-center"
+        />
+      </div>
+
       {/* Mobile Hero Image - Below content with reduced spacing */}
-      <div className="lg:hidden relative w-full h-80">
+      <div className="md:hidden relative w-full h-80">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
