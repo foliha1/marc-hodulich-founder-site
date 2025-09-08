@@ -48,7 +48,7 @@
     --input: 30 6% 85%;
     --ring: 4 84% 51%;
     
-    --radius: 0.75rem;
+    --radius: 0.25rem;
     
     /* Gradients */
     --gradient-hero: linear-gradient(135deg, hsl(var(--brand-red)), hsl(var(--brand-red-dark)));
@@ -157,7 +157,7 @@
     font-size: var(--text-hero);
     line-height: 0.9;
     font-weight: 400;
-    letter-spacing: -0.025em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   
@@ -165,7 +165,7 @@
     font-size: var(--text-display);
     line-height: 1.1;
     font-weight: 400;
-    letter-spacing: -0.02em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   
@@ -173,7 +173,7 @@
     font-size: var(--text-title);
     line-height: 1.2;
     font-weight: 400;
-    letter-spacing: -0.015em;
+    letter-spacing: 0.02em;
     text-transform: uppercase;
   }
   
