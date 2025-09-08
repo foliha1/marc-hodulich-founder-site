@@ -54,11 +54,11 @@ export const Hero = () => {
       </div>
 
       {/* Tablet Hero Image - Below content with appropriate sizing */}
-      <div className="hidden md:block lg:hidden relative w-full h-96">
+      <div className="hidden md:block lg:hidden relative w-full">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-auto object-contain"
         />
       </div>
 
