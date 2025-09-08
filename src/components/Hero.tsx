@@ -1,4 +1,4 @@
-import marcHeroEmbrace from "@/assets/marc-hero-embrace.png";
+// Using original working image
 
 export const Hero = () => {
   return (
@@ -6,7 +6,7 @@ export const Hero = () => {
       {/* Hero Image - positioned to bleed off right and extend to bottom */}
       <div className="absolute bottom-0 right-0 w-2/3 lg:w-1/2 h-full">
         <img 
-          src={marcHeroEmbrace}
+          src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-left"
         />
