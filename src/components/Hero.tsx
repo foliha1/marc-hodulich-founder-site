@@ -32,9 +32,9 @@ export const Hero = () => {
         />
       </div>
       
-      {/* Text Content Overlay - Centered */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 min-h-screen lg:min-h-0 flex items-center justify-center">
-        <div className="max-w-2xl mx-auto text-center animate-fade-in">
+      {/* Text Content Overlay - Left justified, vertically centered */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 min-h-screen lg:min-h-0 flex items-center">
+        <div className="max-w-2xl animate-fade-in">
           <h1 className="hero-title text-white mb-6">
             Cartographer of Limits
           </h1>
