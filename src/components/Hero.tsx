@@ -1,31 +1,29 @@
-import marcPortrait from "@/assets/marc-hero-portrait.jpg";
+import marcHeroEmbrace from "@/assets/marc-hero-embrace.png";
 
 export const Hero = () => {
   return (
-    <section className="w-full bg-brand-red text-white min-h-screen flex items-center">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-24">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="animate-fade-in">
-            <h1 className="hero-title text-white mb-6">
-              Cartographer of Limits
-            </h1>
-            <p className="body-text mb-8 text-white/90 max-w-2xl">
-              I design transformative environments that guide people beyond their perceived edge.
-              The peak isn't the point—the point is who you become by climbing.
-            </p>
-            <div className="caption-text text-white/80">
-              Co‑founder of 29029 • Builder • Speaker
-            </div>
-          </div>
-          
-          <div className="relative animate-scale-in">
-            <div className="hero-shadow rounded-2xl overflow-hidden">
-              <img 
-                src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png' 
-                alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-                className="w-full h-auto object-cover"
-              />
-            </div>
+    <section className="w-full bg-brand-red text-white min-h-screen relative overflow-hidden">
+      {/* Hero Image - positioned to bleed off right and extend to bottom */}
+      <div className="absolute bottom-0 right-0 w-2/3 lg:w-1/2 h-full">
+        <img 
+          src={marcHeroEmbrace}
+          alt="Marc Hodulich - Endurance athlete and entrepreneur" 
+          className="w-full h-full object-cover object-left"
+        />
+      </div>
+      
+      {/* Text Content Overlay */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 min-h-screen flex items-center">
+        <div className="max-w-2xl animate-fade-in">
+          <h1 className="hero-title text-white mb-6">
+            Cartographer of Limits
+          </h1>
+          <p className="body-text mb-8 text-white/90">
+            I design transformative environments that guide people beyond their perceived edge.
+            The peak isn't the point—the point is who you become by climbing.
+          </p>
+          <div className="caption-text text-white/80">
+            Co‑founder of 29029 • Builder • Speaker
           </div>
         </div>
       </div>
