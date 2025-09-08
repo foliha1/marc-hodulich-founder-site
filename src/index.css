@@ -1,42 +1,76 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Marc's Personal Brand Design System */
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Marc's Brand Colors */
+    --brand-red: 4 84% 51%;
+    --brand-ink: 0 0% 11%;
+    --brand-ink-sub: 34 4% 33%;
+    --brand-warm: 0 0% 95%;
+    --brand-muted: 0 0% 55%;
+    
+    /* Extended Palette */
+    --brand-red-light: 4 84% 65%;
+    --brand-red-dark: 4 84% 35%;
+    --brand-cream: 40 20% 97%;
+    --brand-stone: 30 6% 85%;
+    
+    /* Core System Colors */
+    --background: 0 0% 95%;
+    --foreground: 0 0% 11%;
+    
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
+    --card-foreground: 0 0% 11%;
+    
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
+    --popover-foreground: 0 0% 11%;
+    
+    --primary: 4 84% 51%;
+    --primary-foreground: 0 0% 98%;
+    
+    --secondary: 30 6% 85%;
+    --secondary-foreground: 0 0% 11%;
+    
+    --muted: 0 0% 55%;
+    --muted-foreground: 0 0% 35%;
+    
+    --accent: 4 84% 51%;
+    --accent-foreground: 0 0% 98%;
+    
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --destructive-foreground: 0 0% 98%;
+    
+    --border: 30 6% 85%;
+    --input: 30 6% 85%;
+    --ring: 4 84% 51%;
+    
+    --radius: 0.75rem;
+    
+    /* Gradients */
+    --gradient-hero: linear-gradient(135deg, hsl(var(--brand-red)), hsl(var(--brand-red-dark)));
+    --gradient-subtle: linear-gradient(180deg, hsl(var(--brand-warm)), hsl(var(--brand-cream)));
+    --gradient-peak: linear-gradient(45deg, hsl(var(--brand-red) / 0.1), hsl(var(--brand-red) / 0.05));
+    
+    /* Shadows */
+    --shadow-elegant: 0 20px 25px -5px hsl(var(--brand-ink) / 0.1), 0 10px 10px -5px hsl(var(--brand-ink) / 0.04);
+    --shadow-hero: 0 25px 50px -12px hsl(var(--brand-red) / 0.25);
+    --shadow-card: 0 4px 6px -1px hsl(var(--brand-ink) / 0.1), 0 2px 4px -1px hsl(var(--brand-ink) / 0.06);
+    
+    /* Animations */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Typography Scale */
+    --text-hero: clamp(2.5rem, 8vw, 5rem);
+    --text-display: clamp(2rem, 5vw, 3.5rem);
+    --text-title: clamp(1.5rem, 3vw, 2.25rem);
+    --text-body: 1.125rem;
+    --text-caption: 0.875rem;
 
     --sidebar-background: 0 0% 98%;
 
@@ -100,6 +134,170 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+    scroll-behavior: smooth;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight;
+  }
+  
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@layer components {
+  .hero-title {
+    font-size: var(--text-hero);
+    line-height: 0.9;
+    font-weight: 900;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+  }
+  
+  .display-title {
+    font-size: var(--text-display);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  
+  .section-title {
+    font-size: var(--text-title);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+  }
+  
+  .body-text {
+    font-size: var(--text-body);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  
+  .caption-text {
+    font-size: var(--text-caption);
+    line-height: 1.5;
+    font-weight: 500;
+  }
+  
+  .brand-gradient {
+    background: var(--gradient-hero);
+  }
+  
+  .subtle-gradient {
+    background: var(--gradient-subtle);
+  }
+  
+  .peak-gradient {
+    background: var(--gradient-peak);
+  }
+  
+  .card-shadow {
+    box-shadow: var(--shadow-card);
+  }
+  
+  .hero-shadow {
+    box-shadow: var(--shadow-hero);
+  }
+  
+  .elegant-shadow {
+    box-shadow: var(--shadow-elegant);
+  }
+  
+  .smooth-transition {
+    transition: var(--transition-smooth);
+  }
+  
+  .bounce-transition {
+    transition: var(--transition-bounce);
+  }
+  
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  
+  .animate-slide-up {
+    animation: slideUp 0.6s ease-out forwards;
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.5s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  .text-brand-red {
+    color: hsl(var(--brand-red));
+  }
+  
+  .text-brand-ink {
+    color: hsl(var(--brand-ink));
+  }
+  
+  .text-brand-ink-sub {
+    color: hsl(var(--brand-ink-sub));
+  }
+  
+  .text-brand-muted {
+    color: hsl(var(--brand-muted));
+  }
+  
+  .bg-brand-red {
+    background-color: hsl(var(--brand-red));
+  }
+  
+  .bg-brand-warm {
+    background-color: hsl(var(--brand-warm));
+  }
+  
+  .bg-brand-cream {
+    background-color: hsl(var(--brand-cream));
+  }
+  
+  .border-brand-red {
+    border-color: hsl(var(--brand-red));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
