@@ -64,12 +64,12 @@
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
-    /* Typography Scale */
-    --text-hero: clamp(2.5rem, 8vw, 5rem);
-    --text-display: clamp(2rem, 5vw, 3.5rem);
-    --text-title: clamp(1.5rem, 3vw, 2.25rem);
-    --text-body: 1.125rem;
-    --text-caption: 0.875rem;
+    /* Typography Scale - Mobile-optimized */
+    --text-hero: clamp(2rem, 8vw, 5rem);
+    --text-display: clamp(1.5rem, 5vw, 3.5rem);
+    --text-title: clamp(1.125rem, 3vw, 2.25rem);
+    --text-body: clamp(0.875rem, 2vw, 1.125rem);
+    --text-caption: clamp(0.75rem, 1.5vw, 0.875rem);
 
     --sidebar-background: 0 0% 98%;
 

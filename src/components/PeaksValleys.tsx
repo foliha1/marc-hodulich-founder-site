@@ -52,51 +52,82 @@ const peaksValleys = [
 ];
 
 export const PeaksValleys = () => {
+  const valleys = peaksValleys.filter(item => item.type === "valley");
+  const peaks = peaksValleys.filter(item => item.type === "peak");
+  
   return (
     <section className="w-full bg-brand-warm py-24">
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up mb-16">
+      <div className="w-full px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto animate-slide-up mb-16 text-center">
           <h2 className="display-title text-brand-ink mb-6">Peaks & Valleys</h2>
           <p className="body-text text-brand-muted">
             The map isn't linear. After every low, an inevitable high.
           </p>
         </div>
         
-        <div className="space-y-6">
-          {peaksValleys.map((item, index) => (
-            <div 
-              key={index}
-              className="group animate-fade-in card-shadow rounded-2xl bg-white p-8 smooth-transition hover:elegant-shadow"
-              style={{ animationDelay: `${index * 0.05}s` }}
-            >
-              <div className="grid md:grid-cols-[200px_1fr] gap-8 items-start">
-                <div className="flex flex-col items-center md:items-start">
-                  <Badge 
-                    variant={item.type === "peak" ? "default" : "destructive"}
-                    className={`text-sm font-bold uppercase tracking-wider mb-2 ${
-                      item.type === "peak" 
-                        ? "bg-brand-red text-white" 
-                        : "bg-brand-ink text-white"
-                    }`}
-                  >
-                    {item.type}
-                  </Badge>
-                  <div className="caption-text text-brand-muted font-medium">
-                    {item.year}
+        {/* Staggered Two-Column Layout */}
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
+          {/* Valleys Column - Left */}
+          <div className="space-y-12">
+            <div className="lg:text-right">
+              <h3 className="section-title text-brand-ink mb-8 lg:mb-12">Valleys</h3>
+            </div>
+            {valleys.map((valley, index) => (
+              <div 
+                key={`valley-${index}`}
+                className="group animate-fade-in py-8 border-b border-brand-ink/20 last:border-b-0"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="lg:text-right space-y-4">
+                  <div className="flex items-center justify-start lg:justify-end gap-3">
+                    <Badge className="bg-brand-ink text-white text-sm font-bold uppercase tracking-wider">
+                      Valley
+                    </Badge>
+                    <div className="caption-text text-brand-muted font-medium">
+                      {valley.year}
+                    </div>
                   </div>
-                </div>
-                
-                <div>
-                  <h3 className="section-title text-brand-ink mb-4 group-hover:text-brand-red smooth-transition">
-                    {item.title}
-                  </h3>
+                  <h4 className="section-title text-brand-ink group-hover:text-brand-red smooth-transition">
+                    {valley.title}
+                  </h4>
                   <p className="body-text text-brand-ink-sub leading-relaxed">
-                    {item.desc}
+                    {valley.desc}
                   </p>
                 </div>
               </div>
+            ))}
+          </div>
+
+          {/* Peaks Column - Right */}
+          <div className="space-y-12">
+            <div className="lg:text-left">
+              <h3 className="section-title text-brand-ink mb-8 lg:mb-12">Peaks</h3>
             </div>
-          ))}
+            {peaks.map((peak, index) => (
+              <div 
+                key={`peak-${index}`}
+                className="group animate-fade-in py-8 border-b border-brand-ink/20 last:border-b-0"
+                style={{ animationDelay: `${(index + valleys.length) * 0.1}s` }}
+              >
+                <div className="lg:text-left space-y-4">
+                  <div className="flex items-center justify-start gap-3">
+                    <Badge className="bg-brand-red text-white text-sm font-bold uppercase tracking-wider">
+                      Peak
+                    </Badge>
+                    <div className="caption-text text-brand-muted font-medium">
+                      {peak.year}
+                    </div>
+                  </div>
+                  <h4 className="section-title text-brand-ink group-hover:text-brand-red smooth-transition">
+                    {peak.title}
+                  </h4>
+                  <p className="body-text text-brand-ink-sub leading-relaxed">
+                    {peak.desc}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>

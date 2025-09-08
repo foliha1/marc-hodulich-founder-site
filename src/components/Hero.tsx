@@ -23,8 +23,8 @@ export const Hero = () => {
         </div>
       </div>
       
-      {/* Hero Image - Desktop: Right bleed, Mobile: Below content */}
-      <div className="hidden lg:block absolute bottom-0 right-0 w-1/2 h-full">
+      {/* Hero Image - Desktop: Right bleed with responsive scaling */}
+      <div className="hidden lg:block absolute bottom-0 right-0 w-[45vw] h-full">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
@@ -32,9 +32,9 @@ export const Hero = () => {
         />
       </div>
       
-      {/* Text Content Overlay */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 min-h-screen lg:min-h-0 flex items-center">
-        <div className="max-w-2xl animate-fade-in">
+      {/* Text Content Overlay - Centered */}
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-24 min-h-screen lg:min-h-0 flex items-center justify-center">
+        <div className="max-w-2xl mx-auto text-center animate-fade-in">
           <h1 className="hero-title text-white mb-6">
             Cartographer of Limits
           </h1>
@@ -42,28 +42,24 @@ export const Hero = () => {
             I design transformative environments that guide people beyond their perceived edge.
             The peak isn't the point—the point is who you become by climbing.
           </p>
-          <div className="caption-text text-white/80">
+          <div className="caption-text text-white/80 mb-8">
             Co‑founder of 29029 • Builder • Speaker
+          </div>
+          
+          {/* Scroll indicator - directly beneath subtitle */}
+          <div className="animate-bounce">
+            <ChevronDown className="w-6 h-6 text-white/80 mx-auto" />
           </div>
         </div>
       </div>
 
-      {/* Mobile Hero Image - Below content */}
-      <div className="lg:hidden relative w-full h-96 mt-8">
+      {/* Mobile Hero Image - Below content with reduced spacing */}
+      <div className="lg:hidden relative w-full h-96 mt-4">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-center"
         />
-      </div>
-      
-      {/* Scroll indicator - left-justified bouncing arrow */}
-      <div className="absolute bottom-8 left-0 z-20">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="animate-bounce">
-            <ChevronDown className="w-6 h-6 text-white/80" />
-          </div>
-        </div>
       </div>
     </section>
   );
