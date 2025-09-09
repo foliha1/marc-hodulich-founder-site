@@ -30,14 +30,13 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-left"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
       
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
         <div className="max-w-2xl animate-fade-in">
           <h1 className="hero-title text-white mb-6">
-            Cartographer of Limits
+            Cartographer<br/>of Limits
           </h1>
           <p className="body-text mb-8 text-white/90">
             I design transformative environments that guide people beyond their perceived edge.
@@ -61,7 +60,6 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-auto object-contain"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
 
       {/* Mobile Hero Image - Below content with reduced spacing */}
@@ -71,7 +69,6 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
     </section>
   );
