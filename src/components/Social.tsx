@@ -19,20 +19,23 @@ export const Social = () => {
           <h2 className="display-title text-brand-ink mb-6">In the Wild</h2>
         </div>
         
-        <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
-          {socialPosts.map((post, index) => (
-            <div 
-              key={index}
-              className="animate-fade-in card-shadow rounded-2xl overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
-              style={{ animationDelay: `${index * 0.1}s` }}
-            >
-              <img 
-                src={post.src} 
-                alt={post.alt}
-                className="w-80 h-80 object-cover"
-              />
-            </div>
-          ))}
+        <div className="relative">
+          <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
+            {socialPosts.map((post, index) => (
+              <div 
+                key={index}
+                className="animate-fade-in card-shadow rounded-2xl overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <img 
+                  src={post.src} 
+                  alt={post.alt}
+                  className="w-80 h-80 object-cover"
+                />
+              </div>
+            ))}
+          </div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-brand-warm via-brand-warm/50 to-transparent pointer-events-none"></div>
         </div>
         
         <div className="flex gap-6">
