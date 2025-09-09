@@ -15,7 +15,18 @@ export const Movement = () => {
             29029 isn't a race; it's a container for belief. One expression of a broader philosophy: 
             challenge reveals character, and care scales transformation.
           </p>
-          
+        </div>
+        
+        {/* Full Width Image */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-16">
+          <div className="w-full h-[400px] bg-gradient-to-r from-brand-ink/10 to-brand-red/10 flex items-center justify-center">
+            <div className="text-brand-ink/60 text-xl font-medium">
+              [Full Width Movement Image]
+            </div>
+          </div>
+        </div>
+        
+        <div className="animate-slide-up">
           <div className="flex flex-wrap gap-8 mb-12 items-center justify-center md:justify-start">
             {logos.map((logo, index) => (
               <div 
