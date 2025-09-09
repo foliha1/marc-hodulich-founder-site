@@ -24,11 +24,11 @@ export const Hero = () => {
       </div>
       
       {/* Hero Image - Desktop: Right bleed with responsive scaling */}
-      <div className="hidden lg:block absolute bottom-0 right-0 w-[58.5vw] h-[78vh]">
+      <div className="hidden lg:block absolute bottom-0 right-0 w-[58.5vw] min-h-[70vh] max-h-[85vh] h-[78vh]">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757385013/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-cover object-left"
+          className="w-full h-full object-cover object-top"
         />
       </div>
       

@@ -9,7 +9,7 @@ export const MeetMarc = () => {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-36 pb-24">
         <div className="animate-slide-up">
-          <h2 className="h2-title text-brand-ink-sub">About Marc</h2>
+          <h2 className="hero-title text-brand-ink">MEET MARC</h2>
         </div>
       </div>
 
@@ -38,7 +38,7 @@ export const MeetMarc = () => {
 
       {/* Staggered Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-32">
-        <div className="space-y-24">
+        <div className="space-y-32">
           {/* Card 1: Family - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
