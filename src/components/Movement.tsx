@@ -1,6 +1,6 @@
 const logos = [
   { name: "Wall Street Journal", width: "140px" },
-  { name: "Forbes", width: "120px" },
+  { name: "CNBC", width: "120px", image: "https://29029everesting.com/cdn/shop/files/logo_cnbc_600x.png?v=1613714374" },
   { name: "Outside Magazine", width: "160px" },
   { name: "Spotify", width: "100px" },
 ];
@@ -42,9 +42,17 @@ export const Movement = () => {
                   width: logo.width 
                 }}
               >
-                <div className="text-brand-ink font-bold text-center text-lg">
-                  {logo.name}
-                </div>
+                {logo.image ? (
+                  <img 
+                    src={logo.image} 
+                    alt={logo.name}
+                    className="w-full h-8 object-contain"
+                  />
+                ) : (
+                  <div className="text-brand-ink font-bold text-center text-lg">
+                    {logo.name}
+                  </div>
+                )}
               </div>
             ))}
           </div>
