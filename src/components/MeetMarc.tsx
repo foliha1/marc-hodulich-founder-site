@@ -1,6 +1,6 @@
 import familyImage from "@/assets/family-skiing-image.jpg";
 import entrepreneurImage from "@/assets/entrepreneur-summit-image.jpg";
-import athleteImage from "@/assets/endurance-athlete-mountain.jpg";
+import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/29029-founder-summit.jpg";
 
 export const MeetMarc = () => {
