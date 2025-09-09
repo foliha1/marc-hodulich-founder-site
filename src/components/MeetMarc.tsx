@@ -42,7 +42,7 @@ export const MeetMarc = () => {
           {identityPillars.map((pillar, index) => (
             <div 
               key={index} 
-              className="group animate-fade-in card-shadow rounded-2xl overflow-hidden bg-white smooth-transition hover:elegant-shadow"
+              className="group animate-fade-in card-shadow rounded overflow-hidden bg-white smooth-transition hover:elegant-shadow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="aspect-[4/3] overflow-hidden">

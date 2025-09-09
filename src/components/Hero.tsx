@@ -30,6 +30,7 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-left"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
       
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
@@ -60,6 +61,7 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-auto object-contain"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
 
       {/* Mobile Hero Image - Below content with reduced spacing */}
@@ -69,6 +71,7 @@ export const Hero = () => {
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-cover object-center"
         />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1B1B1B] to-transparent mix-blend-multiply"></div>
       </div>
     </section>
   );
