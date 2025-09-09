@@ -17,12 +17,10 @@ export const Movement = () => {
           </p>
         </div>
         
-        {/* Full Width Image */}
-        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] mb-16">
-          <div className="w-full h-[400px] bg-gradient-to-r from-brand-ink/10 to-brand-red/10 flex items-center justify-center">
-            <div className="text-brand-ink/60 text-xl font-medium">
-              [Full Width Movement Image]
-            </div>
+        {/* Movement Image */}
+        <div className="w-full h-[400px] bg-gradient-to-r from-brand-ink/10 to-brand-red/10 flex items-center justify-center rounded-lg mb-16">
+          <div className="text-brand-ink/60 text-xl font-medium">
+            [Movement Image]
           </div>
         </div>
         
