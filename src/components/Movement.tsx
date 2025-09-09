@@ -1,10 +1,3 @@
-const logos = [
-  { name: "Wall Street Journal", width: "140px" },
-  { name: "CNBC", width: "120px", image: "https://29029everesting.com/cdn/shop/files/logo_cnbc_600x.png?v=1613714374" },
-  { name: "Outside Magazine", width: "160px" },
-  { name: "Spotify", width: "100px" },
-];
-
 export const Movement = () => {
   return (
     <section className="w-full bg-brand-warm pt-32 pb-32">
@@ -32,33 +25,8 @@ export const Movement = () => {
         </div>
         
         <div className="animate-slide-up">
-          <div className="flex flex-wrap gap-8 mb-12 items-center justify-center md:justify-start">
-            {logos.map((logo, index) => (
-              <div 
-                key={index}
-                className="animate-fade-in card-shadow rounded-lg bg-white px-6 py-4 smooth-transition hover:elegant-shadow"
-                style={{ 
-                  animationDelay: `${index * 0.1}s`,
-                  width: logo.width 
-                }}
-              >
-                {logo.image ? (
-                  <img 
-                    src={logo.image} 
-                    alt={logo.name}
-                    className="w-full h-8 object-contain"
-                  />
-                ) : (
-                  <div className="text-brand-ink font-bold text-center text-lg">
-                    {logo.name}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-          
-          <blockquote className="border-l-4 border-brand-red pl-6 max-w-4xl">
-            <p className="body-text text-brand-ink italic leading-relaxed">
+          <blockquote className="border-l-8 border-brand-red pl-12 mx-auto text-center max-w-6xl mt-16">
+            <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
               "Marc's presence isn't about the summit—it's about the belief he instills 
               that you can climb further than you thought possible."
             </p>
