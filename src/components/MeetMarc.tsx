@@ -36,16 +36,19 @@ export const MeetMarc = () => {
         </div>
       </div>
 
-      {/* Image Grid */}
+      {/* Staggered Content */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-          <div className="space-y-8">
-            <img 
-              src={familyImage} 
-              alt="Marc with his family"
-              className="w-full h-[400px] object-cover rounded"
-            />
-            <div className="space-y-6">
+        <div className="space-y-24">
+          {/* Card 1: Family - Image Left, Content Right */}
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="lg:w-1/2">
+              <img 
+                src={familyImage} 
+                alt="Marc with his family"
+                className="w-full h-[400px] object-cover rounded"
+              />
+            </div>
+            <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
               <p className="body-text text-brand-ink-sub leading-relaxed">
                 Beyond the business, Marc is a devoted husband and father, proudest of the time 
@@ -55,13 +58,16 @@ export const MeetMarc = () => {
             </div>
           </div>
 
-          <div className="space-y-8">
-            <img 
-              src={athleteImage} 
-              alt="Marc as an endurance athlete"
-              className="w-full h-[400px] object-cover rounded"
-            />
-            <div className="space-y-6">
+          {/* Card 2: Struggle - Image Right, Content Left */}
+          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
+            <div className="lg:w-1/2">
+              <img 
+                src={athleteImage} 
+                alt="Marc as an endurance athlete"
+                className="w-full h-[400px] object-cover rounded"
+              />
+            </div>
+            <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Lessons in Struggle</h4>
               <p className="body-text text-brand-ink-sub leading-relaxed">
                 Across ultramarathons, Ironmans, and countless climbs, Marc has discovered that 
@@ -71,13 +77,16 @@ export const MeetMarc = () => {
             </div>
           </div>
 
-          <div className="space-y-8">
-            <img 
-              src={entrepreneurImage} 
-              alt="Marc in his entrepreneur role"
-              className="w-full h-[400px] object-cover rounded"
-            />
-            <div className="space-y-6">
+          {/* Card 3: Building - Image Left, Content Right */}
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
+            <div className="lg:w-1/2">
+              <img 
+                src={entrepreneurImage} 
+                alt="Marc in his entrepreneur role"
+                className="w-full h-[400px] object-cover rounded"
+              />
+            </div>
+            <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Building Beyond Limits</h4>
               <p className="body-text text-brand-ink-sub leading-relaxed">
                 From that moment on, Marc has been building environments that push people past 
@@ -87,13 +96,16 @@ export const MeetMarc = () => {
             </div>
           </div>
 
-          <div className="space-y-8">
-            <img 
-              src={founderImage} 
-              alt="29029 Founder Summit"
-              className="w-full h-[400px] object-cover rounded"
-            />
-            <div className="space-y-6">
+          {/* Card 4: Mapping - Image Right, Content Left */}
+          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
+            <div className="lg:w-1/2">
+              <img 
+                src={founderImage} 
+                alt="29029 Founder Summit"
+                className="w-full h-[400px] object-cover rounded"
+              />
+            </div>
+            <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Mapping the Edges</h4>
               <p className="body-text text-brand-ink-sub leading-relaxed">
                 His role is to be a cartographer of limits, drawing new maps for people to 
