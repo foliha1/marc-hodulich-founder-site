@@ -7,7 +7,7 @@ const logos = [
 
 export const Movement = () => {
   return (
-    <section className="w-full bg-brand-warm py-24">
+    <section className="w-full bg-brand-warm pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h2 className="display-title text-brand-ink mb-6">From Idea to Movement</h2>

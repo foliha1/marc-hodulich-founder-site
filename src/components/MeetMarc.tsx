@@ -9,35 +9,12 @@ export const MeetMarc = () => {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-36 pb-24">
         <div className="animate-slide-up">
-          <h2 className="hero-title text-brand-ink">MEET MARC</h2>
-        </div>
-      </div>
-
-      {/* Main Statement */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-32">
-        <div className="text-center space-y-16">
-          <div className="max-w-4xl mx-auto">
-            <h3 className="display-title text-brand-ink mb-8">
-              I don't build events.
-            </h3>
-            <h3 className="display-title text-brand-ink">
-              I build environments that remake people.
-            </h3>
-          </div>
-          
-          <div className="max-w-3xl mx-auto">
-            <p className="body-text text-brand-ink-sub leading-relaxed">
-              Marc Hodulich has spent his life mapping the edges of what people believe is possible. 
-              His journey didn't begin with the backing of big investors or the spotlight of media; 
-              it started with two friends hiking a mountain through the night, testing whether the 
-              idea would break first or if they would.
-            </p>
-          </div>
+          <h3 className="hero-title text-brand-ink">MEET MARC</h3>
         </div>
       </div>
 
       {/* Staggered Content */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-32">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-48">
         <div className="space-y-32">
           {/* Card 1: Family - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">

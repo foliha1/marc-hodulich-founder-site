@@ -65,7 +65,7 @@ export const PeaksValleys = () => {
   };
   
   return (
-    <section className="w-full bg-brand-warm py-24" aria-labelledby="pv-title">
+    <section className="w-full bg-brand-warm pt-32 pb-32" aria-labelledby="pv-title">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Header with Navigation Controls */}
         <div className="flex justify-between items-center mb-6">
@@ -92,8 +92,33 @@ export const PeaksValleys = () => {
           The map isn't linear. After every low, an inevitable high.
         </p>
 
-        {/* Horizontal Scroller Container */}
-        <div className="relative">
+        {/* Full Width Horizontal Scroller Container */}
+        <div className="relative -mx-6 lg:-mx-8">
+          {/* Timeline Elements */}
+          <div className="absolute top-6 left-0 right-0 h-3 pointer-events-none z-20">
+            {/* Timeline Line */}
+            <div className="absolute top-1/2 left-6 right-6 h-[10px] bg-brand-ink/20 transform -translate-y-1/2" />
+            
+            {/* Timeline Circles */}
+            <div className="relative flex">
+              {peaksValleys.map((item, index) => (
+                <div 
+                  key={`timeline-${index}`}
+                  className="flex-shrink-0 w-[376px] flex justify-center"
+                  style={{ marginLeft: index === 0 ? '6px' : '0' }}
+                >
+                  <div 
+                    className={`w-3 h-3 rounded-full border-2 ${
+                      item.type === "peak" 
+                        ? "bg-brand-red border-brand-red" 
+                        : "bg-brand-ink border-brand-ink"
+                    }`}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+
           {/* Left Fade Overlay */}
           <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-brand-warm to-transparent pointer-events-none z-10" />
           
@@ -103,7 +128,7 @@ export const PeaksValleys = () => {
           {/* Scrollable Track */}
           <div
             ref={trackRef}
-            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 scrollbar-hide"
+            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 scrollbar-hide pt-16 px-6"
             style={{ scrollSnapType: "x mandatory" }}
           >
             {peaksValleys.map((item, index) => (
