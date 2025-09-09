@@ -17,11 +17,18 @@ export const Movement = () => {
           </p>
         </div>
         
-        {/* Movement Image */}
-        <div className="w-full h-[400px] bg-gradient-to-r from-brand-ink/10 to-brand-red/10 flex items-center justify-center rounded-lg mb-16">
-          <div className="text-brand-ink/60 text-xl font-medium">
-            [Movement Image]
-          </div>
+        {/* Movement Video */}
+        <div className="w-full h-[400px] rounded-lg mb-16 overflow-hidden">
+          <video 
+            className="w-full h-full object-cover"
+            autoPlay
+            muted
+            loop
+            playsInline
+          >
+            <source src="https://res.cloudinary.com/dlb8cwtfd/video/upload/v1757398003/ssvid_1920x1080_-_02_r63sn4.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
         
         <div className="animate-slide-up">
