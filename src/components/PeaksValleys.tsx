@@ -1,4 +1,6 @@
 import { Badge } from "@/components/ui/badge";
+import { useRef } from "react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const peaksValleys = [
   {
@@ -52,80 +54,91 @@ const peaksValleys = [
 ];
 
 export const PeaksValleys = () => {
-  const valleys = peaksValleys.filter(item => item.type === "valley");
-  const peaks = peaksValleys.filter(item => item.type === "peak");
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  const scrollByCard = (direction: number) => {
+    const el = trackRef.current;
+    if (!el) return;
+    const card = el.querySelector('[data-peak-card]') as HTMLElement;
+    const step = card ? card.getBoundingClientRect().width + 16 : 376; // 360px + gap
+    el.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
   
   return (
-    <section className="w-full bg-brand-warm py-24">
-      <div className="w-full px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto animate-slide-up mb-16 text-center">
-          <h2 className="display-title text-brand-ink mb-6">Peaks & Valleys</h2>
-          <p className="body-text text-brand-muted">
-            The map isn't linear. After every low, an inevitable high.
-          </p>
+    <section className="w-full bg-brand-warm py-24" aria-labelledby="pv-title">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Header with Navigation Controls */}
+        <div className="flex justify-between items-center mb-6">
+          <h2 id="pv-title" className="display-title text-brand-ink">Peaks & Valleys</h2>
+          <div className="hidden sm:flex gap-2">
+            <button 
+              onClick={() => scrollByCard(-1)}
+              aria-label="Scroll left"
+              className="p-2 rounded-md border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
+            >
+              <ChevronLeft size={20} />
+            </button>
+            <button 
+              onClick={() => scrollByCard(1)}
+              aria-label="Scroll right"
+              className="p-2 rounded-md border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
+            >
+              <ChevronRight size={20} />
+            </button>
+          </div>
         </div>
-        
-        {/* Staggered Two-Column Layout */}
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-16 max-w-7xl mx-auto">
-          {/* Valleys Column - Left */}
-          <div className="space-y-12">
-            <div className="lg:text-right">
-              <h3 className="section-title text-brand-ink mb-8 lg:mb-12">Valleys</h3>
-            </div>
-            {valleys.map((valley, index) => (
-              <div 
-                key={`valley-${index}`}
-                className="group animate-fade-in py-8 border-b border-brand-ink/20 last:border-b-0"
+
+        <p className="body-text text-brand-muted mb-8">
+          The map isn't linear. After every low, an inevitable high.
+        </p>
+
+        {/* Horizontal Scroller Container */}
+        <div className="relative">
+          {/* Left Fade Overlay */}
+          <div className="absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-brand-warm to-transparent pointer-events-none z-10" />
+          
+          {/* Right Fade Overlay */}
+          <div className="absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-brand-warm to-transparent pointer-events-none z-10" />
+
+          {/* Scrollable Track */}
+          <div
+            ref={trackRef}
+            className="flex gap-4 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-2 scrollbar-hide"
+            style={{ scrollSnapType: "x mandatory" }}
+          >
+            {peaksValleys.map((item, index) => (
+              <article
+                key={`${item.type}-${index}`}
+                data-peak-card
+                className="min-w-[360px] max-w-[360px] snap-start bg-white border border-brand-ink/10 rounded-lg shadow-sm hover:shadow-md smooth-transition animate-fade-in"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="lg:text-right space-y-4">
-                  <div className="flex items-center justify-start lg:justify-end gap-3">
-                    <Badge className="bg-brand-ink text-white text-sm font-bold uppercase tracking-wider">
-                      Valley
+                <div className="p-6 flex flex-col gap-4">
+                  {/* Header with Badge and Year */}
+                  <header className="flex items-baseline justify-between">
+                    <Badge 
+                      className={`text-xs font-bold uppercase tracking-wider ${
+                        item.type === "peak" 
+                          ? "bg-brand-red text-white border-brand-red" 
+                          : "bg-brand-ink text-white border-brand-ink"
+                      }`}
+                    >
+                      {item.type}
                     </Badge>
-                    <div className="caption-text text-brand-muted font-medium">
-                      {valley.year}
-                    </div>
-                  </div>
-                  <h4 className="section-title text-brand-ink group-hover:text-brand-red smooth-transition">
-                    {valley.title}
-                  </h4>
-                  <p className="body-text text-brand-ink-sub leading-relaxed">
-                    {valley.desc}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+                    <span className="caption-text text-brand-muted font-medium">
+                      {item.year}
+                    </span>
+                  </header>
 
-          {/* Peaks Column - Right */}
-          <div className="space-y-12">
-            <div className="lg:text-left">
-              <h3 className="section-title text-brand-ink mb-8 lg:mb-12">Peaks</h3>
-            </div>
-            {peaks.map((peak, index) => (
-              <div 
-                key={`peak-${index}`}
-                className="group animate-fade-in py-8 border-b border-brand-ink/20 last:border-b-0"
-                style={{ animationDelay: `${(index + valleys.length) * 0.1}s` }}
-              >
-                <div className="lg:text-left space-y-4">
-                  <div className="flex items-center justify-start gap-3">
-                    <Badge className="bg-brand-red text-white text-sm font-bold uppercase tracking-wider">
-                      Peak
-                    </Badge>
-                    <div className="caption-text text-brand-muted font-medium">
-                      {peak.year}
-                    </div>
-                  </div>
-                  <h4 className="section-title text-brand-ink group-hover:text-brand-red smooth-transition">
-                    {peak.title}
-                  </h4>
+                  {/* Content */}
+                  <h3 className="text-lg font-bold text-brand-ink">
+                    {item.title}
+                  </h3>
                   <p className="body-text text-brand-ink-sub leading-relaxed">
-                    {peak.desc}
+                    {item.desc}
                   </p>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
         </div>
