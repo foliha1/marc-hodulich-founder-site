@@ -9,56 +9,16 @@ export const MeetMarc = () => {
       {/* Section Header */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-36 pb-6">
         <div className="animate-slide-up">
-          <h2 className="display-title text-brand-ink-sub uppercase tracking-wide">About Marc</h2>
-        </div>
-      </div>
-
-      {/* Hero Statement Block */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7">
-            <img 
-              src={athleteImage} 
-              alt="Marc as an endurance athlete"
-              className="w-full h-[500px] lg:h-[775px] object-cover rounded"
-            />
-          </div>
-          <div className="lg:col-span-5 lg:pl-12">
-            <h3 className="hero-title text-brand-ink uppercase tracking-wider leading-[0.9] mb-8">
-              I don't<br/>build events.
-            </h3>
-          </div>
-        </div>
-      </div>
-
-      {/* Philosophy Block */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
-        <div className="flex flex-col items-end">
-          <div className="lg:max-w-2xl">
-            <h3 className="display-title text-brand-ink uppercase tracking-wide mb-12">
-              I build environments that remake people.
-            </h3>
-            <div className="body-text text-brand-ink-sub leading-relaxed space-y-6">
-              <p>
-                Transformation doesn't happen at the peak—it happens in the push, the pain, and the belief that returns when you almost gave up.
-              </p>
-              <p>
-                The climb is the ritual. The story you write on the way up, that's who you become.
-              </p>
-              <p>
-                And Marc's story is no different.
-              </p>
-            </div>
-          </div>
+          <h2 className="h2-title text-brand-ink-sub">Meet Marc</h2>
         </div>
       </div>
 
       {/* Mapping the Edges Block */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-25">
+        <div className="grid lg:grid-cols-12 gap-20 items-start">
           <div className="lg:col-span-5">
             <div className="space-y-12">
-              <h3 className="display-title text-brand-ink uppercase tracking-wide">
+              <h3 className="h2-title text-brand-ink">
                 Mapping the Edges
               </h3>
               <div className="body-text text-brand-ink-sub leading-relaxed space-y-6">
@@ -85,8 +45,8 @@ export const MeetMarc = () => {
       </div>
 
       {/* Grounded in Family Block */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-25">
+        <div className="grid lg:grid-cols-12 gap-20 items-center">
           <div className="lg:col-span-7 order-2 lg:order-1">
             <img 
               src={familyImage} 
@@ -96,7 +56,7 @@ export const MeetMarc = () => {
           </div>
           <div className="lg:col-span-5 order-1 lg:order-2">
             <div className="space-y-12">
-              <h3 className="display-title text-brand-ink uppercase tracking-wide">
+              <h3 className="h2-title text-brand-ink">
                 Grounded in Family
               </h3>
               <div className="body-text text-brand-ink-sub leading-relaxed space-y-6">
@@ -116,11 +76,11 @@ export const MeetMarc = () => {
       </div>
 
       {/* Lesson in Struggle Block */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-24">
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-25">
+        <div className="grid lg:grid-cols-12 gap-20 items-start">
           <div className="lg:col-span-5">
             <div className="space-y-12">
-              <h3 className="display-title text-brand-ink uppercase tracking-wide">
+              <h3 className="h2-title text-brand-ink">
                 Lesson in struggle
               </h3>
               <div className="body-text text-brand-ink-sub leading-relaxed space-y-6">
