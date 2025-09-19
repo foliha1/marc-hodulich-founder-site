@@ -13,7 +13,7 @@ const socialLinks = [
 
 export const Social = () => {
   return (
-    <section className="w-full bg-brand-warm py-24">
+    <section className="w-full bg-white py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
           <h2 className="display-title text-brand-ink mb-6">In the Wild</h2>
@@ -35,7 +35,7 @@ export const Social = () => {
               </div>
             ))}
           </div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-brand-warm via-brand-warm/50 to-transparent pointer-events-none"></div>
+          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/50 to-transparent pointer-events-none"></div>
         </div>
         
         <div className="flex gap-6">

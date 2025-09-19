@@ -7,11 +7,21 @@ export const Movement = () => {
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-lg mb-16 overflow-hidden">
-          <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
-            <source src="https://res.cloudinary.com/dlb8cwtfd/video/upload/v1757398003/ssvid_1920x1080_-_02_r63sn4.mp4" type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+        <div className="w-full h-[400px] rounded-lg mb-16 overflow-hidden relative group">
+          <a 
+            href="https://29029.com" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="block w-full h-full relative"
+          >
+            <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
+              <source src="https://res.cloudinary.com/dlb8cwtfd/video/upload/v1757398003/ssvid_1920x1080_-_02_r63sn4.mp4" type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center">
+              <span className="text-white text-2xl font-bold tracking-wider">DISCOVER 29029</span>
+            </div>
+          </a>
         </div>
         
         <div className="animate-slide-up">

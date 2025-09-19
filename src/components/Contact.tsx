@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 export const Contact = () => {
   return (
-    <section className="w-full bg-brand-warm py-32">
+    <section className="w-full bg-white py-32">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
         <div className="animate-slide-up">
           <h2 className="hero-title text-brand-ink mb-8">Say Hello</h2>
