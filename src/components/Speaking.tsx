@@ -21,7 +21,7 @@ export const Speaking = () => {
     <section className="w-full bg-brand-warm py-24">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
-          <h2 className="display-title text-brand-ink mb-6">Hear from Marc</h2>
+          <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
           <p className="body-text text-brand-ink-sub max-w-4xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
           </p>

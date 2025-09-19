@@ -12,7 +12,7 @@ const Index = () => {
     <main className="w-full">
       <Hero />
       <MeetMarc />
-      <PeaksValleys />
+      {/* <PeaksValleys /> */}
       <Movement />
       <Speaking />
       <Social />
