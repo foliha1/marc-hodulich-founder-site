@@ -33,9 +33,7 @@ export const MeetMarc = () => {
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
               <p className="body-text text-brand-ink-sub leading-relaxed">
-                Beyond the business, Marc is a devoted husband and father, proudest of the time 
-                spent traveling and creating memories with his wife and their two boys. He speaks 
-                of the balance between ambition and presence.
+                It all starts at home. Marc is a devoted father and husband, proudest of the men his boys are becoming and the relationship he shares with his wife and parents. He speaks of the balance between setting big goals and prioritizing moments with loved ones.
               </p>
             </div>
           </div>
