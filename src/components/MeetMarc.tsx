@@ -65,11 +65,7 @@ export const MeetMarc = () => {
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Mapping the Edges</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
-                His role is to be a cartographer of limits, drawing new maps for people to 
-                follow into deeper, truer versions of themselves. He believes that discomfort 
-                is not a punishment but a teacher.
-              </p>
+              <p className="body-text text-brand-ink-sub leading-relaxed">His purpose is to be a cartographer of limits, drawing new maps for people to follow into deeper, truer versions of themselves. He believes that discomfort is not a punishment but a teacher.</p>
             </div>
           </div>
         </div>

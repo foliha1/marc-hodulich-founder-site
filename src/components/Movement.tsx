@@ -1,24 +1,14 @@
 export const Movement = () => {
-  return (
-    <section className="w-full bg-brand-warm pt-32 pb-32">
+  return <section className="w-full bg-brand-warm pt-32 pb-32">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
-          <h2 className="display-title text-brand-ink mb-6">From Idea to Movement</h2>
-          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed">
-            29029 isn't a race; it's a container for belief. One expression of a broader philosophy: 
-            challenge reveals character, and care scales transformation.
-          </p>
+          <h2 className="display-title text-brand-ink mb-6">THE PEAK IS NOT THE POINT</h2>
+          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
         </div>
         
         {/* Movement Video */}
         <div className="w-full h-[400px] rounded-lg mb-16 overflow-hidden">
-          <video 
-            className="w-full h-full object-cover"
-            autoPlay
-            muted
-            loop
-            playsInline
-          >
+          <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
             <source src="https://res.cloudinary.com/dlb8cwtfd/video/upload/v1757398003/ssvid_1920x1080_-_02_r63sn4.mp4" type="video/mp4" />
             Your browser does not support the video tag.
           </video>
@@ -33,6 +23,5 @@ export const Movement = () => {
           </blockquote>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };
