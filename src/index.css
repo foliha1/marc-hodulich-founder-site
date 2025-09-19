@@ -67,7 +67,7 @@
     /* Typography Scale - Mobile-optimized */
     --text-hero: clamp(2rem, 8vw, 5rem);
     --text-display: clamp(1.5rem, 5vw, 3.5rem);
-    --text-title: clamp(1.125rem, 3vw, 2.25rem);
+    --text-title: clamp(1.35rem, 3vw, 2.25rem);
     --text-body: clamp(1rem, 2vw, 1.125rem);
     --text-caption: clamp(0.875rem, 1.5vw, 0.875rem);
 
@@ -140,6 +140,10 @@
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-bold tracking-tight;
+  }
+  
+  h3 {
+    font-size: clamp(1.35rem, 3vw, 2.25rem);
   }
   
   .scrollbar-hide {
