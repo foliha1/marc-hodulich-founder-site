@@ -28,7 +28,7 @@ export const Hero = () => {
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757385013/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-cover object-top"
+          className="w-full h-full object-contain object-center"
         />
       </div>
       
