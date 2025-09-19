@@ -28,7 +28,7 @@ export const Hero = () => {
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757385013/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-contain object-center"
+          className="w-full h-full object-contain object-bottom"
         />
       </div>
       
@@ -58,16 +58,16 @@ export const Hero = () => {
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-auto object-contain"
+          className="w-full h-auto object-contain object-bottom"
         />
       </div>
 
       {/* Mobile Hero Image - Below content with reduced spacing */}
-      <div className="md:hidden relative w-full h-80">
+      <div className="md:hidden relative w-full min-h-80">
         <img 
           src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-cover object-center"
+          className="w-full h-full object-contain object-bottom"
         />
       </div>
     </section>
