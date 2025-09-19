@@ -32,7 +32,7 @@ export const Speaking = () => {
             <a 
               key={index}
               href="#"
-              className="group animate-fade-in card-shadow rounded-2xl overflow-hidden bg-white smooth-transition hover:elegant-shadow"
+              className="group animate-fade-in card-shadow rounded-[10px] overflow-hidden bg-white smooth-transition hover:elegant-shadow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="aspect-video overflow-hidden">
