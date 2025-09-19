@@ -24,7 +24,7 @@ export const Social = () => {
             {socialPosts.map((post, index) => (
               <div 
                 key={index}
-                className="animate-fade-in card-shadow rounded-2xl overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
+                className="animate-fade-in card-shadow rounded-[4px] overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <img 

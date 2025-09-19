@@ -117,14 +117,14 @@ export const PeaksValleys = () => {
           <button 
             onClick={() => scrollByCard(-1)}
             aria-label="Scroll left"
-            className="p-2 rounded-md border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
+            className="p-2 rounded-[4px] border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
           >
             <ChevronLeft size={20} />
           </button>
           <button 
             onClick={() => scrollByCard(1)}
             aria-label="Scroll right"
-            className="p-2 rounded-md border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
+            className="p-2 rounded-[4px] border border-brand-ink/20 bg-white text-brand-ink hover:bg-brand-ink hover:text-white smooth-transition"
           >
             <ChevronRight size={20} />
           </button>
@@ -157,7 +157,7 @@ export const PeaksValleys = () => {
               <article
                 key={`${item.type}-${index}`}
                 data-peak-card
-                className={`min-w-[360px] max-w-[360px] snap-start bg-white border border-brand-ink/10 rounded-lg shadow-sm hover:shadow-md smooth-transition animate-fade-in ${
+                className={`min-w-[360px] max-w-[360px] snap-start bg-white border border-brand-ink/10 rounded-[4px] shadow-sm hover:shadow-md smooth-transition animate-fade-in ${
                   centeredIndex === index ? 'opacity-100' : 'opacity-40'
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}

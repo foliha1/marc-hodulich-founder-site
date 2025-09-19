@@ -7,7 +7,7 @@ export const Movement = () => {
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-lg mb-16 overflow-hidden relative group">
+        <div className="w-full h-[400px] rounded-[4px] mb-16 overflow-hidden relative group">
           <a 
             href="https://29029.com" 
             target="_blank" 
