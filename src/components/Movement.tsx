@@ -25,7 +25,7 @@ export const Movement = () => {
         </div>
         
         <div className="animate-slide-up">
-          <blockquote className="mx-auto text-center max-w-6xl mt-16 px-8">
+          <blockquote className="mx-auto text-center max-w-6xl mt-16 px-8 py-[120px]">
             <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
               "Marc's presence isn't about the summit—it's about the belief he instills 
               that you can climb further than you thought possible."
