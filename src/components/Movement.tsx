@@ -31,7 +31,7 @@ export const Movement = () => {
             <img 
               src={marcPortrait} 
               alt="Marc Hodulich" 
-              className="w-[200px] h-[200px] rounded-full object-cover mb-20"
+              className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] rounded-full object-cover mb-20"
             />
             <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
