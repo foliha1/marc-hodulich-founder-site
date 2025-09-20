@@ -35,7 +35,7 @@ export const Social = () => {
               </div>
             ))}
           </div>
-          <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white via-white/50 to-transparent pointer-events-none"></div>
+          
         </div>
         
         <div className="flex gap-6">

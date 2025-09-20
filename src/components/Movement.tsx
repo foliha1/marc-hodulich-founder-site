@@ -9,7 +9,7 @@ export const Movement = () => {
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-[4px] mb-16 overflow-hidden relative group">
+        <div className="w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group">
           <a 
             href="https://29029.com" 
             target="_blank" 
@@ -31,9 +31,9 @@ export const Movement = () => {
             <img 
               src={marcPortrait} 
               alt="Marc Hodulich" 
-              className="w-[200px] h-[200px] rounded-full object-cover mb-16"
+              className="w-[200px] h-[200px] rounded-full object-cover mb-20"
             />
-            <blockquote className="mx-auto text-center max-w-5xl px-8 py-[200px] md:py-[250px] lg:py-[300px]">
+            <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
                 "Marc's presence isn't about the summit—it's about the belief he instills 
                 that you can climb further than you thought possible."
