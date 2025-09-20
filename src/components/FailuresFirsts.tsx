@@ -44,43 +44,41 @@ export const FailuresFirsts = () => {
           </p>
         </div>
         
-        {/* Journey Slider */}
-        <div className="animate-fade-in">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-full"
-          >
-            <CarouselContent className="-ml-3 md:-ml-6">
-              {journeySlides.map((slide, index) => (
-                <CarouselItem key={index} className="pl-3 md:pl-6 basis-auto">
-                  <div className="mr-3 md:mr-6">
-                    <div 
-                      className="relative h-[30rem] md:h-[60rem] w-[20rem] md:w-[30rem]"
-                      style={{ aspectRatio: "2011 / 2800" }}
-                    >
-                      <figure className="relative w-full h-full">
-                        <img
-                          src={slide.image}
-                          alt={`${slide.caption} - ${slide.subcaption}`}
-                          draggable="false"
-                          className="block w-full h-full object-cover rounded-[4px]"
-                          loading="lazy"
-                        />
-                      </figure>
-                    </div>
-                    <p className="uppercase text-sm md:text-base font-semibold text-brand-ink mt-4 md:mt-5 leading-tight">
-                      {slide.caption}®<br />
-                      {slide.subcaption}
-                    </p>
+      </div>
+      
+      {/* Journey Slider - Full Width */}
+      <div className="animate-fade-in -mx-6 lg:-mx-8 xl:-mx-[calc((100vw-1280px)/2)]">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full"
+        >
+          <CarouselContent className="ml-6 lg:ml-8 xl:ml-[calc((100vw-1280px)/2+2rem)]">
+            {journeySlides.map((slide, index) => (
+              <CarouselItem key={index} className="basis-auto">
+                <div className="mr-3 md:mr-6">
+                  <div className="relative h-[24rem] md:h-[48rem]">
+                    <figure className="relative w-full h-full">
+                      <img
+                        src={slide.image}
+                        alt={`${slide.caption} - ${slide.subcaption}`}
+                        draggable="false"
+                        className="block h-full object-cover rounded-[4px]"
+                        loading="lazy"
+                      />
+                    </figure>
                   </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+                  <p className="uppercase text-sm md:text-base font-semibold text-brand-ink mt-4 md:mt-5 leading-tight">
+                    {slide.caption}®<br />
+                    {slide.subcaption}
+                  </p>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+        </Carousel>
       </div>
     </section>
   );
