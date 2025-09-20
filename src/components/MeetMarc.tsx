@@ -3,19 +3,19 @@ import entrepreneurImage from "@/assets/entrepreneur-summit-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/29029-everesting-hat.webp";
 export const MeetMarc = () => {
-  return <section className="w-full bg-brand-warm">
-      {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-53 pb-35">
-        <div className="animate-slide-up">
-          <h1 className="hero-title text-brand-ink">MEET MARC</h1>
+  return <section className="w-full bg-brand-warm section-spacing">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        {/* Section Header */}
+        <div className="mb-24">
+          <div className="animate-slide-up">
+            <h1 className="hero-title text-brand-ink">MEET MARC</h1>
+          </div>
+          <div className="mt-12 max-w-3xl">
+            <p className="body-text text-brand-ink-sub leading-relaxed">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
+          </div>
         </div>
-        <div className="mt-12 max-w-3xl">
-          <p className="body-text text-brand-ink-sub leading-relaxed">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
-        </div>
-      </div>
 
-      {/* Staggered Content */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-70">
+        {/* Staggered Content */}
         <div className="space-y-32">
           {/* Card 1: Family - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">

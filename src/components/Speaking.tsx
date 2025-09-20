@@ -18,7 +18,7 @@ const podcasts = [
 
 export const Speaking = () => {
   return (
-    <section className="w-full bg-white py-35">
+    <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
           <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>

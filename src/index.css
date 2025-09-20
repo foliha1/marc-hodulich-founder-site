@@ -306,6 +306,11 @@
   .border-brand-red {
     border-color: hsl(var(--brand-red));
   }
+  
+  .section-spacing {
+    padding-top: clamp(160px, 18vw, 300px);
+    padding-bottom: clamp(160px, 18vw, 300px);
+  }
 }
 
 @keyframes fadeIn {
