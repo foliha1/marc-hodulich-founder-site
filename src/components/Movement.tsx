@@ -3,7 +3,7 @@ export const Movement = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h2 className="display-title text-brand-ink mb-6">THE PEAK IS NOT THE POINT</h2>
-          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed md:pl-8">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
+          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed md:pl-16">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
         </div>
         
         {/* Movement Video */}
@@ -26,7 +26,7 @@ export const Movement = () => {
         
         <div className="animate-slide-up">
           <blockquote className="mx-auto text-center max-w-6xl mt-16 px-8 py-[120px]">
-            <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
+            <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl md:pl-16">
               "Marc's presence isn't about the summit—it's about the belief he instills 
               that you can climb further than you thought possible."
             </p>

@@ -10,7 +10,7 @@ export const MeetMarc = () => {
           <h3 className="hero-title text-brand-ink">MEET MARC</h3>
         </div>
         <div className="mt-12 max-w-4xl">
-          <p className="body-text text-brand-ink-sub leading-relaxed">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
+          <p className="body-text text-brand-ink-sub leading-relaxed md:pl-16">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
         </div>
       </div>
 
@@ -24,7 +24,7 @@ export const MeetMarc = () => {
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
+               <p className="body-text text-brand-ink-sub leading-relaxed">
                 It all starts at home. Marc is a devoted father and husband, proudest of the men his boys are becoming and the relationship he shares with his wife and parents. He speaks of the balance between setting big goals and prioritizing moments with loved ones.
               </p>
             </div>

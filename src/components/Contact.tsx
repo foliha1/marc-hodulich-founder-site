@@ -6,7 +6,7 @@ export const Contact = () => {
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
         <div className="animate-slide-up">
           <h2 className="hero-title text-brand-ink mb-8">Say Hello</h2>
-          <p className="body-text text-brand-ink-sub mb-12 max-w-2xl mx-auto">
+          <p className="body-text text-brand-ink-sub mb-12 max-w-2xl mx-auto md:pl-16">
             Reach out about speaking, collaborating, or to share your peak & valley story.
           </p>
           

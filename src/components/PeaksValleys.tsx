@@ -107,7 +107,7 @@ export const PeaksValleys = () => {
         </div>
 
         <div className="text-center mb-16">
-          <p className="body-text text-brand-muted max-w-2xl mx-auto">
+          <p className="body-text text-brand-muted max-w-2xl mx-auto md:pl-16">
             The map isn't linear. After every low, an inevitable high.
           </p>
         </div>
@@ -183,7 +183,7 @@ export const PeaksValleys = () => {
                   <h3 className="text-lg font-bold text-brand-ink uppercase tracking-[0.02em]">
                     {item.title}
                   </h3>
-                  <p className="body-text text-brand-ink-sub leading-relaxed">
+                  <p className="body-text text-brand-ink-sub leading-relaxed md:pl-16">
                     {item.desc}
                   </p>
                 </div>
