@@ -30,7 +30,7 @@ export const Social = () => {
                 <img 
                   src={post.src} 
                   alt={post.alt}
-                  className="w-80 h-80 object-cover"
+                  className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover"
                 />
               </div>
             ))}

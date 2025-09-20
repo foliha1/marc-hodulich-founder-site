@@ -59,7 +59,7 @@ export const FailuresFirsts = () => {
             {journeySlides.map((slide, index) => (
               <CarouselItem key={index} className="basis-auto">
                 <div className="mr-3 md:mr-6">
-                  <div className="relative h-[24rem] md:h-[48rem]">
+                  <div className="relative h-[20rem] sm:h-[24rem] md:h-[36rem] lg:h-[48rem]">
                     <figure className="relative w-full h-full">
                       <img
                         src={slide.image}

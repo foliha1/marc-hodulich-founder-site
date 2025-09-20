@@ -61,7 +61,7 @@ export const PeaksValleys = () => {
     const el = trackRef.current;
     if (!el) return;
     const card = el.querySelector('[data-peak-card]') as HTMLElement;
-    const step = card ? card.getBoundingClientRect().width + 16 : 376; // 360px + gap
+    const step = card ? card.getBoundingClientRect().width + 16 : window.innerWidth < 640 ? 296 : window.innerWidth < 768 ? 336 : 376; // Responsive card width + gap
     el.scrollBy({ left: direction * step, behavior: "smooth" });
   };
 
@@ -157,7 +157,7 @@ export const PeaksValleys = () => {
               <article
                 key={`${item.type}-${index}`}
                 data-peak-card
-                className={`min-w-[360px] max-w-[360px] snap-start bg-white border border-brand-ink/10 rounded-[4px] shadow-sm hover:shadow-md smooth-transition animate-fade-in ${
+                className={`min-w-[280px] max-w-[280px] sm:min-w-[320px] sm:max-w-[320px] md:min-w-[360px] md:max-w-[360px] snap-start bg-white border border-brand-ink/10 rounded-[4px] shadow-sm hover:shadow-md smooth-transition animate-fade-in ${
                   centeredIndex === index ? 'opacity-100' : 'opacity-40'
                 }`}
                 style={{ animationDelay: `${index * 0.1}s` }}
