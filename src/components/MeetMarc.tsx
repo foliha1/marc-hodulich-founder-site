@@ -9,8 +9,8 @@ export const MeetMarc = () => {
         <div className="animate-slide-up">
           <h3 className="hero-title text-brand-ink">MEET MARC</h3>
         </div>
-        <div className="mt-12 max-w-4xl">
-          <p className="body-text text-brand-ink-sub leading-relaxed md:pl-16">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
+        <div className="mt-12 max-w-3xl">
+          <p className="body-text text-brand-ink-sub leading-relaxed">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
         </div>
       </div>
 

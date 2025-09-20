@@ -38,7 +38,7 @@ export const Hero = () => {
           <h1 className="hero-title text-white mb-6">
             Cartographer<br/>of Limits
           </h1>
-          <p className="body-text mb-8 text-white/90 md:pl-16">
+          <p className="body-text mb-8 text-white/90">
             I design transformative environments that guide people beyond their perceived edge.
             The peak isn't the point—the point is who you become by climbing.
           </p>

@@ -22,7 +22,7 @@ export const Speaking = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
           <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
-          <p className="body-text text-brand-ink-sub max-w-4xl md:pl-16">
+          <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
           </p>
         </div>
@@ -46,7 +46,7 @@ export const Speaking = () => {
                 <h3 className="section-title text-brand-ink mb-3 group-hover:text-brand-red smooth-transition">
                   {podcast.title}
                 </h3>
-                <p className="body-text text-brand-ink-sub md:pl-16">
+                <p className="body-text text-brand-ink-sub">
                   {podcast.description}
                 </p>
               </div>
