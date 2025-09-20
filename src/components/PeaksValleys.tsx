@@ -103,7 +103,7 @@ export const PeaksValleys = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Centered Header */}
         <div className="text-center mb-6">
-          <h2 id="pv-title" className="display-title text-brand-ink">PEAKS & VALLEYS</h2>
+          <h1 id="pv-title" className="display-title text-brand-ink">PEAKS & VALLEYS</h1>
         </div>
 
         <div className="text-center mb-16">

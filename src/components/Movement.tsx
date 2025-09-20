@@ -1,3 +1,5 @@
+import marcPortrait from "@/assets/marc-hero-portrait.jpg";
+
 export const Movement = () => {
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -25,15 +27,22 @@ export const Movement = () => {
         </div>
         
         <div className="animate-slide-up">
-          <blockquote className="mx-auto text-center max-w-5xl mt-16 px-8 py-[200px] md:py-[250px] lg:py-[300px]">
-            <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
-              "Marc's presence isn't about the summit—it's about the belief he instills 
-              that you can climb further than you thought possible."
-            </p>
-            <cite className="body-text text-brand-ink-sub mt-8 block not-italic">
-              — 29029 Community Member
-            </cite>
-          </blockquote>
+          <div className="flex flex-col items-center">
+            <img 
+              src={marcPortrait} 
+              alt="Marc Hodulich" 
+              className="w-[200px] h-[200px] rounded-full object-cover mb-16"
+            />
+            <blockquote className="mx-auto text-center max-w-5xl px-8 py-[200px] md:py-[250px] lg:py-[300px]">
+              <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
+                "Marc's presence isn't about the summit—it's about the belief he instills 
+                that you can climb further than you thought possible."
+              </p>
+              <cite className="body-text text-brand-ink-sub mt-8 block not-italic">
+                — 29029 Community Member
+              </cite>
+            </blockquote>
+          </div>
         </div>
       </div>
     </section>;

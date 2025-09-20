@@ -13,10 +13,10 @@ export const Contact = () => {
           <Button 
             asChild
             size="lg"
-            className="bg-brand-ink hover:bg-brand-ink/90 text-white px-8 py-4 text-lg font-semibold smooth-transition hero-shadow hover:elegant-shadow"
+            className="bg-brand-ink hover:bg-brand-red text-white px-8 py-4 text-lg font-semibold smooth-transition"
           >
             <a href="mailto:hello@marchodulich.com">
-              Contact Marc
+              CONTACT MARC
             </a>
           </Button>
         </div>
