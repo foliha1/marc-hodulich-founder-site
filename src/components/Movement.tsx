@@ -3,7 +3,7 @@ export const Movement = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h2 className="display-title text-brand-ink mb-6">THE PEAK IS NOT THE POINT</h2>
-          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
+          <p className="body-text text-brand-ink-sub max-w-4xl mb-12 leading-relaxed md:pl-8">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
         </div>
         
         {/* Movement Video */}
