@@ -130,11 +130,11 @@ export const PeaksValleys = () => {
           </button>
         </div>
 
-        {/* Full Width Horizontal Scroller Container */}
-        <div className="relative w-screen left-1/2 right-1/2 -ml-[50vw] -mr-[50vw]">
-          {/* Full Width Timeline Stroke */}
+        {/* Horizontal Scroller Container */}
+        <div className="relative overflow-hidden">
+          {/* Timeline Stroke */}
           <div className="absolute top-6 left-0 right-0 h-3 pointer-events-none z-20">
-            {/* Full Width Timeline Line */}
+            {/* Timeline Line */}
             <div className="absolute top-1/2 left-0 right-0 h-[2px] bg-brand-ink transform -translate-y-1/2" />
             
             {/* Single Centered Dot */}

@@ -19,7 +19,7 @@ export const Social = () => {
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
             {socialPosts.map((post, index) => (
               <div 

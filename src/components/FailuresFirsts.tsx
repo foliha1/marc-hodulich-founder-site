@@ -46,8 +46,8 @@ export const FailuresFirsts = () => {
         
       </div>
       
-      {/* Journey Slider - Full Width */}
-      <div className="animate-fade-in -mx-6 lg:-mx-8 xl:-mx-[calc((100vw-1280px)/2)]">
+      {/* Journey Slider */}
+      <div className="animate-fade-in -mx-6 lg:-mx-8">
         <Carousel
           opts={{
             align: "start",
@@ -55,7 +55,7 @@ export const FailuresFirsts = () => {
           }}
           className="w-full"
         >
-          <CarouselContent className="ml-6 lg:ml-8 xl:ml-[calc((100vw-1280px)/2+2rem)]">
+          <CarouselContent className="ml-6 lg:ml-8">
             {journeySlides.map((slide, index) => (
               <CarouselItem key={index} className="basis-auto">
                 <div className="mr-3 md:mr-6">
