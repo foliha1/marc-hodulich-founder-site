@@ -1,8 +1,8 @@
 const socialPosts = [
-  { src: "https://placehold.co/320x320?text=Instagram+Post+1", alt: "Marc on the mountain" },
-  { src: "https://placehold.co/320x320?text=Instagram+Post+2", alt: "Family adventure" },  
-  { src: "https://placehold.co/320x320?text=Instagram+Post+3", alt: "29029 community" },
-  { src: "https://placehold.co/320x320?text=Instagram+Post+4", alt: "Training session" },
+  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=320&h=320&fit=crop&crop=center", alt: "Marc on the mountain" },
+  { src: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=320&h=320&fit=crop&crop=center", alt: "Family adventure" },  
+  { src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=320&h=320&fit=crop&crop=center", alt: "29029 community" },
+  { src: "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=320&h=320&fit=crop&crop=center", alt: "Training session" },
 ];
 
 const socialLinks = [
@@ -13,10 +13,10 @@ const socialLinks = [
 
 export const Social = () => {
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-white py-29">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
-          <h2 className="display-title text-brand-ink mb-6">In the Wild</h2>
+          <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
         <div className="relative">

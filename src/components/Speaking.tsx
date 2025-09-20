@@ -2,26 +2,26 @@ const podcasts = [
   {
     title: "The Tim Ferriss Show",
     description: "On designing transformative experiences and the philosophy behind 29029",
-    thumbnail: "https://placehold.co/560x315?text=Tim+Ferriss+Show",
+    thumbnail: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=560&h=315&fit=crop&crop=center",
   },
   {
-    title: "Rich Roll Podcast",
+    title: "Rich Roll Podcast", 
     description: "Endurance, entrepreneurship, and finding balance in extreme pursuits",
-    thumbnail: "https://placehold.co/560x315?text=Rich+Roll+Podcast",
+    thumbnail: "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=560&h=315&fit=crop&crop=center",
   },
   {
     title: "The School of Greatness",
-    description: "Building movements that matter and leading through vulnerability",
-    thumbnail: "https://placehold.co/560x315?text=School+of+Greatness",
+    description: "Building movements that matter and leading through vulnerability", 
+    thumbnail: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=560&h=315&fit=crop&crop=center",
   },
 ];
 
 export const Speaking = () => {
   return (
-    <section className="w-full bg-white py-24">
+    <section className="w-full bg-white py-29">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
-          <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
+          <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
           </p>
