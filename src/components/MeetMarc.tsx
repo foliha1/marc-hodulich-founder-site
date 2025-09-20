@@ -5,7 +5,7 @@ import founderImage from "@/assets/29029-everesting-hat.webp";
 export const MeetMarc = () => {
   return <section className="w-full bg-brand-warm">
       {/* Section Header */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-44 pb-29">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-53 pb-35">
         <div className="animate-slide-up">
           <h1 className="hero-title text-brand-ink">MEET MARC</h1>
         </div>
@@ -15,7 +15,7 @@ export const MeetMarc = () => {
       </div>
 
       {/* Staggered Content */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-58">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pb-70">
         <div className="space-y-32">
           {/* Card 1: Family - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">

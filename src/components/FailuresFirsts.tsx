@@ -35,7 +35,7 @@ const journeySlides = [
 
 export const FailuresFirsts = () => {
   return (
-    <section className="w-full bg-brand-warm py-38">
+    <section className="w-full bg-brand-warm py-46">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h1 className="display-title text-brand-ink mb-6">FAILURES, FIRSTS, AND FOUNDATIONS</h1>

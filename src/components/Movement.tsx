@@ -1,5 +1,5 @@
 export const Movement = () => {
-  return <section className="w-full bg-brand-warm pt-38 pb-38">
+  return <section className="w-full bg-brand-warm py-46">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h1 className="display-title text-brand-ink mb-6">THE PEAK IS NOT THE POINT</h1>
