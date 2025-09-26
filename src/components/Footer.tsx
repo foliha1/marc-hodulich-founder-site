@@ -1,15 +1,15 @@
 export const Footer = () => {
   return (
-    <footer className="w-full bg-brand-ink text-white h-[300px] flex items-center">
+    <footer className="w-full bg-brand-ink text-white flex flex-col justify-center py-24 md:py-36 lg:py-48">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center w-full">
-        <div className="flex flex-col items-center gap-8">
+        <div className="flex flex-col items-center gap-24 md:gap-36 lg:gap-48">
           <svg 
             width="220" 
             height="100" 
             viewBox="0 0 220 100" 
             fill="none" 
             xmlns="http://www.w3.org/2000/svg"
-            className="w-44 h-20 md:w-52 md:h-24 lg:w-60 lg:h-28"
+            className="w-40 h-18 md:w-[187px] md:h-[86px] lg:w-[216px] lg:h-[101px]"
             aria-label="Marc Hodulich Logo"
           >
             <g clipPath="url(#clip0_229_401)">
