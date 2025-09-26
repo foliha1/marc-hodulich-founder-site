@@ -2,6 +2,7 @@ import familyImage from "@/assets/new-family-image.jpg";
 import entrepreneurImage from "@/assets/new-entrepreneur-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/new-founder-image.jpg";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 export const MeetMarc = () => {
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -20,7 +21,12 @@ export const MeetMarc = () => {
           {/* Card 1: Family - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
-              <img src={familyImage} alt="Marc with his family" className="w-full h-[400px] object-cover rounded" />
+              {/* Mobile: Full width with natural aspect ratio */}
+              <img src={familyImage} alt="Marc with his family" className="w-full h-auto object-cover rounded md:hidden" />
+              {/* Tablet and up: 4:3 aspect ratio */}
+              <AspectRatio ratio={4/3} className="hidden md:block">
+                <img src={familyImage} alt="Marc with his family" className="w-full h-full object-cover rounded" />
+              </AspectRatio>
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
@@ -33,7 +39,12 @@ export const MeetMarc = () => {
           {/* Card 2: Struggle - Image Right, Content Left */}
           <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
-              <img src={athleteImage} alt="Marc as an endurance athlete" className="w-full h-[400px] object-cover rounded" />
+              {/* Mobile: Full width with natural aspect ratio */}
+              <img src={athleteImage} alt="Marc as an endurance athlete" className="w-full h-auto object-cover rounded md:hidden" />
+              {/* Tablet and up: 4:3 aspect ratio */}
+              <AspectRatio ratio={4/3} className="hidden md:block">
+                <img src={athleteImage} alt="Marc as an endurance athlete" className="w-full h-full object-cover rounded" />
+              </AspectRatio>
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Lessons in Struggle</h4>
@@ -44,7 +55,12 @@ export const MeetMarc = () => {
           {/* Card 3: Building - Image Left, Content Right */}
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
-              <img src={entrepreneurImage} alt="Marc in his entrepreneur role" className="w-full h-[400px] object-cover rounded" />
+              {/* Mobile: Full width with natural aspect ratio */}
+              <img src={entrepreneurImage} alt="Marc in his entrepreneur role" className="w-full h-auto object-cover rounded md:hidden" />
+              {/* Tablet and up: 4:3 aspect ratio */}
+              <AspectRatio ratio={4/3} className="hidden md:block">
+                <img src={entrepreneurImage} alt="Marc in his entrepreneur role" className="w-full h-full object-cover rounded" />
+              </AspectRatio>
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Building Beyond Limits</h4>
@@ -59,7 +75,12 @@ export const MeetMarc = () => {
           {/* Card 4: Mapping - Image Right, Content Left */}
           <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
-              <img src={founderImage} alt="29029 Founder Summit" className="w-full h-[400px] object-cover rounded" />
+              {/* Mobile: Full width with natural aspect ratio */}
+              <img src={founderImage} alt="29029 Founder Summit" className="w-full h-auto object-cover rounded md:hidden" />
+              {/* Tablet and up: 4:3 aspect ratio */}
+              <AspectRatio ratio={4/3} className="hidden md:block">
+                <img src={founderImage} alt="29029 Founder Summit" className="w-full h-full object-cover rounded" />
+              </AspectRatio>
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Mapping the Edges</h4>
