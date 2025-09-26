@@ -1,5 +1,5 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import familySkiingImage from "@/assets/family-skiing-image.jpg";
+import familySkiingImage from "@/assets/new-carousel-image.jpg";
 import entrepreneurSummitImage from "@/assets/entrepreneur-summit-image.jpg";
 import marcHeroPortrait from "@/assets/marc-hero-portrait.jpg";
 import everestingHat from "@/assets/new-failures-firsts-image.jpg";
