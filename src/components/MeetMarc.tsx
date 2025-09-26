@@ -1,5 +1,5 @@
 import familyImage from "@/assets/new-family-image.jpg";
-import entrepreneurImage from "@/assets/entrepreneur-summit-image.jpg";
+import entrepreneurImage from "@/assets/new-entrepreneur-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/new-founder-image.jpg";
 export const MeetMarc = () => {
