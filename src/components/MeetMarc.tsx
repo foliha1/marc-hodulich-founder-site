@@ -1,7 +1,7 @@
 import familyImage from "@/assets/new-family-image.jpg";
 import entrepreneurImage from "@/assets/entrepreneur-summit-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
-import founderImage from "@/assets/29029-everesting-hat.webp";
+import founderImage from "@/assets/new-founder-image.jpg";
 export const MeetMarc = () => {
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
