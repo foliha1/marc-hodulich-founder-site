@@ -63,17 +63,13 @@ export const FailuresFirsts = () => {
                     <figure className="relative w-full h-full">
                       <img
                         src={slide.image}
-                        alt={`${slide.caption} - ${slide.subcaption}`}
+                        alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
                         draggable="false"
                         className="block h-full object-cover rounded-[4px]"
                         loading="lazy"
                       />
                     </figure>
                   </div>
-                  <p className="uppercase text-sm md:text-base font-semibold text-brand-ink mt-4 md:mt-5 leading-tight">
-                    {slide.caption}<br />
-                    {slide.subcaption}
-                  </p>
                 </div>
               </CarouselItem>
             ))}
