@@ -1,16 +1,10 @@
 import { Button } from "@/components/ui/button";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Contact = () => {
-  const animation = useScrollAnimation();
-
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <div 
-          ref={animation.ref} 
-          className={`scroll-fade-up ${animation.isVisible ? 'visible' : ''}`}
-        >
+        <div className="animate-slide-up">
           <h1 className="hero-title text-brand-ink mb-8">Say Hello</h1>
           <p className="body-text text-brand-ink-sub mb-12 max-w-xl mx-auto">
             Reach out about speaking, collaborating, or to share your peak & valley story.

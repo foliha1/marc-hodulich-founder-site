@@ -2,24 +2,14 @@ import familyImage from "@/assets/new-family-image.jpg";
 import entrepreneurImage from "@/assets/new-entrepreneur-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/new-founder-image.jpg";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const MeetMarc = () => {
-  const titleAnimation = useScrollAnimation();
-  const card1Animation = useScrollAnimation();
-  const card2Animation = useScrollAnimation();
-  const card3Animation = useScrollAnimation();
-  const card4Animation = useScrollAnimation();
-
   return (
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-24">
-          <div 
-            ref={titleAnimation.ref} 
-            className={`scroll-fade-up ${titleAnimation.isVisible ? 'visible' : ''}`}
-          >
+          <div className="animate-slide-up">
             <h1 className="hero-title text-brand-ink">MEET MARC</h1>
           </div>
           <div className="mt-12 max-w-3xl">
@@ -32,11 +22,7 @@ export const MeetMarc = () => {
         {/* Staggered Content */}
         <div className="space-y-32">
           {/* Card 1: Family - Image Left, Content Right */}
-          <div 
-            ref={card1Animation.ref} 
-            className={`scroll-fade-up-far flex flex-col lg:flex-row gap-12 items-center ${card1Animation.isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: '200ms' }}
-          >
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
               <img 
@@ -60,11 +46,7 @@ export const MeetMarc = () => {
           </div>
 
           {/* Card 2: Struggle - Image Right, Content Left */}
-          <div 
-            ref={card2Animation.ref} 
-            className={`scroll-fade-up-far flex flex-col lg:flex-row-reverse gap-12 items-center ${card2Animation.isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: '400ms' }}
-          >
+          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
               <img 
@@ -88,11 +70,7 @@ export const MeetMarc = () => {
           </div>
 
           {/* Card 3: Building - Image Left, Content Right */}
-          <div 
-            ref={card3Animation.ref} 
-            className={`scroll-fade-up-far flex flex-col lg:flex-row gap-12 items-center ${card3Animation.isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: '300ms' }}
-          >
+          <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
               <img 
@@ -118,11 +96,7 @@ export const MeetMarc = () => {
           </div>
 
           {/* Card 4: Mapping - Image Right, Content Left */}
-          <div 
-            ref={card4Animation.ref} 
-            className={`scroll-fade-up-far flex flex-col lg:flex-row-reverse gap-12 items-center ${card4Animation.isVisible ? 'visible' : ''}`}
-            style={{ transitionDelay: '500ms' }}
-          >
+          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
               <img 
