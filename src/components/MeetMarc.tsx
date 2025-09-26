@@ -1,4 +1,4 @@
-import familyImage from "@/assets/family-skiing-image.jpg";
+import familyImage from "@/assets/new-family-image.jpg";
 import entrepreneurImage from "@/assets/entrepreneur-summit-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/29029-everesting-hat.webp";
