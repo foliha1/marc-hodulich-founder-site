@@ -1,7 +1,7 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import familySkiingImage from "@/assets/new-carousel-image.jpg";
 import entrepreneurSummitImage from "@/assets/new-builder-image.jpg";
-import marcHeroPortrait from "@/assets/marc-hero-portrait.jpg";
+import newLeaderVisionaryImage from "@/assets/new-leader-visionary-image.jpg";
 import everestingHat from "@/assets/new-failures-firsts-image.jpg";
 import enduranceAthlete from "@/assets/new-athlete-image.jpg";
 
@@ -27,7 +27,7 @@ const journeySlides = [
     subcaption: "(29029)"
   },
   {
-    image: marcHeroPortrait,
+    image: newLeaderVisionaryImage,
     caption: "Leader",
     subcaption: "(Visionary)"
   }
