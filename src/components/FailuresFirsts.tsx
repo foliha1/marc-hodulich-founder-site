@@ -2,7 +2,7 @@ import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carouse
 import familySkiingImage from "@/assets/family-skiing-image.jpg";
 import entrepreneurSummitImage from "@/assets/entrepreneur-summit-image.jpg";
 import marcHeroPortrait from "@/assets/marc-hero-portrait.jpg";
-import everestingHat from "@/assets/29029-everesting-hat.webp";
+import everestingHat from "@/assets/new-failures-firsts-image.jpg";
 import enduranceAthlete from "@/assets/endurance-athlete-mountain.jpg";
 
 const journeySlides = [
