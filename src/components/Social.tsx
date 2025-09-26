@@ -11,21 +11,31 @@ const socialLinks = [
   { name: "X", href: "https://x.com/marchodulich" },
 ];
 
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+
 export const Social = () => {
+  const titleAnimation = useScrollAnimation();
+  const postsAnimation = useScrollAnimation();
+
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up mb-16">
+        <div 
+          ref={titleAnimation.ref} 
+          className={`scroll-fade-up mb-16 ${titleAnimation.isVisible ? 'visible' : ''}`}
+        >
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
         <div className="relative overflow-hidden">
-          <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
+          <div 
+            ref={postsAnimation.ref} 
+            className={`flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide scroll-stagger-children ${postsAnimation.isVisible ? 'visible' : ''}`}
+          >
             {socialPosts.map((post, index) => (
               <div 
                 key={index}
-                className="animate-fade-in card-shadow rounded-[4px] overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
-                style={{ animationDelay: `${index * 0.1}s` }}
+                className="scroll-fade-up card-shadow rounded-[4px] overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
               >
                 <img 
                   src={post.src} 

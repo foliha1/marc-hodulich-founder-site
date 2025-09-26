@@ -1,15 +1,28 @@
 import marcPortrait from "@/assets/marc-hero-portrait.jpg";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Movement = () => {
-  return <section className="w-full bg-brand-warm section-spacing">
+  const titleAnimation = useScrollAnimation();
+  const videoAnimation = useScrollAnimation();
+  const quoteAnimation = useScrollAnimation();
+
+  return (
+    <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up">
+        <div 
+          ref={titleAnimation.ref} 
+          className={`scroll-fade-up ${titleAnimation.isVisible ? 'visible' : ''}`}
+        >
           <h1 className="display-title text-brand-ink mb-6">THE PEAK IS NOT THE POINT</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">29029 created a new category. It has redefined who endurance sport was for. And with Marc leading the way it has curated a community of thousands in search of their best self. It is a container for belief, an expression of a broader philosophy - challenge reveals character and care scales transformation.</p>
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group">
+        <div 
+          ref={videoAnimation.ref} 
+          className={`scroll-scale-in w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group ${videoAnimation.isVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: '200ms' }}
+        >
           <a 
             href="https://29029.com" 
             target="_blank" 
@@ -26,7 +39,11 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div className="animate-slide-up">
+        <div 
+          ref={quoteAnimation.ref} 
+          className={`scroll-fade-up ${quoteAnimation.isVisible ? 'visible' : ''}`}
+          style={{ transitionDelay: '400ms' }}
+        >
           <div className="flex flex-col items-center">
             <img 
               src={marcPortrait} 
@@ -45,5 +62,6 @@ export const Movement = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
