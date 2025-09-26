@@ -3,7 +3,7 @@ import familySkiingImage from "@/assets/new-carousel-image.jpg";
 import entrepreneurSummitImage from "@/assets/new-builder-image.jpg";
 import newLeaderVisionaryImage from "@/assets/new-leader-visionary-image.jpg";
 import everestingHat from "@/assets/new-failures-firsts-image.jpg";
-import enduranceAthlete from "@/assets/new-athlete-image.jpg";
+import enduranceAthlete from "@/assets/marc-profile-new.jpg";
 
 const journeySlides = [
   {
