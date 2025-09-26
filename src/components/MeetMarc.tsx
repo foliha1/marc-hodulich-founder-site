@@ -2,8 +2,10 @@ import familyImage from "@/assets/new-family-image.jpg";
 import entrepreneurImage from "@/assets/new-entrepreneur-image.jpg";
 import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
 import founderImage from "@/assets/new-founder-image.jpg";
+
 export const MeetMarc = () => {
-  return <section className="w-full bg-brand-warm section-spacing">
+  return (
+    <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-24">
@@ -11,7 +13,9 @@ export const MeetMarc = () => {
             <h1 className="hero-title text-brand-ink">MEET MARC</h1>
           </div>
           <div className="mt-12 max-w-3xl">
-            <p className="body-text text-brand-ink-sub leading-relaxed">Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.</p>
+            <p className="body-text text-brand-ink-sub leading-relaxed">
+              Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.
+            </p>
           </div>
         </div>
 
@@ -21,13 +25,21 @@ export const MeetMarc = () => {
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
-              <img src={familyImage} alt="Marc with his family" className="w-full h-auto object-cover rounded sm:hidden" />
+              <img 
+                src={familyImage} 
+                alt="Marc with his family" 
+                className="w-full h-auto object-cover rounded sm:hidden" 
+              />
               {/* Tablet and up: 16:9 aspect ratio */}
-              <img src={familyImage} alt="Marc with his family" className="hidden sm:block w-full aspect-[16/9] object-cover rounded" />
+              <img 
+                src={familyImage} 
+                alt="Marc with his family" 
+                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+              />
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
-               <p className="body-text text-brand-ink-sub leading-relaxed">
+              <p className="body-text text-brand-ink-sub leading-relaxed">
                 It all starts at home. Marc is a devoted father and husband, proudest of the men his boys are becoming and the relationship he shares with his wife and parents. He speaks of the balance between setting big goals and prioritizing moments with loved ones.
               </p>
             </div>
@@ -37,13 +49,23 @@ export const MeetMarc = () => {
           <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
-              <img src={athleteImage} alt="Marc as an endurance athlete" className="w-full h-auto object-cover rounded sm:hidden" />
+              <img 
+                src={athleteImage} 
+                alt="Marc as an endurance athlete" 
+                className="w-full h-auto object-cover rounded sm:hidden" 
+              />
               {/* Tablet and up: 16:9 aspect ratio */}
-              <img src={athleteImage} alt="Marc as an endurance athlete" className="hidden sm:block w-full aspect-[16/9] object-cover rounded" />
+              <img 
+                src={athleteImage} 
+                alt="Marc as an endurance athlete" 
+                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+              />
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Lessons in Struggle</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">Through countless summits and 100 mile finish lines, Marc has discovered the best version of himself appears in the struggle, in those moments where it feels impossible and your world narrows to simple decisions that can change your perception of who you truly are.</p>
+              <p className="body-text text-brand-ink-sub leading-relaxed">
+                Through countless summits and 100 mile finish lines, Marc has discovered the best version of himself appears in the struggle, in those moments where it feels impossible and your world narrows to simple decisions that can change your perception of who you truly are.
+              </p>
             </div>
           </div>
 
@@ -51,9 +73,17 @@ export const MeetMarc = () => {
           <div className="flex flex-col lg:flex-row gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
-              <img src={entrepreneurImage} alt="Marc in his entrepreneur role" className="w-full h-auto object-cover rounded sm:hidden" />
+              <img 
+                src={entrepreneurImage} 
+                alt="Marc in his entrepreneur role" 
+                className="w-full h-auto object-cover rounded sm:hidden" 
+              />
               {/* Tablet and up: 16:9 aspect ratio */}
-              <img src={entrepreneurImage} alt="Marc in his entrepreneur role" className="hidden sm:block w-full aspect-[16/9] object-cover rounded" />
+              <img 
+                src={entrepreneurImage} 
+                alt="Marc in his entrepreneur role" 
+                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+              />
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Building Beyond Limits</h4>
@@ -69,9 +99,17 @@ export const MeetMarc = () => {
           <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
             <div className="lg:w-1/2">
               {/* Mobile: Natural aspect ratio */}
-              <img src={founderImage} alt="29029 Founder Summit" className="w-full h-auto object-cover rounded sm:hidden" />
+              <img 
+                src={founderImage} 
+                alt="29029 Founder Summit" 
+                className="w-full h-auto object-cover rounded sm:hidden" 
+              />
               {/* Tablet and up: 16:9 aspect ratio */}
-              <img src={founderImage} alt="29029 Founder Summit" className="hidden sm:block w-full aspect-[16/9] object-cover rounded" />
+              <img 
+                src={founderImage} 
+                alt="29029 Founder Summit" 
+                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+              />
             </div>
             <div className="lg:w-1/2 space-y-6">
               <h4 className="subtitle text-brand-ink">Mapping the Edges</h4>
@@ -84,5 +122,6 @@ export const MeetMarc = () => {
           </div>
         </div>
       </div>
-    </section>;
+    </section>
+  );
 };
