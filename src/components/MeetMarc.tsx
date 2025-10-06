@@ -1,9 +1,30 @@
-import familyImage from "@/assets/new-family-image.jpg";
-import entrepreneurImage from "@/assets/new-entrepreneur-image.jpg";
-import athleteImage from "@/assets/marc-hodulich-portrait.jpg";
-import founderImage from "@/assets/new-founder-image.jpg";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface MeetMarcCard {
+  id: string;
+  title: string;
+  description: string;
+  image_url: string;
+  display_order: number;
+}
 
 export const MeetMarc = () => {
+  const [cards, setCards] = useState<MeetMarcCard[]>([]);
+
+  useEffect(() => {
+    const fetchCards = async () => {
+      const { data } = await supabase
+        .from("meet_marc_cards")
+        .select("*")
+        .order("display_order");
+      if (data) setCards(data);
+    };
+    fetchCards();
+  }, []);
+
+  if (cards.length === 0) return null;
+
   return (
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -21,105 +42,34 @@ export const MeetMarc = () => {
 
         {/* Staggered Content */}
         <div className="space-y-32">
-          {/* Card 1: Family - Image Left, Content Right */}
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/2">
-              {/* Mobile: Natural aspect ratio */}
-              <img 
-                src={familyImage} 
-                alt="Marc with his family" 
-                className="w-full h-auto object-cover rounded sm:hidden" 
-              />
-              {/* Tablet and up: 16:9 aspect ratio */}
-              <img 
-                src={familyImage} 
-                alt="Marc with his family" 
-                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-              />
-            </div>
-            <div className="lg:w-1/2 space-y-6">
-              <h4 className="subtitle text-brand-ink">Grounded in Family</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
-                It all starts at home. Marc is a devoted father and husband, proudest of the men his boys are becoming and the relationship he shares with his wife and parents. He speaks of the balance between setting big goals and prioritizing moments with loved ones.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 2: Struggle - Image Right, Content Left */}
-          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
-            <div className="lg:w-1/2">
-              {/* Mobile: Natural aspect ratio */}
-              <img 
-                src={athleteImage} 
-                alt="Marc as an endurance athlete" 
-                className="w-full h-auto object-cover rounded sm:hidden" 
-              />
-              {/* Tablet and up: 16:9 aspect ratio */}
-              <img 
-                src={athleteImage} 
-                alt="Marc as an endurance athlete" 
-                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-              />
-            </div>
-            <div className="lg:w-1/2 space-y-6">
-              <h4 className="subtitle text-brand-ink">Lessons in Struggle</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
-                Through countless summits and 100 mile finish lines, Marc has discovered the best version of himself appears in the struggle, in those moments where it feels impossible and your world narrows to simple decisions that can change your perception of who you truly are.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 3: Building - Image Left, Content Right */}
-          <div className="flex flex-col lg:flex-row gap-12 items-center">
-            <div className="lg:w-1/2">
-              {/* Mobile: Natural aspect ratio */}
-              <img 
-                src={entrepreneurImage} 
-                alt="Marc in his entrepreneur role" 
-                className="w-full h-auto object-cover rounded sm:hidden" 
-              />
-              {/* Tablet and up: 16:9 aspect ratio */}
-              <img 
-                src={entrepreneurImage} 
-                alt="Marc in his entrepreneur role" 
-                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-              />
-            </div>
-            <div className="lg:w-1/2 space-y-6">
-              <h4 className="subtitle text-brand-ink">Building Beyond Limits</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
-                From that moment on, Marc has been building environments that push people past 
-                their perceived limits, not for the sake of conquering summits, but to reveal 
-                new versions of themselves along the way.
-              </p>
-            </div>
-          </div>
-
-          {/* Card 4: Mapping - Image Right, Content Left */}
-          <div className="flex flex-col lg:flex-row-reverse gap-12 items-center">
-            <div className="lg:w-1/2">
-              {/* Mobile: Natural aspect ratio */}
-              <img 
-                src={founderImage} 
-                alt="29029 Founder Summit" 
-                className="w-full h-auto object-cover rounded sm:hidden" 
-              />
-              {/* Tablet and up: 16:9 aspect ratio */}
-              <img 
-                src={founderImage} 
-                alt="29029 Founder Summit" 
-                className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-              />
-            </div>
-            <div className="lg:w-1/2 space-y-6">
-              <h4 className="subtitle text-brand-ink">Mapping the Edges</h4>
-              <p className="body-text text-brand-ink-sub leading-relaxed">
-                His role is to be a cartographer of limits, drawing new maps for people to 
-                follow into deeper, truer versions of themselves. He believes that discomfort 
-                is not a punishment but a teacher.
-              </p>
-            </div>
-          </div>
+          {cards.map((card, index) => {
+            const isEven = index % 2 === 0;
+            return (
+              <div 
+                key={card.id}
+                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
+              >
+                <div className="lg:w-1/2">
+                  <img 
+                    src={card.image_url} 
+                    alt={card.title} 
+                    className="w-full h-auto object-cover rounded sm:hidden" 
+                  />
+                  <img 
+                    src={card.image_url} 
+                    alt={card.title} 
+                    className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+                  />
+                </div>
+                <div className="lg:w-1/2 space-y-6">
+                  <h4 className="subtitle text-brand-ink">{card.title}</h4>
+                  <p className="body-text text-brand-ink-sub leading-relaxed">
+                    {card.description}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

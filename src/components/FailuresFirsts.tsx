@@ -1,39 +1,31 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import familySkiingImage from "@/assets/new-carousel-image.jpg";
-import entrepreneurSummitImage from "@/assets/new-builder-image.jpg";
-import newLeaderVisionaryImage from "@/assets/new-leader-visionary-image.jpg";
-import everestingHat from "@/assets/new-failures-firsts-image.jpg";
-import enduranceAthlete from "@/assets/marc-profile-new.jpg";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-const journeySlides = [
-  {
-    image: familySkiingImage,
-    caption: "Father",
-    subcaption: "(Family Man)"
-  },
-  {
-    image: entrepreneurSummitImage,
-    caption: "Builder",
-    subcaption: "(Entrepreneur)"
-  },
-  {
-    image: enduranceAthlete,
-    caption: "Athlete",
-    subcaption: "(Endurance)"
-  },
-  {
-    image: everestingHat,
-    caption: "Founder",
-    subcaption: "(29029)"
-  },
-  {
-    image: newLeaderVisionaryImage,
-    caption: "Leader",
-    subcaption: "(Visionary)"
-  }
-];
+interface CarouselSlide {
+  id: string;
+  caption: string;
+  subcaption: string;
+  image_url: string;
+  display_order: number;
+}
 
 export const FailuresFirsts = () => {
+  const [slides, setSlides] = useState<CarouselSlide[]>([]);
+
+  useEffect(() => {
+    const fetchSlides = async () => {
+      const { data } = await supabase
+        .from("carousel_slides")
+        .select("*")
+        .order("display_order");
+      if (data) setSlides(data);
+    };
+    fetchSlides();
+  }, []);
+
+  if (slides.length === 0) return null;
+
   return (
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -56,13 +48,13 @@ export const FailuresFirsts = () => {
           className="w-full"
         >
           <CarouselContent className="ml-6 lg:ml-8">
-            {journeySlides.map((slide, index) => (
-              <CarouselItem key={index} className="basis-auto">
+            {slides.map((slide, index) => (
+              <CarouselItem key={slide.id} className="basis-auto">
                 <div className="mr-3 md:mr-6">
                   <div className="relative h-[20rem] sm:h-[24rem] md:h-[36rem] lg:h-[48rem]">
                     <figure className="relative w-full h-full">
                       <img
-                        src={slide.image}
+                        src={slide.image_url}
                         alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
                         draggable="false"
                         className="block h-full object-cover rounded-[4px]"

@@ -1,6 +1,30 @@
 import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface HeroContent {
+  title: string;
+  description: string;
+  subtitle: string;
+  background_image_url: string;
+}
 
 export const Hero = () => {
+  const [content, setContent] = useState<HeroContent | null>(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const { data } = await supabase
+        .from("hero_content")
+        .select("*")
+        .single();
+      if (data) setContent(data);
+    };
+    fetchContent();
+  }, []);
+
+  if (!content) return null;
+
   return (
     <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
       {/* Marc Hodulich Wordmark - aligned with content */}
@@ -26,7 +50,7 @@ export const Hero = () => {
       {/* Hero Image - Desktop: Right bleed with limited scaling (±20%) */}
       <div className="hidden lg:block absolute bottom-0 right-0 w-[clamp(56.16vw,70.2vw,84.24vw)] min-h-[84vh] max-h-[100vh] h-[93.6vh]">
         <img 
-          src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757385013/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
+          src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-contain object-bottom"
         />
@@ -35,15 +59,12 @@ export const Hero = () => {
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
         <div className="max-w-2xl animate-fade-in">
-          <h1 className="hero-title text-white mb-6">
-            Cartographer<br/>of Limits
-          </h1>
+          <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
           <p className="body-text mb-8 text-white/90">
-            I design transformative environments that guide people beyond their perceived edge.
-            The peak isn't the point—the point is who you become by climbing.
+            {content.description}
           </p>
           <div className="caption-text text-white/80 mb-8">
-            Co‑founder of 29029 • Builder • Speaker
+            {content.subtitle}
           </div>
           
           {/* Scroll indicator - directly beneath subtitle */}
@@ -56,7 +77,7 @@ export const Hero = () => {
       {/* Tablet Hero Image - Below content with appropriate sizing */}
       <div className="hidden md:block lg:hidden relative w-full">
         <img 
-          src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
+          src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-auto object-contain object-bottom"
         />
@@ -65,7 +86,7 @@ export const Hero = () => {
       {/* Mobile Hero Image - Below content with no cropping */}
       <div className="md:hidden relative w-full min-h-80">
         <img 
-          src='https://res.cloudinary.com/dlb8cwtfd/image/upload/v1757315529/Screenshot_2025-06-05_at_9.21.55_PM_1_2_eedrtd.png'
+          src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-contain object-bottom"
         />

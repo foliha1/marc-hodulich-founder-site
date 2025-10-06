@@ -1,17 +1,38 @@
-const socialPosts = [
-  { src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=320&h=320&fit=crop&crop=center", alt: "Marc on the mountain" },
-  { src: "https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=320&h=320&fit=crop&crop=center", alt: "Family adventure" },  
-  { src: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=320&h=320&fit=crop&crop=center", alt: "29029 community" },
-  { src: "https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=320&h=320&fit=crop&crop=center", alt: "Training session" },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
-const socialLinks = [
-  { name: "Instagram", href: "https://instagram.com/marchodulich" },
-  { name: "LinkedIn", href: "https://linkedin.com/in/marchodulich" },
-  { name: "X", href: "https://x.com/marchodulich" },
-];
+interface SocialPost {
+  id: string;
+  image_url: string;
+  alt_text: string;
+  display_order: number;
+}
+
+interface SocialLink {
+  id: string;
+  name: string;
+  url: string;
+  display_order: number;
+}
 
 export const Social = () => {
+  const [posts, setPosts] = useState<SocialPost[]>([]);
+  const [links, setLinks] = useState<SocialLink[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const [postsData, linksData] = await Promise.all([
+        supabase.from("social_posts").select("*").order("display_order"),
+        supabase.from("social_links").select("*").order("display_order"),
+      ]);
+      if (postsData.data) setPosts(postsData.data);
+      if (linksData.data) setLinks(linksData.data);
+    };
+    fetchData();
+  }, []);
+
+  if (posts.length === 0 && links.length === 0) return null;
+
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -21,15 +42,15 @@ export const Social = () => {
         
         <div className="relative overflow-hidden">
           <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
-            {socialPosts.map((post, index) => (
+            {posts.map((post, index) => (
               <div 
-                key={index}
+                key={post.id}
                 className="animate-fade-in card-shadow rounded-[4px] overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <img 
-                  src={post.src} 
-                  alt={post.alt}
+                  src={post.image_url}
+                  alt={post.alt_text}
                   className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover"
                 />
               </div>
@@ -39,10 +60,12 @@ export const Social = () => {
         </div>
         
         <div className="flex gap-6">
-          {socialLinks.map((link, index) => (
+          {links.map((link, index) => (
             <a 
-              key={index}
-              href={link.href}
+              key={link.id}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="body-text text-brand-ink hover:text-brand-red smooth-transition underline font-medium"
             >
               {link.name}

@@ -1,22 +1,31 @@
-const podcasts = [
-  {
-    title: "The Tim Ferriss Show",
-    description: "On designing transformative experiences and the philosophy behind 29029",
-    thumbnail: "https://images.unsplash.com/photo-1478737270239-2f02b77fc618?w=560&h=315&fit=crop&crop=center",
-  },
-  {
-    title: "Rich Roll Podcast", 
-    description: "Endurance, entrepreneurship, and finding balance in extreme pursuits",
-    thumbnail: "https://images.unsplash.com/photo-1589903308904-1010c2294adc?w=560&h=315&fit=crop&crop=center",
-  },
-  {
-    title: "The School of Greatness",
-    description: "Building movements that matter and leading through vulnerability", 
-    thumbnail: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=560&h=315&fit=crop&crop=center",
-  },
-];
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface Podcast {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail_url: string;
+  podcast_url: string;
+  display_order: number;
+}
 
 export const Speaking = () => {
+  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
+
+  useEffect(() => {
+    const fetchPodcasts = async () => {
+      const { data } = await supabase
+        .from("podcasts")
+        .select("*")
+        .order("display_order");
+      if (data) setPodcasts(data);
+    };
+    fetchPodcasts();
+  }, []);
+
+  if (podcasts.length === 0) return null;
+
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -30,14 +39,16 @@ export const Speaking = () => {
         <div className="grid md:grid-cols-3 gap-8">
           {podcasts.map((podcast, index) => (
             <a 
-              key={index}
-              href="#"
+              key={podcast.id}
+              href={podcast.podcast_url}
+              target="_blank"
+              rel="noopener noreferrer"
               className="group animate-fade-in card-shadow rounded-[4px] overflow-hidden bg-white smooth-transition hover:elegant-shadow"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <div className="aspect-video overflow-hidden">
                 <img 
-                  src={podcast.thumbnail} 
+                  src={podcast.thumbnail_url}
                   alt={podcast.title}
                   className="w-full h-full object-cover smooth-transition group-hover:scale-105"
                 />
