@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "./ImageUpload";
 
 export const SocialEditor = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -72,15 +73,14 @@ export const SocialEditor = () => {
                 <CardTitle>Post {post.display_order}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
-                <div>
-                  <Label>Image URL</Label>
-                  <Input
-                    value={post.image_url}
-                    onChange={(e) =>
-                      setPosts(posts.map((p) => (p.id === post.id ? { ...p, image_url: e.target.value } : p)))
-                    }
-                  />
-                </div>
+                <ImageUpload
+                  value={post.image_url}
+                  onChange={(url) =>
+                    setPosts(posts.map((p) => (p.id === post.id ? { ...p, image_url: url } : p)))
+                  }
+                  folder="social"
+                  label="Post Image"
+                />
                 <div>
                   <Label>Alt Text</Label>
                   <Input

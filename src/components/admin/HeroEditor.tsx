@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "./ImageUpload";
 
 export const HeroEditor = () => {
   const [data, setData] = useState({
@@ -78,13 +79,12 @@ export const HeroEditor = () => {
             onChange={(e) => setData({ ...data, subtitle: e.target.value })}
           />
         </div>
-        <div>
-          <Label>Background Image URL</Label>
-          <Input
-            value={data.background_image_url}
-            onChange={(e) => setData({ ...data, background_image_url: e.target.value })}
-          />
-        </div>
+        <ImageUpload
+          value={data.background_image_url}
+          onChange={(url) => setData({ ...data, background_image_url: url })}
+          folder="hero"
+          label="Background Image"
+        />
         <Button onClick={handleSave} disabled={loading}>
           {loading ? "Saving..." : "Save Changes"}
         </Button>

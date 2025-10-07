@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "./ImageUpload";
 
 export const PodcastsEditor = () => {
   const [podcasts, setPodcasts] = useState<any[]>([]);
@@ -67,15 +68,14 @@ export const PodcastsEditor = () => {
                 rows={3}
               />
             </div>
-            <div>
-              <Label>Thumbnail URL</Label>
-              <Input
-                value={podcast.thumbnail_url}
-                onChange={(e) =>
-                  setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, thumbnail_url: e.target.value } : p)))
-                }
-              />
-            </div>
+            <ImageUpload
+              value={podcast.thumbnail_url}
+              onChange={(url) =>
+                setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, thumbnail_url: url } : p)))
+              }
+              folder="podcasts"
+              label="Podcast Thumbnail"
+            />
             <div>
               <Label>Podcast URL</Label>
               <Input

@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "./ImageUpload";
 
 export const CarouselEditor = () => {
   const [slides, setSlides] = useState<any[]>([]);
@@ -65,15 +66,14 @@ export const CarouselEditor = () => {
                 }
               />
             </div>
-            <div>
-              <Label>Image URL</Label>
-              <Input
-                value={slide.image_url}
-                onChange={(e) =>
-                  setSlides(slides.map((s) => (s.id === slide.id ? { ...s, image_url: e.target.value } : s)))
-                }
-              />
-            </div>
+            <ImageUpload
+              value={slide.image_url}
+              onChange={(url) =>
+                setSlides(slides.map((s) => (s.id === slide.id ? { ...s, image_url: url } : s)))
+              }
+              folder="carousel"
+              label="Slide Image"
+            />
             <Button
               onClick={() =>
                 handleUpdate(slide.id, {

@@ -6,6 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { ImageUpload } from "./ImageUpload";
 
 export const MeetMarcEditor = () => {
   const [cards, setCards] = useState<any[]>([]);
@@ -67,15 +68,14 @@ export const MeetMarcEditor = () => {
                 rows={4}
               />
             </div>
-            <div>
-              <Label>Image URL</Label>
-              <Input
-                value={card.image_url}
-                onChange={(e) =>
-                  setCards(cards.map((c) => (c.id === card.id ? { ...c, image_url: e.target.value } : c)))
-                }
-              />
-            </div>
+            <ImageUpload
+              value={card.image_url}
+              onChange={(url) =>
+                setCards(cards.map((c) => (c.id === card.id ? { ...c, image_url: url } : c)))
+              }
+              folder="meet-marc"
+              label="Card Image"
+            />
             <Button
               onClick={() =>
                 handleUpdate(card.id, {
