@@ -9,7 +9,7 @@ import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
 
 export const MovementEditor = () => {
-  const [data, setData] = useState<any>(null);
+  const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
 
@@ -22,95 +22,127 @@ export const MovementEditor = () => {
       .from("movement_content")
       .select("*")
       .single();
-    if (movementData) setData(movementData);
+    if (movementData) setContent(movementData);
   };
 
   const handleSave = async () => {
-    if (!data) return;
+    if (!content) return;
     setLoading(true);
     const { error } = await supabase
       .from("movement_content")
       .update({
-        title: data.title,
-        description: data.description,
-        video_url: data.video_url,
-        video_link_url: data.video_link_url,
-        quote: data.quote,
-        quote_author: data.quote_author,
-        profile_image_url: data.profile_image_url,
+        title: content.title,
+        description: content.description,
+        video_url: content.video_url,
+        video_link_url: content.video_link_url,
+        quote: content.quote,
+        quote_author: content.quote_author,
+        profile_image_url: content.profile_image_url,
       })
-      .eq("id", data.id);
+      .eq("id", content.id);
 
     if (error) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
-      toast({ title: "Success", description: "Movement section updated" });
+      toast({ title: "Success", description: "Content updated" });
     }
     setLoading(false);
   };
 
-  if (!data) return <div>Loading...</div>;
+  if (!content) return <div>Loading...</div>;
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Movement Section</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-4">
-        <div>
-          <Label>Title</Label>
-          <Input
-            value={data.title}
-            onChange={(e) => setData({ ...data, title: e.target.value })}
-          />
-        </div>
-        <div>
-          <Label>Description</Label>
-          <Textarea
-            value={data.description}
-            onChange={(e) => setData({ ...data, description: e.target.value })}
-            rows={4}
-          />
-        </div>
-        <div>
-          <Label>Video URL</Label>
-          <Input
-            value={data.video_url}
-            onChange={(e) => setData({ ...data, video_url: e.target.value })}
-          />
-        </div>
-        <div>
-          <Label>Video Link URL</Label>
-          <Input
-            value={data.video_link_url}
-            onChange={(e) => setData({ ...data, video_link_url: e.target.value })}
-          />
-        </div>
-        <div>
-          <Label>Quote</Label>
-          <Textarea
-            value={data.quote}
-            onChange={(e) => setData({ ...data, quote: e.target.value })}
-            rows={3}
-          />
-        </div>
-        <div>
-          <Label>Quote Author</Label>
-          <Input
-            value={data.quote_author}
-            onChange={(e) => setData({ ...data, quote_author: e.target.value })}
-          />
-        </div>
-        <ImageUpload
-          value={data.profile_image_url}
-          onChange={(url) => setData({ ...data, profile_image_url: url })}
-          folder="movement"
-          label="Profile Image"
-        />
-        <Button onClick={handleSave} disabled={loading}>
-          {loading ? "Saving..." : "Save Changes"}
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="space-y-6">
+      {/* Movement Content Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Movement Content</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Title</Label>
+            <Input
+              value={content.title}
+              onChange={(e) => setContent({ ...content, title: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label>Description</Label>
+            <Textarea
+              value={content.description}
+              onChange={(e) => setContent({ ...content, description: e.target.value })}
+              rows={4}
+            />
+          </div>
+          <div>
+            <Label>Video URL</Label>
+            <Input
+              value={content.video_url}
+              onChange={(e) => setContent({ ...content, video_url: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label>Video Link URL</Label>
+            <Input
+              value={content.video_link_url}
+              onChange={(e) => setContent({ ...content, video_link_url: e.target.value })}
+            />
+          </div>
+          <Button onClick={handleSave} disabled={loading}>
+            Save Content
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Quote Section Card */}
+      <Card>
+        <CardHeader>
+          <CardTitle>Quote Section</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div>
+            <Label>Quote</Label>
+            <Textarea
+              value={content.quote}
+              onChange={(e) => setContent({ ...content, quote: e.target.value })}
+              rows={3}
+            />
+          </div>
+          <div>
+            <Label>Quote Author</Label>
+            <Input
+              value={content.quote_author}
+              onChange={(e) => setContent({ ...content, quote_author: e.target.value })}
+            />
+          </div>
+          <div>
+            <Label>Profile Image</Label>
+            {content.profile_image_url && (
+              <div className="mt-2 mb-4">
+                <div className="flex items-center gap-4">
+                  <img
+                    src={content.profile_image_url}
+                    alt="Profile preview"
+                    className="w-24 h-24 rounded-full object-cover"
+                  />
+                  <p className="text-sm text-muted-foreground">
+                    Circular crop preview (as shown on frontend)
+                  </p>
+                </div>
+              </div>
+            )}
+            <ImageUpload
+              value={content.profile_image_url}
+              onChange={(url) => setContent({ ...content, profile_image_url: url })}
+              folder="movement"
+              label=""
+            />
+          </div>
+          <Button onClick={handleSave} disabled={loading}>
+            Save Quote Section
+          </Button>
+        </CardContent>
+      </Card>
+    </div>
   );
 };

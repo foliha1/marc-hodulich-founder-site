@@ -16,27 +16,27 @@ export type Database = {
     Tables: {
       carousel_slides: {
         Row: {
-          caption: string
+          caption: string | null
           display_order: number
           id: string
           image_url: string
-          subcaption: string
+          subcaption: string | null
           updated_at: string | null
         }
         Insert: {
-          caption: string
+          caption?: string | null
           display_order: number
           id?: string
           image_url: string
-          subcaption: string
+          subcaption?: string | null
           updated_at?: string | null
         }
         Update: {
-          caption?: string
+          caption?: string | null
           display_order?: number
           id?: string
           image_url?: string
-          subcaption?: string
+          subcaption?: string | null
           updated_at?: string | null
         }
         Relationships: []
