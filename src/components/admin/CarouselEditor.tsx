@@ -40,8 +40,52 @@ export const CarouselEditor = () => {
     setLoading(false);
   };
 
+  const handleAddSlide = async () => {
+    setLoading(true);
+    const nextOrder = slides.length > 0 ? Math.max(...slides.map(s => s.display_order)) + 1 : 1;
+    
+    const { error } = await supabase
+      .from("carousel_slides")
+      .insert({
+        caption: "New Slide",
+        subcaption: "Add description",
+        image_url: "",
+        display_order: nextOrder,
+      });
+
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Slide added" });
+      fetchSlides();
+    }
+    setLoading(false);
+  };
+
+  const handleDeleteSlide = async (id: string) => {
+    setLoading(true);
+    const { error } = await supabase
+      .from("carousel_slides")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Slide deleted" });
+      fetchSlides();
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="space-y-6">
+      <div className="flex justify-end">
+        <Button onClick={handleAddSlide} disabled={loading}>
+          Add New Slide
+        </Button>
+      </div>
+      
       {slides.map((slide) => (
         <Card key={slide.id}>
           <CardHeader>
@@ -74,18 +118,27 @@ export const CarouselEditor = () => {
               folder="carousel"
               label="Slide Image"
             />
-            <Button
-              onClick={() =>
-                handleUpdate(slide.id, {
-                  caption: slide.caption,
-                  subcaption: slide.subcaption,
-                  image_url: slide.image_url,
-                })
-              }
-              disabled={loading}
-            >
-              Save Slide
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() =>
+                  handleUpdate(slide.id, {
+                    caption: slide.caption,
+                    subcaption: slide.subcaption,
+                    image_url: slide.image_url,
+                  })
+                }
+                disabled={loading}
+              >
+                Save Slide
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleDeleteSlide(slide.id)}
+                disabled={loading}
+              >
+                Delete Slide
+              </Button>
+            </div>
           </CardContent>
         </Card>
       ))}

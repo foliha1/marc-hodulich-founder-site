@@ -188,6 +188,30 @@ export type Database = {
         }
         Relationships: []
       }
+      section_content: {
+        Row: {
+          id: string
+          paragraph: string
+          section_name: string
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          id?: string
+          paragraph: string
+          section_name: string
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          id?: string
+          paragraph?: string
+          section_name?: string
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       social_links: {
         Row: {
           display_order: number

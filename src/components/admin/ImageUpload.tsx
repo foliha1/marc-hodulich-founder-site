@@ -3,7 +3,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Upload, X, Image as ImageIcon } from "lucide-react";
+import { Progress } from "@/components/ui/progress";
+import { Upload, X } from "lucide-react";
 
 interface ImageUploadProps {
   value: string;
@@ -14,6 +15,7 @@ interface ImageUploadProps {
 
 export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps) => {
   const [uploading, setUploading] = useState(false);
+  const [uploadProgress, setUploadProgress] = useState(0);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -40,11 +42,17 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
     }
 
     setUploading(true);
+    setUploadProgress(0);
 
     try {
+      // Simulate initial progress
+      setUploadProgress(10);
+      
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `${folder}/${fileName}`;
+
+      setUploadProgress(30);
 
       const { error: uploadError } = await supabase.storage
         .from('cms-images')
@@ -55,16 +63,21 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
 
       if (uploadError) throw uploadError;
 
+      setUploadProgress(80);
+
       const { data: { publicUrl } } = supabase.storage
         .from('cms-images')
         .getPublicUrl(filePath);
 
+      setUploadProgress(100);
       onChange(publicUrl);
       toast({ title: "Success", description: "Image uploaded successfully" });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Upload failed", description: error.message });
+      setUploadProgress(0);
     } finally {
       setUploading(false);
+      setTimeout(() => setUploadProgress(0), 1000);
     }
   };
 
@@ -82,6 +95,13 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
+      
+      {uploading && uploadProgress > 0 && (
+        <div className="space-y-2">
+          <Progress value={uploadProgress} className="w-full" />
+          <p className="text-sm text-muted-foreground text-center">{uploadProgress}%</p>
+        </div>
+      )}
       
       {value ? (
         <div className="relative group">

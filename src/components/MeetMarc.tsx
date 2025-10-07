@@ -9,18 +9,26 @@ interface MeetMarcCard {
   display_order: number;
 }
 
+interface SectionContent {
+  title: string;
+  paragraph: string;
+}
+
 export const MeetMarc = () => {
   const [cards, setCards] = useState<MeetMarcCard[]>([]);
+  const [section, setSection] = useState<SectionContent | null>(null);
 
   useEffect(() => {
-    const fetchCards = async () => {
-      const { data } = await supabase
-        .from("meet_marc_cards")
-        .select("*")
-        .order("display_order");
-      if (data) setCards(data);
+    const fetchData = async () => {
+      const [cardsResponse, sectionResponse] = await Promise.all([
+        supabase.from("meet_marc_cards").select("*").order("display_order"),
+        supabase.from("section_content").select("title, paragraph").eq("section_name", "meet_marc").maybeSingle()
+      ]);
+      
+      if (cardsResponse.data) setCards(cardsResponse.data);
+      if (sectionResponse.data) setSection(sectionResponse.data);
     };
-    fetchCards();
+    fetchData();
   }, []);
 
   if (cards.length === 0) return null;
@@ -31,11 +39,11 @@ export const MeetMarc = () => {
         {/* Section Header */}
         <div className="mb-24">
           <div className="animate-slide-up">
-            <h1 className="hero-title text-brand-ink">MEET MARC</h1>
+            <h1 className="hero-title text-brand-ink">{section?.title || "MEET MARC"}</h1>
           </div>
           <div className="mt-12 max-w-3xl">
             <p className="body-text text-brand-ink-sub leading-relaxed">
-              Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others.
+              {section?.paragraph || "Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others."}
             </p>
           </div>
         </div>

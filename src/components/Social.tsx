@@ -17,6 +17,22 @@ interface SocialLink {
   display_order: number;
 }
 
+const extractInstagramPostId = (url: string): string | null => {
+  if (!url) return null;
+  
+  const patterns = [
+    /instagram\.com\/p\/([A-Za-z0-9_-]+)/,
+    /instagram\.com\/reel\/([A-Za-z0-9_-]+)/,
+  ];
+  
+  for (const pattern of patterns) {
+    const match = url.match(pattern);
+    if (match) return match[1];
+  }
+  
+  return null;
+};
+
 export const Social = () => {
   const [posts, setPosts] = useState<SocialPost[]>([]);
   const [links, setLinks] = useState<SocialLink[]>([]);
@@ -51,12 +67,21 @@ export const Social = () => {
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {post.post_type === "instagram_embed" && post.instagram_url ? (
-                  <iframe
-                    src={`${post.instagram_url}embed/`}
-                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 border-0"
-                    scrolling="no"
-                    title={`Instagram post ${index + 1}`}
-                  />
+                  (() => {
+                    const postId = extractInstagramPostId(post.instagram_url);
+                    return postId ? (
+                      <iframe
+                        src={`https://www.instagram.com/p/${postId}/embed/`}
+                        className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 border-0"
+                        scrolling="no"
+                        title={`Instagram post ${index + 1}`}
+                      />
+                    ) : (
+                      <div className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 flex items-center justify-center bg-muted">
+                        <p className="text-sm text-muted-foreground">Invalid Instagram URL</p>
+                      </div>
+                    );
+                  })()
                 ) : (
                   <img 
                     src={post.image_url}

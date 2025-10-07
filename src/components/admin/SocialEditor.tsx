@@ -110,7 +110,17 @@ export const SocialEditor = () => {
                     <ImageUpload value={post.image_url} onChange={(url) => setPosts(posts.map((p) => p.id === post.id ? { ...p, image_url: url } : p))} folder="social" label="Post Image" />
                   </>
                 ) : (
-                  <div><Label>Instagram Post URL</Label><Input value={post.instagram_url || ""} onChange={(e) => setPosts(posts.map((p) => p.id === post.id ? { ...p, instagram_url: e.target.value } : p))} placeholder="https://www.instagram.com/p/..." /></div>
+                  <div>
+                    <Label>Instagram Post URL</Label>
+                    <Input 
+                      value={post.instagram_url || ""} 
+                      onChange={(e) => setPosts(posts.map((p) => p.id === post.id ? { ...p, instagram_url: e.target.value } : p))} 
+                      placeholder="https://www.instagram.com/p/POST_ID/" 
+                    />
+                    <p className="text-sm text-muted-foreground mt-1">
+                      Supported: https://www.instagram.com/p/POST_ID/ or https://www.instagram.com/reel/REEL_ID/
+                    </p>
+                  </div>
                 )}
                 <div className="flex gap-2">
                   <Button onClick={() => handleUpdatePost(post.id, { image_url: post.image_url, alt_text: post.alt_text, post_type: post.post_type, instagram_url: post.instagram_url })} disabled={loading}>Save Post</Button>
