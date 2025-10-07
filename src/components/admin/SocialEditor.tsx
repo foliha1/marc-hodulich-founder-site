@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Plus } from "lucide-react";
 
 export const SocialEditor = () => {
   const [posts, setPosts] = useState<any[]>([]);
@@ -48,11 +50,7 @@ export const SocialEditor = () => {
 
   const handleUpdateLink = async (id: string, updates: any) => {
     setLoading(true);
-    const { error } = await supabase
-      .from("social_links")
-      .update(updates)
-      .eq("id", id);
-
+    const { error } = await supabase.from("social_links").update(updates).eq("id", id);
     if (error) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
@@ -62,45 +60,62 @@ export const SocialEditor = () => {
     setLoading(false);
   };
 
+  const handleAddPost = async () => {
+    setLoading(true);
+    const maxOrder = posts.length > 0 ? Math.max(...posts.map(p => p.display_order)) : 0;
+    const { error } = await supabase.from("social_posts").insert({ image_url: "", alt_text: "New post", post_type: "uploaded_image", display_order: maxOrder + 1 });
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Post added" });
+      fetchData();
+    }
+    setLoading(false);
+  };
+
+  const handleDeletePost = async (id: string) => {
+    setLoading(true);
+    const { error } = await supabase.from("social_posts").delete().eq("id", id);
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Post deleted" });
+      fetchData();
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Social Posts</h3>
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="text-lg font-semibold">Social Posts</h3>
+          <Button onClick={handleAddPost} disabled={loading}><Plus className="mr-2 h-4 w-4" />Add Post</Button>
+        </div>
         <div className="space-y-6">
           {posts.map((post) => (
             <Card key={post.id}>
-              <CardHeader>
-                <CardTitle>Post {post.display_order}</CardTitle>
-              </CardHeader>
+              <CardHeader><CardTitle>Post {post.display_order}</CardTitle></CardHeader>
               <CardContent className="space-y-4">
-                <ImageUpload
-                  value={post.image_url}
-                  onChange={(url) =>
-                    setPosts(posts.map((p) => (p.id === post.id ? { ...p, image_url: url } : p)))
-                  }
-                  folder="social"
-                  label="Post Image"
-                />
                 <div>
-                  <Label>Alt Text</Label>
-                  <Input
-                    value={post.alt_text}
-                    onChange={(e) =>
-                      setPosts(posts.map((p) => (p.id === post.id ? { ...p, alt_text: e.target.value } : p)))
-                    }
-                  />
+                  <Label>Post Type</Label>
+                  <RadioGroup value={post.post_type} onValueChange={(value) => setPosts(posts.map((p) => p.id === post.id ? { ...p, post_type: value } : p))}>
+                    <div className="flex items-center space-x-2"><RadioGroupItem value="uploaded_image" id={`upload-${post.id}`} /><Label htmlFor={`upload-${post.id}`}>Upload Image</Label></div>
+                    <div className="flex items-center space-x-2"><RadioGroupItem value="instagram_embed" id={`instagram-${post.id}`} /><Label htmlFor={`instagram-${post.id}`}>Instagram Post</Label></div>
+                  </RadioGroup>
                 </div>
-                <Button
-                  onClick={() =>
-                    handleUpdatePost(post.id, {
-                      image_url: post.image_url,
-                      alt_text: post.alt_text,
-                    })
-                  }
-                  disabled={loading}
-                >
-                  Save Post
-                </Button>
+                {post.post_type === "uploaded_image" ? (
+                  <>
+                    <div><Label>Alt Text</Label><Input value={post.alt_text} onChange={(e) => setPosts(posts.map((p) => p.id === post.id ? { ...p, alt_text: e.target.value } : p))} /></div>
+                    <ImageUpload value={post.image_url} onChange={(url) => setPosts(posts.map((p) => p.id === post.id ? { ...p, image_url: url } : p))} folder="social" label="Post Image" />
+                  </>
+                ) : (
+                  <div><Label>Instagram Post URL</Label><Input value={post.instagram_url || ""} onChange={(e) => setPosts(posts.map((p) => p.id === post.id ? { ...p, instagram_url: e.target.value } : p))} placeholder="https://www.instagram.com/p/..." /></div>
+                )}
+                <div className="flex gap-2">
+                  <Button onClick={() => handleUpdatePost(post.id, { image_url: post.image_url, alt_text: post.alt_text, post_type: post.post_type, instagram_url: post.instagram_url })} disabled={loading}>Save Post</Button>
+                  <Button variant="destructive" onClick={() => handleDeletePost(post.id)} disabled={loading}>Delete</Button>
+                </div>
               </CardContent>
             </Card>
           ))}

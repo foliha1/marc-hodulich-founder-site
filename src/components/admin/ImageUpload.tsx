@@ -14,7 +14,6 @@ interface ImageUploadProps {
 
 export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps) => {
   const [uploading, setUploading] = useState(false);
-  const [dragActive, setDragActive] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
 
@@ -69,25 +68,6 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
     }
   };
 
-  const handleDrag = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (e.type === "dragenter" || e.type === "dragover") {
-      setDragActive(true);
-    } else if (e.type === "dragleave") {
-      setDragActive(false);
-    }
-  };
-
-  const handleDrop = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
-
-    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      uploadFile(e.dataTransfer.files[0]);
-    }
-  };
 
   const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -134,31 +114,25 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
           </div>
         </div>
       ) : (
-        <div
-          className={`border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors ${
-            dragActive ? 'border-primary bg-primary/5' : 'border-muted-foreground/25 hover:border-primary/50'
-          }`}
-          onDragEnter={handleDrag}
-          onDragLeave={handleDrag}
-          onDragOver={handleDrag}
-          onDrop={handleDrop}
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
           onClick={() => fileInputRef.current?.click()}
+          disabled={uploading}
         >
-          <div className="flex flex-col items-center gap-2">
-            {uploading ? (
-              <>
-                <Upload className="w-8 h-8 animate-pulse" />
-                <p className="text-sm text-muted-foreground">Uploading...</p>
-              </>
-            ) : (
-              <>
-                <ImageIcon className="w-8 h-8 text-muted-foreground" />
-                <p className="text-sm font-medium">Drop image here or click to browse</p>
-                <p className="text-xs text-muted-foreground">JPG, PNG, WEBP, GIF (max 5MB)</p>
-              </>
-            )}
-          </div>
-        </div>
+          {uploading ? (
+            <>
+              <Upload className="w-4 h-4 mr-2 animate-pulse" />
+              Uploading...
+            </>
+          ) : (
+            <>
+              <Upload className="w-4 h-4 mr-2" />
+              Upload Image
+            </>
+          )}
+        </Button>
       )}
 
       <input

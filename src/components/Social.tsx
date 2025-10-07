@@ -6,6 +6,8 @@ interface SocialPost {
   image_url: string;
   alt_text: string;
   display_order: number;
+  post_type: string;
+  instagram_url?: string;
 }
 
 interface SocialLink {
@@ -48,11 +50,20 @@ export const Social = () => {
                 className="animate-fade-in card-shadow rounded-[4px] overflow-hidden flex-shrink-0 smooth-transition hover:elegant-shadow"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <img 
-                  src={post.image_url}
-                  alt={post.alt_text}
-                  className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover"
-                />
+                {post.post_type === "instagram_embed" && post.instagram_url ? (
+                  <iframe
+                    src={`${post.instagram_url}embed/`}
+                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 border-0"
+                    scrolling="no"
+                    title={`Instagram post ${index + 1}`}
+                  />
+                ) : (
+                  <img 
+                    src={post.image_url}
+                    alt={post.alt_text}
+                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 object-cover"
+                  />
+                )}
               </div>
             ))}
           </div>
