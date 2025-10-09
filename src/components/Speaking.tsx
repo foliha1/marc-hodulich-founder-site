@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { VideoModal } from "@/components/VideoModal";
 
 interface Podcast {
   id: string;
@@ -14,6 +15,7 @@ interface Podcast {
 
 export const Speaking = () => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: 'left' | 'right') => {
@@ -64,30 +66,32 @@ export const Speaking = () => {
             className="flex gap-8 overflow-x-auto pb-4 scrollbar-hide px-12"
           >
             {podcasts.map((podcast, index) => (
-              <a 
+              <div 
                 key={podcast.id}
-                href={podcast.podcast_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group animate-fade-in card-shadow rounded-[4px] overflow-hidden bg-white smooth-transition hover:elegant-shadow flex-shrink-0 w-80"
+                onClick={() => setSelectedVideo(podcast.podcast_url)}
+                className="group animate-fade-in card-shadow rounded-[4px] overflow-hidden bg-white smooth-transition hover:elegant-shadow flex-shrink-0 w-80 cursor-pointer"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="aspect-video overflow-hidden">
+                <div className="aspect-video overflow-hidden relative">
                   <img 
                     src={podcast.thumbnail_url}
                     alt={podcast.title}
                     className="w-full h-full object-cover smooth-transition group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
+                    <div className="w-16 h-16 bg-brand-red/90 rounded-full flex items-center justify-center smooth-transition group-hover:scale-110">
+                      <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="section-title text-brand-ink mb-3 group-hover:text-brand-red smooth-transition">
+                  <h3 className="section-title text-brand-ink group-hover:text-brand-red smooth-transition">
                     {podcast.title}
                   </h3>
-                  <p className="body-text text-brand-ink-sub">
-                    {podcast.description}
-                  </p>
                 </div>
-              </a>
+              </div>
             ))}
           </div>
           
@@ -101,6 +105,12 @@ export const Speaking = () => {
           </Button>
         </div>
       </div>
+
+      <VideoModal 
+        videoUrl={selectedVideo || ''} 
+        isOpen={!!selectedVideo}
+        onClose={() => setSelectedVideo(null)}
+      />
     </section>
   );
 };

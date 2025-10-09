@@ -160,7 +160,7 @@ export type Database = {
       }
       podcasts: {
         Row: {
-          description: string
+          description: string | null
           display_order: number
           id: string
           podcast_url: string
@@ -169,7 +169,7 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
-          description: string
+          description?: string | null
           display_order: number
           id?: string
           podcast_url: string
@@ -178,7 +178,7 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
-          description?: string
+          description?: string | null
           display_order?: number
           id?: string
           podcast_url?: string

@@ -3,11 +3,11 @@ import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
-import { Plus } from "lucide-react";
+import { Plus, Download } from "lucide-react";
+import { extractYouTubeId, getYouTubeThumbnail } from "@/utils/youtube";
 
 export const PodcastsEditor = () => {
   const [podcasts, setPodcasts] = useState<any[]>([]);
@@ -24,6 +24,19 @@ export const PodcastsEditor = () => {
       .select("*")
       .order("display_order");
     if (data) setPodcasts(data);
+  };
+
+  const handleFetchThumbnail = (id: string, youtubeUrl: string) => {
+    const videoId = extractYouTubeId(youtubeUrl);
+    if (videoId) {
+      const thumbnailUrl = getYouTubeThumbnail(videoId);
+      setPodcasts(podcasts.map((p) => 
+        p.id === id ? { ...p, thumbnail_url: thumbnailUrl } : p
+      ));
+      toast({ title: "Success", description: "Thumbnail fetched from YouTube" });
+    } else {
+      toast({ variant: "destructive", title: "Error", description: "Invalid YouTube URL" });
+    }
   };
 
   const handleUpdate = async (id: string, updates: any) => {
@@ -50,7 +63,7 @@ export const PodcastsEditor = () => {
       .from("podcasts")
       .insert({
         title: "New Podcast",
-        description: "Add description",
+        description: "",
         thumbnail_url: "",
         podcast_url: "",
         display_order: nextOrder,
@@ -109,14 +122,26 @@ export const PodcastsEditor = () => {
               />
             </div>
             <div>
-              <Label>Description</Label>
-              <Textarea
-                value={podcast.description}
-                onChange={(e) =>
-                  setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, description: e.target.value } : p)))
-                }
-                rows={3}
-              />
+              <Label>YouTube URL</Label>
+              <div className="flex gap-2">
+                <Input
+                  value={podcast.podcast_url}
+                  onChange={(e) =>
+                    setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, podcast_url: e.target.value } : p)))
+                  }
+                  placeholder="https://www.youtube.com/watch?v=..."
+                />
+                <Button
+                  type="button"
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleFetchThumbnail(podcast.id, podcast.podcast_url)}
+                  disabled={!podcast.podcast_url}
+                  title="Fetch thumbnail from YouTube"
+                >
+                  <Download className="h-4 w-4" />
+                </Button>
+              </div>
             </div>
             <ImageUpload
               value={podcast.thumbnail_url}
@@ -124,23 +149,13 @@ export const PodcastsEditor = () => {
                 setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, thumbnail_url: url } : p)))
               }
               folder="podcasts"
-              label="Podcast Thumbnail"
+              label="Thumbnail (auto-fetched or custom)"
             />
-            <div>
-              <Label>Podcast URL</Label>
-              <Input
-                value={podcast.podcast_url}
-                onChange={(e) =>
-                  setPodcasts(podcasts.map((p) => (p.id === podcast.id ? { ...p, podcast_url: e.target.value } : p)))
-                }
-              />
-            </div>
             <div className="flex gap-2">
               <Button
                 onClick={() =>
                   handleUpdate(podcast.id, {
                     title: podcast.title,
-                    description: podcast.description,
                     thumbnail_url: podcast.thumbnail_url,
                     podcast_url: podcast.podcast_url,
                   })
