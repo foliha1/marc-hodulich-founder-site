@@ -4,6 +4,7 @@ interface UseScrollAnimationOptions {
   threshold?: number;
   rootMargin?: string;
   triggerOnce?: boolean;
+  fallbackTimeout?: number;
 }
 
 export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
@@ -11,6 +12,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
     threshold = 0.1,
     rootMargin = "0px 0px -100px 0px",
     triggerOnce = true,
+    fallbackTimeout = 1200,
   } = options;
 
   const ref = useRef<HTMLDivElement>(null);
@@ -20,10 +22,22 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
     const element = ref.current;
     if (!element) return;
 
+    // Fallback for browsers without IntersectionObserver
+    if (typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return;
+    }
+
+    // Safety fallback timeout
+    const fallbackTimer = setTimeout(() => {
+      setIsVisible(true);
+    }, fallbackTimeout);
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           setIsVisible(true);
+          clearTimeout(fallbackTimer);
           if (triggerOnce) {
             observer.unobserve(element);
           }
@@ -39,6 +53,7 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
     const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
     if (isInViewport) {
       setIsVisible(true);
+      clearTimeout(fallbackTimer);
       if (!triggerOnce) {
         observer.observe(element);
       }
@@ -47,11 +62,12 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
     }
 
     return () => {
+      clearTimeout(fallbackTimer);
       if (element) {
         observer.unobserve(element);
       }
     };
-  }, [threshold, rootMargin, triggerOnce]);
+  }, [threshold, rootMargin, triggerOnce, fallbackTimeout]);
 
   return { ref, isVisible };
 };

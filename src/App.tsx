@@ -30,8 +30,9 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
+        <LoadingScreen />
         <BrowserRouter>
-          <Suspense fallback={<LoadingScreen />}>
+          <Suspense fallback={null}>
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/auth" element={<Auth />} />

@@ -41,7 +41,7 @@ export const Hero = () => {
   return (
     <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
       {/* Marc Hodulich Wordmark - aligned with content */}
-      <div className={`absolute top-9 left-0 right-0 z-20 transition-opacity duration-1000 ${isReady ? 'opacity-100' : 'opacity-0'}`}>
+      <div className={`absolute top-9 left-0 right-0 z-20 transition-opacity duration-[800ms] ${isReady ? 'opacity-100' : 'opacity-0'}`}>
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <svg width="320" height="26" viewBox="0 0 318 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[clamp(12rem,15vw,20rem)] h-auto">
             <path d="M4.81302 25.3167H0V0.75H7.513L12.0074 20.0667L16.4682 0.75H23.8974V25.3167H19.0844V8.7C19.0844 8.22222 19.09 7.55556 19.1011 6.7C19.1123 5.83333 19.1179 5.16667 19.1179 4.7L14.4391 25.3167H9.4248L4.77948 4.7C4.77948 5.16667 4.78507 5.83333 4.79625 6.7C4.80743 7.55556 4.81302 8.22222 4.81302 8.7V25.3167Z" fill="#F2F2F2"/>
@@ -76,7 +76,7 @@ export const Hero = () => {
       
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
-        <div className={`max-w-2xl transition-all duration-1000 ${isReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+        <div className={`max-w-2xl transition-all duration-[800ms] ${isReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {isReady && (
             <>
               <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />

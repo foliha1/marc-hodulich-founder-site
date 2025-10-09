@@ -4,7 +4,11 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const MeetMarc = () => {
   const { data, isLoading } = useMeetMarcCards();
-  const headerAnimation = useScrollAnimation({ threshold: 0.2 });
+  const headerAnimation = useScrollAnimation({ 
+    threshold: 0.1, 
+    rootMargin: "0px 0px -120px 0px",
+    fallbackTimeout: 1500
+  });
 
   if (isLoading || !data || data.cards.length === 0) return <MeetMarcSkeleton />;
   
@@ -62,8 +66,9 @@ const MeetMarcCard = ({
   isEven: boolean;
 }) => {
   const cardAnimation = useScrollAnimation({ 
-    threshold: 0.15,
-    rootMargin: "0px 0px -50px 0px"
+    threshold: 0.05,
+    rootMargin: "0px 0px -160px 0px",
+    fallbackTimeout: 1500
   });
 
   return (
