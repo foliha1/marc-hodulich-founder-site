@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { VideoModal } from "@/components/VideoModal";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface Podcast {
   id: string;
@@ -15,8 +14,6 @@ interface Podcast {
 export const Speaking = () => {
   const [podcasts, setPodcasts] = useState<Podcast[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-  const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation();
-  const { elementRef: gridRef, isVisible: gridVisible } = useScrollAnimation();
 
   useEffect(() => {
     const fetchPodcasts = async () => {
@@ -34,14 +31,14 @@ export const Speaking = () => {
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={headerRef} className={`scroll-fade-in ${headerVisible ? 'visible' : ''} mb-16`}>
+        <div className="animate-slide-up mb-16">
           <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
           </p>
         </div>
         
-        <div ref={gridRef} className={`scroll-fade-in ${gridVisible ? 'visible' : ''} grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {podcasts.map((podcast, index) => (
             <div 
               key={podcast.id}
