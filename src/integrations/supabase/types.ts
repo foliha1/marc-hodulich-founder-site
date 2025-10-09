@@ -188,6 +188,24 @@ export type Database = {
         }
         Relationships: []
       }
+      pre_approved_admins: {
+        Row: {
+          created_at: string | null
+          email: string
+          id: string
+        }
+        Insert: {
+          created_at?: string | null
+          email: string
+          id?: string
+        }
+        Update: {
+          created_at?: string | null
+          email?: string
+          id?: string
+        }
+        Relationships: []
+      }
       section_content: {
         Row: {
           id: string
