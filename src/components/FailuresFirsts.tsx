@@ -1,4 +1,4 @@
-import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
 import { ChevronRight } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
@@ -55,6 +55,12 @@ export const FailuresFirsts = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
+          <CarouselPrevious 
+            className="left-4 md:left-8 h-10 w-10 md:h-12 md:w-12 bg-white/90 hover:bg-white hover:scale-110 border-brand-ink/20 text-brand-ink transition-all duration-200"
+          />
+          <CarouselNext 
+            className="right-4 md:right-8 h-10 w-10 md:h-12 md:w-12 bg-white/90 hover:bg-white hover:scale-110 border-brand-ink/20 text-brand-ink transition-all duration-200"
+          />
         </Carousel>
       </div>
     </section>
