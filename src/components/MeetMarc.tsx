@@ -1,9 +1,10 @@
 import { useMeetMarcCards } from "@/hooks/useMeetMarcCards";
+import { MeetMarcSkeleton } from "@/components/MeetMarcSkeleton";
 
 export const MeetMarc = () => {
   const { data, isLoading } = useMeetMarcCards();
 
-  if (isLoading || !data || data.cards.length === 0) return null;
+  if (isLoading || !data || data.cards.length === 0) return <MeetMarcSkeleton />;
 
   const { cards, section } = data;
 

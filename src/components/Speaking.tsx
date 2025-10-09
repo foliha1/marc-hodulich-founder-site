@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
+import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  if (isLoading || !podcasts || podcasts.length === 0) return null;
+  if (isLoading || !podcasts || podcasts.length === 0) return <SpeakingSkeleton />;
 
   return (
     <section className="w-full bg-white section-spacing">

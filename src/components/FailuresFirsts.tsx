@@ -1,11 +1,12 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
 import { ChevronRight } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
+import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
 
-  if (isLoading || !data || data.slides.length === 0) return null;
+  if (isLoading || !data || data.slides.length === 0) return <FailuresFirstsSkeleton />;
 
   const { slides, section } = data;
 

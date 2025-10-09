@@ -1,15 +1,10 @@
 import { ChevronDown } from "lucide-react";
-import { useHeroContent } from "@/hooks/useHeroContent";
-import { HeroSkeleton } from "@/components/HeroSkeleton";
+import { Skeleton } from "@/components/ui/skeleton";
 
-export const Hero = () => {
-  const { data: content, isLoading } = useHeroContent();
-
-  if (isLoading || !content) return <HeroSkeleton />;
-
+export const HeroSkeleton = () => {
   return (
     <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
-      {/* Marc Hodulich Wordmark - aligned with content */}
+      {/* Marc Hodulich Wordmark - Shows immediately (no skeleton needed) */}
       <div className="absolute top-9 left-0 right-0 z-20">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <svg width="320" height="26" viewBox="0 0 318 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[clamp(12rem,15vw,20rem)] h-auto">
@@ -29,57 +24,28 @@ export const Hero = () => {
         </div>
       </div>
       
-      {/* Hero Image - Desktop: Right bleed with limited scaling (±20%) */}
-      <div className="hidden lg:block absolute bottom-0 right-0 w-[clamp(56.16vw,70.2vw,84.24vw)] min-h-[84vh] max-h-[100vh] h-[93.6vh]">
-        <img 
-          src={content.background_image_url}
-          alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-contain object-bottom"
-          loading="eager"
-          fetchPriority="high"
-          decoding="async"
-        />
-      </div>
+      {/* Gradient placeholder background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-brand-red via-brand-red to-brand-red/90 skeleton-shimmer" />
       
-      {/* Text Content Overlay - Left justified, starts below logo on mobile */}
+      {/* Skeleton content */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
-        <div className="max-w-2xl animate-fade-in">
-          <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
-          <p className="body-text mb-8 text-white/90">
-            {content.description}
-          </p>
-          <div className="caption-text text-white/80 mb-8">
-            {content.subtitle}
-          </div>
+        <div className="max-w-2xl space-y-6 w-full">
+          <Skeleton className="h-16 w-3/4 bg-white/20" />
+          <Skeleton className="h-24 w-full bg-white/20" />
+          <Skeleton className="h-8 w-1/2 bg-white/20" />
           
-          {/* Scroll indicator - directly beneath subtitle */}
-          <div className="animate-bounce">
+          {/* Scroll indicator */}
+          <div className="animate-bounce pt-4">
             <ChevronDown className="w-6 h-6 text-white/80" />
           </div>
         </div>
       </div>
 
-      {/* Tablet Hero Image - Below content with appropriate sizing */}
-      <div className="hidden md:block lg:hidden relative w-full">
-        <img 
-          src={content.background_image_url}
-          alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-auto object-contain object-bottom"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      {/* Image placeholder for tablet */}
+      <div className="hidden md:block lg:hidden relative w-full h-64 bg-white/10" />
 
-      {/* Mobile Hero Image - Below content with no cropping */}
-      <div className="md:hidden relative w-full min-h-80">
-        <img 
-          src={content.background_image_url}
-          alt="Marc Hodulich - Endurance athlete and entrepreneur" 
-          className="w-full h-full object-contain object-bottom"
-          loading="eager"
-          decoding="async"
-        />
-      </div>
+      {/* Image placeholder for mobile */}
+      <div className="md:hidden relative w-full min-h-80 bg-white/10" />
     </section>
   );
 };
