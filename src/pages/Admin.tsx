@@ -10,76 +10,68 @@ import { CarouselEditor } from "@/components/admin/CarouselEditor";
 import { MovementEditor } from "@/components/admin/MovementEditor";
 import { PodcastsEditor } from "@/components/admin/PodcastsEditor";
 import { ContactEditor } from "@/components/admin/ContactEditor";
-
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
-  const { toast } = useToast();
-
+  const {
+    toast
+  } = useToast();
   useEffect(() => {
     const checkAdminAccess = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      
+      const {
+        data: {
+          session
+        }
+      } = await supabase.auth.getSession();
       if (!session) {
         navigate("/auth");
         return;
       }
-
-      const { data: roleData } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", session.user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-
+      const {
+        data: roleData
+      } = await supabase.from("user_roles").select("role").eq("user_id", session.user.id).eq("role", "admin").maybeSingle();
       if (!roleData) {
         toast({
           variant: "destructive",
           title: "Access Denied",
-          description: "You don't have admin permissions. Contact an administrator.",
+          description: "You don't have admin permissions. Contact an administrator."
         });
         await supabase.auth.signOut();
         navigate("/");
         return;
       }
-
       setIsAdmin(true);
       setLoading(false);
     };
-
     checkAdminAccess();
 
     // Listen for auth state changes
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event) => {
+    const {
+      data: {
+        subscription
+      }
+    } = supabase.auth.onAuthStateChange(event => {
       if (event === "SIGNED_OUT") {
         navigate("/");
       }
     });
-
     return () => subscription.unsubscribe();
   }, [navigate, toast]);
-
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     navigate("/");
   };
-
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
+    return <div className="min-h-screen flex items-center justify-center">
         <p>Loading...</p>
-      </div>
-    );
+      </div>;
   }
-
   if (!isAdmin) return null;
-
-  return (
-    <div className="min-h-screen bg-background">
+  return <div className="min-h-screen bg-background">
       <header className="border-b bg-white">
         <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold">CMS Dashboard</h1>
+          <h1 className="text-2xl font-bold">Marc Hodulich Dashboard</h1>
           <div className="flex gap-4">
             <Button variant="outline" onClick={() => navigate("/")}>
               View Site
@@ -124,8 +116,6 @@ const Admin = () => {
           </div>
         </Tabs>
       </main>
-    </div>
-  );
+    </div>;
 };
-
 export default Admin;
