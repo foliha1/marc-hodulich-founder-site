@@ -7,6 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
+import { Plus } from "lucide-react";
 
 export const PodcastsEditor = () => {
   const [podcasts, setPodcasts] = useState<any[]>([]);
@@ -85,13 +86,15 @@ export const PodcastsEditor = () => {
       <Card>
         <CardContent className="pt-6">
           <Button onClick={handleAddPodcast} disabled={loading}>
+            <Plus className="mr-2 h-4 w-4" />
             Add New Podcast
           </Button>
         </CardContent>
       </Card>
 
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {podcasts.map((podcast) => (
-        <Card key={podcast.id}>
+        <Card key={podcast.id} className="h-full">
           <CardHeader>
             <CardTitle>Podcast {podcast.display_order}</CardTitle>
           </CardHeader>
@@ -157,6 +160,7 @@ export const PodcastsEditor = () => {
           </CardContent>
         </Card>
       ))}
+      </div>
     </div>
   );
 };

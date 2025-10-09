@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
-import { ArrowUp, ArrowDown } from "lucide-react";
+import { ArrowUp, ArrowDown, Plus } from "lucide-react";
 
 export const CarouselEditor = () => {
   const [slides, setSlides] = useState<any[]>([]);
@@ -182,6 +182,16 @@ export const CarouselEditor = () => {
           </CardContent>
         </Card>
       )}
+
+      {/* Add New Slide */}
+      <Card>
+        <CardContent className="pt-6">
+          <Button onClick={handleAddSlide} disabled={loading}>
+            <Plus className="mr-2 h-4 w-4" />
+            Add New Slide
+          </Button>
+        </CardContent>
+      </Card>
 
       {/* Individual Slides */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

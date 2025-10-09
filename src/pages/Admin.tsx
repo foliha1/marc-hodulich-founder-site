@@ -9,7 +9,6 @@ import { MeetMarcEditor } from "@/components/admin/MeetMarcEditor";
 import { CarouselEditor } from "@/components/admin/CarouselEditor";
 import { MovementEditor } from "@/components/admin/MovementEditor";
 import { PodcastsEditor } from "@/components/admin/PodcastsEditor";
-import { SocialEditor } from "@/components/admin/SocialEditor";
 import { ContactEditor } from "@/components/admin/ContactEditor";
 
 const Admin = () => {
@@ -94,13 +93,12 @@ const Admin = () => {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue="hero" className="w-full">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="grid w-full grid-cols-6">
             <TabsTrigger value="hero">Hero</TabsTrigger>
             <TabsTrigger value="meet-marc">Meet Marc</TabsTrigger>
             <TabsTrigger value="carousel">Carousel</TabsTrigger>
             <TabsTrigger value="movement">Movement</TabsTrigger>
             <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
-            <TabsTrigger value="social">Social</TabsTrigger>
             <TabsTrigger value="contact">Contact</TabsTrigger>
           </TabsList>
 
@@ -119,9 +117,6 @@ const Admin = () => {
             </TabsContent>
             <TabsContent value="podcasts">
               <PodcastsEditor />
-            </TabsContent>
-            <TabsContent value="social">
-              <SocialEditor />
             </TabsContent>
             <TabsContent value="contact">
               <ContactEditor />
