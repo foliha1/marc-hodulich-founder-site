@@ -24,7 +24,7 @@ export const LoadingScreen = () => {
 
   return (
     <div
-      className={`fixed inset-0 bg-brand-red flex items-center justify-center z-50 transition-opacity duration-500 ${
+      className={`fixed inset-0 bg-brand-red flex items-center justify-center z-50 transition-opacity duration-[800ms] ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
     >

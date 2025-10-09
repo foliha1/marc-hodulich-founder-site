@@ -14,7 +14,18 @@ export const Hero = () => {
     if (content?.background_image_url && !imageLoaded) {
       const img = new Image();
       img.src = content.background_image_url;
-      img.onload = () => setImageLoaded(true);
+      img.onload = () => {
+        // Add small buffer to ensure DOM is fully painted
+        setTimeout(() => {
+          setImageLoaded(true);
+        }, 150);
+      };
+      
+      // Fallback in case image fails to load
+      img.onerror = () => {
+        console.warn('Hero image failed to load, proceeding anyway');
+        setImageLoaded(true);
+      };
     }
   }, [content, imageLoaded]);
 
