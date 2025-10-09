@@ -25,8 +25,8 @@ export const FailuresFirstsSkeleton = () => {
       <div className="-mx-6 lg:-mx-8">
         <div className="flex gap-3 md:gap-6 ml-6 lg:ml-8 overflow-hidden">
           {[0, 1, 2].map((index) => (
-            <div key={index} className="flex-shrink-0">
-              <Skeleton className="h-[20rem] sm:h-[24rem] md:h-[36rem] lg:h-[48rem] w-[20rem] sm:w-[24rem] md:w-[36rem] lg:w-[48rem] rounded bg-brand-stone skeleton-shimmer" />
+            <div key={index} className="flex-shrink-0 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px]">
+              <Skeleton className="w-full aspect-video rounded bg-brand-stone skeleton-shimmer" />
             </div>
           ))}
         </div>

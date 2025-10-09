@@ -2,6 +2,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import { ChevronRight } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
@@ -39,18 +40,16 @@ export const FailuresFirsts = () => {
           <CarouselContent className="ml-6 lg:ml-8">
             {slides.map((slide, index) => (
               <CarouselItem key={slide.id} className="basis-auto">
-                <div className="mr-3 md:mr-6">
-                  <div className="relative h-[20rem] sm:h-[24rem] md:h-[36rem] lg:h-[48rem]">
-                    <figure className="relative w-full h-full">
-                      <img
-                        src={slide.image_url}
-                        alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
-                        draggable="false"
-                        className="block h-full object-cover rounded-[4px]"
-                        loading="lazy"
-                      />
-                    </figure>
-                  </div>
+                <div className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px]">
+                  <AspectRatio ratio={16 / 9}>
+                    <img
+                      src={slide.image_url}
+                      alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
+                      draggable="false"
+                      className="w-full h-full object-cover rounded-[4px]"
+                      loading="lazy"
+                    />
+                  </AspectRatio>
                 </div>
               </CarouselItem>
             ))}
