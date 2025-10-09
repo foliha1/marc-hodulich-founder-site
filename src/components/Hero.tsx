@@ -9,14 +9,26 @@ export const Hero = () => {
   const { setPageReady } = useLoadingContext();
   const [imageLoaded, setImageLoaded] = useState(false);
 
+  // Preload hero image when content arrives
   useEffect(() => {
-    // Signal page is ready when both data exists and hero image is loaded
+    if (content?.background_image_url && !imageLoaded) {
+      const img = new Image();
+      img.src = content.background_image_url;
+      img.onload = () => setImageLoaded(true);
+    }
+  }, [content, imageLoaded]);
+
+  // Signal page is ready when both data exists and hero image is loaded
+  useEffect(() => {
     if (content && imageLoaded) {
       setPageReady();
     }
   }, [content, imageLoaded, setPageReady]);
 
-  if (isLoading || !content) return <HeroSkeleton />;
+  // Don't render anything until fully ready
+  if (isLoading || !content || !imageLoaded) {
+    return null;
+  }
 
   return (
     <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
@@ -49,7 +61,6 @@ export const Hero = () => {
           loading="eager"
           fetchPriority="high"
           decoding="async"
-          onLoad={() => setImageLoaded(true)}
         />
       </div>
       
