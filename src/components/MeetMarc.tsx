@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface MeetMarcCard {
   id: string;
@@ -17,6 +18,7 @@ interface SectionContent {
 export const MeetMarc = () => {
   const [cards, setCards] = useState<MeetMarcCard[]>([]);
   const [section, setSection] = useState<SectionContent | null>(null);
+  const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -37,8 +39,8 @@ export const MeetMarc = () => {
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-24">
-          <div className="animate-slide-up">
+        <div ref={headerRef} className={`scroll-fade-in ${headerVisible ? 'visible' : ''} mb-24`}>
+          <div>
             <h1 className="hero-title text-brand-ink">{section?.title || "MEET MARC"}</h1>
           </div>
           <div className="mt-12 max-w-3xl">
@@ -52,10 +54,12 @@ export const MeetMarc = () => {
         <div className="space-y-32">
           {cards.map((card, index) => {
             const isEven = index % 2 === 0;
+            const { elementRef, isVisible } = useScrollAnimation();
             return (
               <div 
                 key={card.id}
-                className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
+                ref={elementRef}
+                className={`scroll-fade-in ${isVisible ? 'visible' : ''} flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
               >
                 <div className="lg:w-1/2">
                   <img 

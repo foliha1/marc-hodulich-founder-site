@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface ContactContent {
   title: string;
@@ -11,6 +12,7 @@ interface ContactContent {
 
 export const Contact = () => {
   const [content, setContent] = useState<ContactContent | null>(null);
+  const { elementRef, isVisible } = useScrollAnimation();
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -28,7 +30,7 @@ export const Contact = () => {
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <div className="animate-slide-up">
+        <div ref={elementRef} className={`scroll-fade-in ${isVisible ? 'visible' : ''}`}>
           <h1 className="hero-title text-brand-ink mb-8">{content.title}</h1>
           <p className="body-text text-brand-ink-sub mb-12 max-w-xl mx-auto">
             {content.description}

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 interface MovementContent {
   title: string;
@@ -13,6 +14,9 @@ interface MovementContent {
 
 export const Movement = () => {
   const [content, setContent] = useState<MovementContent | null>(null);
+  const { elementRef: headerRef, isVisible: headerVisible } = useScrollAnimation();
+  const { elementRef: videoRef, isVisible: videoVisible } = useScrollAnimation();
+  const { elementRef: quoteRef, isVisible: quoteVisible } = useScrollAnimation();
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -29,13 +33,13 @@ export const Movement = () => {
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up">
+        <div ref={headerRef} className={`scroll-fade-in ${headerVisible ? 'visible' : ''}`}>
           <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group">
+        <div ref={videoRef} className={`scroll-fade-in ${videoVisible ? 'visible' : ''} w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group`}>
           <a 
             href={content.video_link_url}
             target="_blank" 
@@ -52,7 +56,7 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div className="animate-slide-up">
+        <div ref={quoteRef} className={`scroll-fade-in ${quoteVisible ? 'visible' : ''}`}>
           <div className="flex flex-col items-center">
             <img 
               src={content.profile_image_url}
