@@ -1,9 +1,20 @@
 import { ChevronDown } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { HeroSkeleton } from "@/components/HeroSkeleton";
+import { useLoadingContext } from "@/contexts/LoadingContext";
 
 export const Hero = () => {
   const { data: content, isLoading } = useHeroContent();
+  const { setPageReady } = useLoadingContext();
+  const [imageLoaded, setImageLoaded] = useState(false);
+
+  useEffect(() => {
+    // Signal page is ready when both data exists and hero image is loaded
+    if (content && imageLoaded) {
+      setPageReady();
+    }
+  }, [content, imageLoaded, setPageReady]);
 
   if (isLoading || !content) return <HeroSkeleton />;
 
@@ -38,6 +49,7 @@ export const Hero = () => {
           loading="eager"
           fetchPriority="high"
           decoding="async"
+          onLoad={() => setImageLoaded(true)}
         />
       </div>
       

@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
+import { useLoadingContext } from "@/contexts/LoadingContext";
 
 export const LoadingScreen = () => {
+  const { isPageReady } = useLoadingContext();
+  const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    // Minimum display time of 800ms, then fade out
+    // Minimum display time of 800ms
     const timer = setTimeout(() => {
-      setIsVisible(false);
+      setMinTimeElapsed(true);
     }, 800);
 
     return () => clearTimeout(timer);
   }, []);
+
+  useEffect(() => {
+    // Fade out when both page is ready AND minimum time has elapsed
+    if (isPageReady && minTimeElapsed) {
+      setIsVisible(false);
+    }
+  }, [isPageReady, minTimeElapsed]);
 
   return (
     <div
