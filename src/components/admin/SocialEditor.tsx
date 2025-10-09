@@ -6,7 +6,6 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
-import { MultipleImageUpload } from "./MultipleImageUpload";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Plus } from "lucide-react";
 
@@ -74,29 +73,6 @@ export const SocialEditor = () => {
     setLoading(false);
   };
 
-  const handleMultipleUpload = async (urls: string[]) => {
-    setLoading(true);
-    const maxOrder = posts.length > 0 ? Math.max(...posts.map(p => p.display_order)) : 0;
-    
-    const newPosts = urls.map((url, index) => ({
-      post_type: "uploaded_image",
-      image_url: url,
-      alt_text: "Social post image",
-      display_order: maxOrder + index + 1,
-    }));
-
-    const { error } = await supabase
-      .from("social_posts")
-      .insert(newPosts);
-
-    if (error) {
-      toast({ variant: "destructive", title: "Error", description: error.message });
-    } else {
-      toast({ title: "Success", description: `${urls.length} post(s) added` });
-      fetchData();
-    }
-    setLoading(false);
-  };
 
   const handleDeletePost = async (id: string) => {
     setLoading(true);
@@ -112,20 +88,6 @@ export const SocialEditor = () => {
 
   return (
     <div className="space-y-8">
-      {/* Multiple Image Upload */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Bulk Upload Images</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <MultipleImageUpload
-            folder="social"
-            label="Upload multiple images to create posts"
-            onUploadComplete={handleMultipleUpload}
-          />
-        </CardContent>
-      </Card>
-
       <div>
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-lg font-semibold">Social Posts</h3>

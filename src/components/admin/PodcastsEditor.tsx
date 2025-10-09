@@ -41,8 +41,55 @@ export const PodcastsEditor = () => {
     setLoading(false);
   };
 
+  const handleAddPodcast = async () => {
+    setLoading(true);
+    const nextOrder = podcasts.length > 0 ? Math.max(...podcasts.map(p => p.display_order)) + 1 : 1;
+    
+    const { error } = await supabase
+      .from("podcasts")
+      .insert({
+        title: "New Podcast",
+        description: "Add description",
+        thumbnail_url: "",
+        podcast_url: "",
+        display_order: nextOrder,
+      });
+
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Podcast added" });
+      fetchPodcasts();
+    }
+    setLoading(false);
+  };
+
+  const handleDeletePodcast = async (id: string) => {
+    setLoading(true);
+    const { error } = await supabase
+      .from("podcasts")
+      .delete()
+      .eq("id", id);
+
+    if (error) {
+      toast({ variant: "destructive", title: "Error", description: error.message });
+    } else {
+      toast({ title: "Success", description: "Podcast deleted" });
+      fetchPodcasts();
+    }
+    setLoading(false);
+  };
+
   return (
     <div className="space-y-6">
+      <Card>
+        <CardContent className="pt-6">
+          <Button onClick={handleAddPodcast} disabled={loading}>
+            Add New Podcast
+          </Button>
+        </CardContent>
+      </Card>
+
       {podcasts.map((podcast) => (
         <Card key={podcast.id}>
           <CardHeader>
@@ -85,19 +132,28 @@ export const PodcastsEditor = () => {
                 }
               />
             </div>
-            <Button
-              onClick={() =>
-                handleUpdate(podcast.id, {
-                  title: podcast.title,
-                  description: podcast.description,
-                  thumbnail_url: podcast.thumbnail_url,
-                  podcast_url: podcast.podcast_url,
-                })
-              }
-              disabled={loading}
-            >
-              Save Podcast
-            </Button>
+            <div className="flex gap-2">
+              <Button
+                onClick={() =>
+                  handleUpdate(podcast.id, {
+                    title: podcast.title,
+                    description: podcast.description,
+                    thumbnail_url: podcast.thumbnail_url,
+                    podcast_url: podcast.podcast_url,
+                  })
+                }
+                disabled={loading}
+              >
+                Save Podcast
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleDeletePodcast(podcast.id)}
+                disabled={loading}
+              >
+                Delete
+              </Button>
+            </div>
           </CardContent>
         </Card>
       ))}

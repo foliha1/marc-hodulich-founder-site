@@ -1,5 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SocialPost {
   id: string;
@@ -36,6 +38,17 @@ const extractInstagramPostId = (url: string): string | null => {
 export const Social = () => {
   const [posts, setPosts] = useState<SocialPost[]>([]);
   const [links, setLinks] = useState<SocialLink[]>([]);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (scrollContainerRef.current) {
+      const scrollAmount = 400;
+      scrollContainerRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,8 +71,20 @@ export const Social = () => {
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
-        <div className="relative overflow-hidden">
-          <div className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide">
+        <div className="relative">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => scroll('left')}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm"
+          >
+            <ChevronLeft className="h-4 w-4" />
+          </Button>
+          
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-4 overflow-x-auto pb-4 mb-8 scrollbar-hide px-12"
+          >
             {posts.map((post, index) => (
               <div 
                 key={post.id}
@@ -93,6 +118,14 @@ export const Social = () => {
             ))}
           </div>
           
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => scroll('right')}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm"
+          >
+            <ChevronRight className="h-4 w-4" />
+          </Button>
         </div>
         
         <div className="flex gap-6">

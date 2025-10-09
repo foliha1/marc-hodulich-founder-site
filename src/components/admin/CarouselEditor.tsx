@@ -7,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { ImageUpload } from "./ImageUpload";
-import { MultipleImageUpload } from "./MultipleImageUpload";
+import { ArrowUp, ArrowDown } from "lucide-react";
 
 export const CarouselEditor = () => {
   const [slides, setSlides] = useState<any[]>([]);
@@ -73,27 +73,40 @@ export const CarouselEditor = () => {
     setLoading(false);
   };
 
-  const handleMultipleUpload = async (urls: string[]) => {
+  const handleMoveUp = async (slideId: string) => {
+    const currentSlide = slides.find(s => s.id === slideId);
+    if (!currentSlide || currentSlide.display_order === 1) return;
+
+    const previousSlide = slides.find(s => s.display_order === currentSlide.display_order - 1);
+    if (!previousSlide) return;
+
     setLoading(true);
-    const maxOrder = slides.length > 0 ? Math.max(...slides.map(s => s.display_order)) : 0;
+    await Promise.all([
+      supabase.from("carousel_slides").update({ display_order: previousSlide.display_order }).eq("id", currentSlide.id),
+      supabase.from("carousel_slides").update({ display_order: currentSlide.display_order }).eq("id", previousSlide.id),
+    ]);
     
-    const newSlides = urls.map((url, index) => ({
-      image_url: url,
-      caption: "",
-      subcaption: "",
-      display_order: maxOrder + index + 1,
-    }));
+    toast({ title: "Success", description: "Slide moved up" });
+    fetchSlides();
+    setLoading(false);
+  };
 
-    const { error } = await supabase
-      .from("carousel_slides")
-      .insert(newSlides);
+  const handleMoveDown = async (slideId: string) => {
+    const currentSlide = slides.find(s => s.id === slideId);
+    const maxOrder = Math.max(...slides.map(s => s.display_order));
+    if (!currentSlide || currentSlide.display_order === maxOrder) return;
 
-    if (error) {
-      toast({ variant: "destructive", title: "Error", description: error.message });
-    } else {
-      toast({ title: "Success", description: `${urls.length} slide(s) added` });
-      fetchSlides();
-    }
+    const nextSlide = slides.find(s => s.display_order === currentSlide.display_order + 1);
+    if (!nextSlide) return;
+
+    setLoading(true);
+    await Promise.all([
+      supabase.from("carousel_slides").update({ display_order: nextSlide.display_order }).eq("id", currentSlide.id),
+      supabase.from("carousel_slides").update({ display_order: currentSlide.display_order }).eq("id", nextSlide.id),
+    ]);
+    
+    toast({ title: "Success", description: "Slide moved down" });
+    fetchSlides();
     setLoading(false);
   };
 
@@ -170,25 +183,34 @@ export const CarouselEditor = () => {
         </Card>
       )}
 
-      {/* Multiple Image Upload */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Add Multiple Slides</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <MultipleImageUpload
-            folder="carousel"
-            label="Upload multiple images to create slides"
-            onUploadComplete={handleMultipleUpload}
-          />
-        </CardContent>
-      </Card>
-
       {/* Individual Slides */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {slides.map((slide) => (
-        <Card key={slide.id}>
+        <Card key={slide.id} className="h-full">
           <CardHeader>
-            <CardTitle>Slide {slide.display_order}</CardTitle>
+            <CardTitle className="flex items-center justify-between">
+              <span>Slide {slide.display_order}</span>
+              <div className="flex gap-1">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleMoveUp(slide.id)}
+                  disabled={loading || slide.display_order === 1}
+                  className="h-8 w-8"
+                >
+                  <ArrowUp className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => handleMoveDown(slide.id)}
+                  disabled={loading || slide.display_order === Math.max(...slides.map(s => s.display_order))}
+                  className="h-8 w-8"
+                >
+                  <ArrowDown className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <ImageUpload
@@ -208,19 +230,20 @@ export const CarouselEditor = () => {
                 }
                 disabled={loading}
               >
-                Save Slide
+                Save
               </Button>
               <Button
                 variant="destructive"
                 onClick={() => handleDeleteSlide(slide.id)}
                 disabled={loading}
               >
-                Delete Slide
+                Delete
               </Button>
             </div>
           </CardContent>
         </Card>
       ))}
+      </div>
     </div>
   );
 };
