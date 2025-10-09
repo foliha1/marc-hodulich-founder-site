@@ -2,7 +2,6 @@ import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext
 import { ChevronRight } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
@@ -41,7 +40,7 @@ export const FailuresFirsts = () => {
             {slides.map((slide, index) => (
               <CarouselItem key={slide.id} className="basis-auto">
                 <div className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px]">
-                  <AspectRatio ratio={16 / 9}>
+                  <div className="aspect-video">
                     <img
                       src={slide.image_url}
                       alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
@@ -49,7 +48,7 @@ export const FailuresFirsts = () => {
                       className="w-full h-full object-cover rounded-[4px]"
                       loading="lazy"
                     />
-                  </AspectRatio>
+                  </div>
                 </div>
               </CarouselItem>
             ))}
