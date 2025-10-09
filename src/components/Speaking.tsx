@@ -1,32 +1,12 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
+import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
-
-interface Podcast {
-  id: string;
-  title: string;
-  description: string;
-  thumbnail_url: string;
-  podcast_url: string;
-  display_order: number;
-}
+import { usePodcasts } from "@/hooks/usePodcasts";
 
 export const Speaking = () => {
-  const [podcasts, setPodcasts] = useState<Podcast[]>([]);
+  const { data: podcasts, isLoading } = usePodcasts();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  useEffect(() => {
-    const fetchPodcasts = async () => {
-      const { data } = await supabase
-        .from("podcasts")
-        .select("*")
-        .order("display_order");
-      if (data) setPodcasts(data);
-    };
-    fetchPodcasts();
-  }, []);
-
-  if (podcasts.length === 0) return null;
+  if (isLoading || !podcasts || podcasts.length === 0) return null;
 
   return (
     <section className="w-full bg-white section-spacing">
@@ -51,6 +31,8 @@ export const Speaking = () => {
                   src={podcast.thumbnail_url}
                   alt={podcast.title}
                   className="w-full h-full object-cover smooth-transition group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
                   <div className="w-16 h-16 bg-brand-red/90 rounded-full flex items-center justify-center smooth-transition group-hover:scale-110">

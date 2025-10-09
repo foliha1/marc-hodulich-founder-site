@@ -1,47 +1,27 @@
 import { Carousel, CarouselContent, CarouselItem } from "@/components/ui/carousel";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-interface CarouselSlide {
-  id: string;
-  caption: string;
-  subcaption: string;
-  image_url: string;
-  display_order: number;
-}
-
-interface SectionContent {
-  title: string;
-  paragraph: string;
-}
+import { ChevronRight } from "lucide-react";
+import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 
 export const FailuresFirsts = () => {
-  const [slides, setSlides] = useState<CarouselSlide[]>([]);
-  const [section, setSection] = useState<SectionContent | null>(null);
+  const { data, isLoading } = useCarouselSlides();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [slidesResponse, sectionResponse] = await Promise.all([
-        supabase.from("carousel_slides").select("*").order("display_order"),
-        supabase.from("section_content").select("title, paragraph").eq("section_name", "failures_firsts").maybeSingle()
-      ]);
-      
-      if (slidesResponse.data) setSlides(slidesResponse.data);
-      if (sectionResponse.data) setSection(sectionResponse.data);
-    };
-    fetchData();
-  }, []);
+  if (isLoading || !data || data.slides.length === 0) return null;
 
-  if (slides.length === 0) return null;
+  const { slides, section } = data;
 
   return (
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h1 className="display-title text-brand-ink mb-6">{section?.title || "FAILURES, FIRSTS, AND FOUNDATIONS"}</h1>
-          <p className="body-text text-brand-ink-sub max-w-3xl leading-relaxed mb-16">
+          <p className="body-text text-brand-ink-sub max-w-3xl leading-relaxed mb-8">
             {section?.paragraph || "Marc's path as an entrepreneur and athlete proves that failure isn't the end, it's the making of a meaningful story. He sold payroll door-to-door in Manhattan, spent years in management consulting while raising millions for pediatric cancer research through The Wall Street Decathlon, and launched BeerFit, a nationwide mash-up of craft beer and fun runs. Each chapter, whether success or setback, was a step toward 29029, built from day one to be more than a race, a brand defined by You vs. You."}
           </p>
+          <div className="flex justify-start mb-16">
+            <div className="animate-bounce-horizontal">
+              <ChevronRight className="w-6 h-6 text-brand-ink" />
+            </div>
+          </div>
         </div>
         
       </div>

@@ -2,15 +2,22 @@ import { useEffect } from "react";
 
 export const Social = () => {
   useEffect(() => {
-    // Load Elfsight script
-    const script = document.createElement('script');
-    script.src = 'https://elfsightcdn.com/platform.js';
-    script.async = true;
-    document.body.appendChild(script);
+    // Defer Elfsight script loading for better performance
+    const loadScript = () => {
+      const script = document.createElement('script');
+      script.src = 'https://elfsightcdn.com/platform.js';
+      script.defer = true;
+      script.onerror = () => console.error('Failed to load Elfsight script');
+      document.body.appendChild(script);
+      return script;
+    };
+
+    const script = loadScript();
 
     return () => {
-      // Cleanup script on unmount
-      document.body.removeChild(script);
+      if (script && document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 

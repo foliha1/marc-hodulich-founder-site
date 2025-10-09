@@ -1,29 +1,10 @@
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-interface HeroContent {
-  title: string;
-  description: string;
-  subtitle: string;
-  background_image_url: string;
-}
+import { useHeroContent } from "@/hooks/useHeroContent";
 
 export const Hero = () => {
-  const [content, setContent] = useState<HeroContent | null>(null);
+  const { data: content, isLoading } = useHeroContent();
 
-  useEffect(() => {
-    const fetchContent = async () => {
-      const { data } = await supabase
-        .from("hero_content")
-        .select("*")
-        .single();
-      if (data) setContent(data);
-    };
-    fetchContent();
-  }, []);
-
-  if (!content) return null;
+  if (isLoading || !content) return null;
 
   return (
     <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
@@ -53,6 +34,9 @@ export const Hero = () => {
           src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-contain object-bottom"
+          loading="eager"
+          fetchPriority="high"
+          decoding="async"
         />
       </div>
       
@@ -80,6 +64,8 @@ export const Hero = () => {
           src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-auto object-contain object-bottom"
+          loading="eager"
+          decoding="async"
         />
       </div>
 
@@ -89,6 +75,8 @@ export const Hero = () => {
           src={content.background_image_url}
           alt="Marc Hodulich - Endurance athlete and entrepreneur" 
           className="w-full h-full object-contain object-bottom"
+          loading="eager"
+          decoding="async"
         />
       </div>
     </section>

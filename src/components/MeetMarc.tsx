@@ -1,37 +1,11 @@
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-interface MeetMarcCard {
-  id: string;
-  title: string;
-  description: string;
-  image_url: string;
-  display_order: number;
-}
-
-interface SectionContent {
-  title: string;
-  paragraph: string;
-}
+import { useMeetMarcCards } from "@/hooks/useMeetMarcCards";
 
 export const MeetMarc = () => {
-  const [cards, setCards] = useState<MeetMarcCard[]>([]);
-  const [section, setSection] = useState<SectionContent | null>(null);
+  const { data, isLoading } = useMeetMarcCards();
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const [cardsResponse, sectionResponse] = await Promise.all([
-        supabase.from("meet_marc_cards").select("*").order("display_order"),
-        supabase.from("section_content").select("title, paragraph").eq("section_name", "meet_marc").maybeSingle()
-      ]);
-      
-      if (cardsResponse.data) setCards(cardsResponse.data);
-      if (sectionResponse.data) setSection(sectionResponse.data);
-    };
-    fetchData();
-  }, []);
+  if (isLoading || !data || data.cards.length === 0) return null;
 
-  if (cards.length === 0) return null;
+  const { cards, section } = data;
 
   return (
     <section className="w-full bg-brand-warm section-spacing">
@@ -62,11 +36,15 @@ export const MeetMarc = () => {
                     src={card.image_url} 
                     alt={card.title} 
                     className="w-full h-auto object-cover rounded sm:hidden" 
+                    loading="lazy"
+                    decoding="async"
                   />
                   <img 
                     src={card.image_url} 
                     alt={card.title} 
                     className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="lg:w-1/2 space-y-6">
