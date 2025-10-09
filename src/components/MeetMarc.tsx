@@ -34,7 +34,7 @@ export const MeetMarc = () => {
                   <img src={card.image_url} alt={card.title} className="hidden sm:block w-full aspect-[16/9] object-cover rounded" loading="lazy" decoding="async" />
                 </div>
                 <div className="lg:w-1/2 space-y-6">
-                  <h4 className="subtitle text-brand-ink">{card.title}</h4>
+                  <h4 className="subtitle text-brand-ink text-lg">{card.title}</h4>
                   <p className="body-text text-brand-ink-sub leading-relaxed">
                     {card.description}
                   </p>
