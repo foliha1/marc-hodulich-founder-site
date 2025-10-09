@@ -20,17 +20,17 @@ export const FailuresFirsts = () => {
           <p className="body-text text-brand-ink-sub max-w-3xl leading-relaxed mb-8">
             {section?.paragraph || "Marc's path as an entrepreneur and athlete proves that failure isn't the end, it's the making of a meaningful story. He sold payroll door-to-door in Manhattan, spent years in management consulting while raising millions for pediatric cancer research through The Wall Street Decathlon, and launched BeerFit, a nationwide mash-up of craft beer and fun runs. Each chapter, whether success or setback, was a step toward 29029, built from day one to be more than a race, a brand defined by You vs. You."}
           </p>
-          <div className="flex items-center gap-[20%] mb-16">
+          <div className="flex items-center gap-12 mb-16">
             <button 
               onClick={() => carouselApi?.scrollPrev()} 
-              className="transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded"
+              className="transition-transform hover:scale-110 focus:outline-none rounded"
               aria-label="Previous slide"
             >
               <ChevronLeft className="w-8 h-8 text-brand-ink" />
             </button>
             <button 
               onClick={() => carouselApi?.scrollNext()} 
-              className="transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded"
+              className="transition-transform hover:scale-110 focus:outline-none rounded"
               aria-label="Next slide"
             >
               <ChevronRight className="w-8 h-8 text-brand-ink" />
