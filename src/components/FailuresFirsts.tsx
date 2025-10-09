@@ -1,10 +1,12 @@
-import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from "@/components/ui/carousel";
-import { ChevronRight } from "lucide-react";
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
+import { useEffect, useState } from "react";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   if (isLoading || !data || data.slides.length === 0) return <FailuresFirstsSkeleton />;
 
@@ -18,10 +20,21 @@ export const FailuresFirsts = () => {
           <p className="body-text text-brand-ink-sub max-w-3xl leading-relaxed mb-8">
             {section?.paragraph || "Marc's path as an entrepreneur and athlete proves that failure isn't the end, it's the making of a meaningful story. He sold payroll door-to-door in Manhattan, spent years in management consulting while raising millions for pediatric cancer research through The Wall Street Decathlon, and launched BeerFit, a nationwide mash-up of craft beer and fun runs. Each chapter, whether success or setback, was a step toward 29029, built from day one to be more than a race, a brand defined by You vs. You."}
           </p>
-          <div className="flex justify-start mb-16">
-            <div className="animate-bounce-horizontal">
-              <ChevronRight className="w-6 h-6 text-brand-ink" />
-            </div>
+          <div className="flex items-center gap-4 mb-16">
+            <button 
+              onClick={() => carouselApi?.scrollPrev()} 
+              className="transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="w-8 h-8 text-brand-ink" />
+            </button>
+            <button 
+              onClick={() => carouselApi?.scrollNext()} 
+              className="transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-brand-red focus:ring-offset-2 rounded"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="w-8 h-8 text-brand-ink" />
+            </button>
           </div>
         </div>
         
@@ -34,13 +47,14 @@ export const FailuresFirsts = () => {
             align: "start",
             loop: true,
           }}
+          setApi={setCarouselApi}
           className="w-full"
         >
           <CarouselContent className="ml-6 lg:ml-8">
             {slides.map((slide, index) => (
               <CarouselItem key={slide.id} className="basis-auto">
                 <div className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px]">
-                  <div className="aspect-video">
+                  <div className="aspect-[4/3]">
                     <img
                       src={slide.image_url}
                       alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
@@ -53,12 +67,6 @@ export const FailuresFirsts = () => {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious 
-            className="left-4 md:left-8 h-10 w-10 md:h-12 md:w-12 bg-white/90 hover:bg-white hover:scale-110 border-brand-ink/20 text-brand-ink transition-all duration-200"
-          />
-          <CarouselNext 
-            className="right-4 md:right-8 h-10 w-10 md:h-12 md:w-12 bg-white/90 hover:bg-white hover:scale-110 border-brand-ink/20 text-brand-ink transition-all duration-200"
-          />
         </Carousel>
       </div>
     </section>
