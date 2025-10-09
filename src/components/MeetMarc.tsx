@@ -5,8 +5,8 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 export const MeetMarc = () => {
   const { data, isLoading } = useMeetMarcCards();
   const headerAnimation = useScrollAnimation({ 
-    threshold: 0.1, 
-    rootMargin: "0px 0px -120px 0px",
+    threshold: 0.08, 
+    rootMargin: "0px 0px 160px 0px",
     fallbackTimeout: 1500
   });
 
@@ -19,7 +19,7 @@ export const MeetMarc = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Section Header with scroll animation */}
         <div className="mb-24" ref={headerAnimation.ref}>
-          <div className={`transition-all duration-700 ${
+          <div className={`transition-all duration-700 will-change-[opacity,transform] ${
             headerAnimation.isVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-10'
@@ -28,7 +28,7 @@ export const MeetMarc = () => {
               {section?.title || "MEET MARC"}
             </h1>
           </div>
-          <div className={`mt-12 max-w-3xl transition-all duration-700 delay-150 ${
+          <div className={`mt-12 max-w-3xl transition-all duration-700 delay-150 will-change-[opacity,transform] ${
             headerAnimation.isVisible 
               ? 'opacity-100 translate-y-0' 
               : 'opacity-0 translate-y-10'
@@ -66,8 +66,8 @@ const MeetMarcCard = ({
   isEven: boolean;
 }) => {
   const cardAnimation = useScrollAnimation({ 
-    threshold: 0.05,
-    rootMargin: "0px 0px -160px 0px",
+    threshold: 0.04,
+    rootMargin: "0px 0px 240px 0px",
     fallbackTimeout: 1500
   });
 
@@ -76,7 +76,7 @@ const MeetMarcCard = ({
       ref={cardAnimation.ref}
       className={`flex flex-col ${
         isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'
-      } gap-12 items-center transition-all duration-700 ${
+      } gap-12 items-center transition-all duration-700 will-change-[opacity,transform] ${
         cardAnimation.isVisible 
           ? 'opacity-100 translate-y-0' 
           : 'opacity-0 translate-y-16'
