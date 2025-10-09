@@ -225,23 +225,17 @@ export const CarouselEditor = () => {
           <CardContent className="space-y-4">
             <ImageUpload
               value={slide.image_url}
-              onChange={(url) =>
-                setSlides(slides.map((s) => (s.id === slide.id ? { ...s, image_url: url } : s)))
-              }
+              onChange={async (url) => {
+                // Update local state immediately for UI feedback
+                setSlides(slides.map((s) => (s.id === slide.id ? { ...s, image_url: url } : s)));
+                
+                // Auto-save to database
+                await handleUpdate(slide.id, { image_url: url });
+              }}
               folder="carousel"
               label="Slide Image"
             />
             <div className="flex gap-2">
-              <Button
-                onClick={() =>
-                  handleUpdate(slide.id, {
-                    image_url: slide.image_url,
-                  })
-                }
-                disabled={loading}
-              >
-                Save
-              </Button>
               <Button
                 variant="destructive"
                 onClick={() => handleDeleteSlide(slide.id)}

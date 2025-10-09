@@ -133,7 +133,25 @@ export const MovementEditor = () => {
             )}
             <ImageUpload
               value={content.profile_image_url}
-              onChange={(url) => setContent({ ...content, profile_image_url: url })}
+              onChange={async (url) => {
+                // Update local state
+                const updatedContent = { ...content, profile_image_url: url };
+                setContent(updatedContent);
+                
+                // Auto-save to database
+                setLoading(true);
+                const { error } = await supabase
+                  .from("movement_content")
+                  .update({ profile_image_url: url })
+                  .eq("id", content.id);
+
+                if (error) {
+                  toast({ variant: "destructive", title: "Error", description: error.message });
+                } else {
+                  toast({ title: "Success", description: "Profile image updated" });
+                }
+                setLoading(false);
+              }}
               folder="movement"
               label=""
             />
