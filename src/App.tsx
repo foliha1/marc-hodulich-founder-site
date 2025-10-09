@@ -11,6 +11,10 @@ import Admin from "./pages/Admin";
 
 const queryClient = new QueryClient();
 
+console.log("[App] React is", React);
+// @ts-ignore
+console.log("[App] typeof React.useEffect:", typeof (React as any).useEffect);
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
