@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
+import { MeetMarcCard } from "./MeetMarcCard";
 
 interface MeetMarcCard {
   id: string;
@@ -52,36 +53,15 @@ export const MeetMarc = () => {
 
         {/* Staggered Content */}
         <div className="space-y-32">
-          {cards.map((card, index) => {
-            const isEven = index % 2 === 0;
-            const { elementRef, isVisible } = useScrollAnimation();
-            return (
-              <div 
-                key={card.id}
-                ref={elementRef}
-                className={`scroll-fade-in ${isVisible ? 'visible' : ''} flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
-              >
-                <div className="lg:w-1/2">
-                  <img 
-                    src={card.image_url} 
-                    alt={card.title} 
-                    className="w-full h-auto object-cover rounded sm:hidden" 
-                  />
-                  <img 
-                    src={card.image_url} 
-                    alt={card.title} 
-                    className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-                  />
-                </div>
-                <div className="lg:w-1/2 space-y-6">
-                  <h4 className="subtitle text-brand-ink">{card.title}</h4>
-                  <p className="body-text text-brand-ink-sub leading-relaxed">
-                    {card.description}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+          {cards.map((card, index) => (
+            <MeetMarcCard
+              key={card.id}
+              title={card.title}
+              description={card.description}
+              image_url={card.image_url}
+              isEven={index % 2 === 0}
+            />
+          ))}
         </div>
       </div>
     </section>
