@@ -34,7 +34,17 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
       { threshold, rootMargin }
     );
 
-    observer.observe(element);
+    // Check if element is already in viewport on mount
+    const rect = element.getBoundingClientRect();
+    const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+    if (isInViewport) {
+      setIsVisible(true);
+      if (!triggerOnce) {
+        observer.observe(element);
+      }
+    } else {
+      observer.observe(element);
+    }
 
     return () => {
       if (element) {
