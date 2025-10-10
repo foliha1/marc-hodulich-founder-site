@@ -126,7 +126,6 @@ export type Database = {
         Row: {
           description: string
           id: string
-          profile_image_url: string
           quote: string
           quote_author: string
           title: string
@@ -137,7 +136,6 @@ export type Database = {
         Insert: {
           description: string
           id?: string
-          profile_image_url: string
           quote: string
           quote_author: string
           title: string
@@ -148,7 +146,6 @@ export type Database = {
         Update: {
           description?: string
           id?: string
-          profile_image_url?: string
           quote?: string
           quote_author?: string
           title?: string
