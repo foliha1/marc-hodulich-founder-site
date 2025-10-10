@@ -24,8 +24,8 @@ export const Speaking = () => {
             <div 
               key={podcast.id}
               onClick={() => setSelectedVideo(podcast.podcast_url)}
-              className="group animate-fade-in card-shadow rounded-[4px] overflow-hidden bg-white smooth-transition hover:elegant-shadow cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
+              className="group animate-fade-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer"
+              style={{ animationDelay: `${index * 0.1}s`, backgroundColor: '#f2f2f2' }}
             >
               <div className="aspect-video overflow-hidden relative">
                 <img 
