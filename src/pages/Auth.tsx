@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useLoadingContext } from "@/contexts/LoadingContext";
 import { z } from "zod";
 
 const authSchema = z.object({
@@ -20,16 +21,19 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { setPageReady } = useLoadingContext();
 
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         navigate("/admin");
+      } else {
+        setPageReady();
       }
     };
     checkUser();
-  }, [navigate]);
+  }, [navigate, setPageReady]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();

@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import { useLocation } from "react-router-dom";
 
 interface LoadingContextType {
   isPageReady: boolean;
@@ -9,6 +10,12 @@ const LoadingContext = createContext<LoadingContextType | undefined>(undefined);
 
 export const LoadingProvider = ({ children }: { children: ReactNode }) => {
   const [isPageReady, setIsPageReady] = useState(false);
+  const location = useLocation();
+
+  // Reset loading state on route changes
+  useEffect(() => {
+    setIsPageReady(false);
+  }, [location.pathname]);
 
   const handleSetPageReady = () => {
     setIsPageReady(true);
