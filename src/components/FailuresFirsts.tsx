@@ -53,7 +53,10 @@ export const FailuresFirsts = () => {
           <CarouselContent className="ml-6 lg:ml-8">
             {slides.map((slide, index) => (
               <CarouselItem key={slide.id} className="basis-auto">
-                <div className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px]">
+                <div 
+                  className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px] cursor-pointer"
+                  onClick={() => carouselApi?.scrollNext()}
+                >
                   <div className="aspect-[4/3]">
                     <img
                       src={slide.image_url}
