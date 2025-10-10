@@ -6,7 +6,6 @@ interface MovementContent {
   description: string;
   video_url: string;
   video_link_url: string;
-  profile_image_url: string;
   quote: string;
   quote_author: string;
 }
@@ -54,11 +53,6 @@ export const Movement = () => {
         
         <div className="animate-slide-up">
           <div className="flex flex-col items-center">
-            <img 
-              src={content.profile_image_url}
-              alt="Marc Hodulich" 
-              className="w-[100px] h-[100px] md:w-[120px] md:h-[120px] lg:w-[140px] lg:h-[140px] rounded-full object-cover mb-20"
-            />
             <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
                 "{content.quote}"

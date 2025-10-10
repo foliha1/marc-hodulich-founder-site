@@ -37,7 +37,6 @@ export const MovementEditor = () => {
         video_link_url: content.video_link_url,
         quote: content.quote,
         quote_author: content.quote_author,
-        profile_image_url: content.profile_image_url,
       })
       .eq("id", content.id);
 
@@ -113,47 +112,6 @@ export const MovementEditor = () => {
             <Input
               value={content.quote_author}
               onChange={(e) => setContent({ ...content, quote_author: e.target.value })}
-            />
-          </div>
-          <div>
-            <Label>Profile Image</Label>
-            {content.profile_image_url && (
-              <div className="mt-2 mb-4">
-                <div className="flex items-center gap-4">
-                  <img
-                    src={content.profile_image_url}
-                    alt="Profile preview"
-                    className="w-24 h-24 rounded-full object-cover"
-                  />
-                  <p className="text-sm text-muted-foreground">
-                    Circular crop preview (as shown on frontend)
-                  </p>
-                </div>
-              </div>
-            )}
-            <ImageUpload
-              value={content.profile_image_url}
-              onChange={async (url) => {
-                // Update local state
-                const updatedContent = { ...content, profile_image_url: url };
-                setContent(updatedContent);
-                
-                // Auto-save to database
-                setLoading(true);
-                const { error } = await supabase
-                  .from("movement_content")
-                  .update({ profile_image_url: url })
-                  .eq("id", content.id);
-
-                if (error) {
-                  toast({ variant: "destructive", title: "Error", description: error.message });
-                } else {
-                  toast({ title: "Success", description: "Profile image updated" });
-                }
-                setLoading(false);
-              }}
-              folder="movement"
-              label=""
             />
           </div>
           <Button onClick={handleSave} disabled={loading}>
