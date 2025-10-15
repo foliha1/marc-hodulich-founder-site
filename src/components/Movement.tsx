@@ -123,6 +123,11 @@ export const Movement = () => {
       if (!isPlaying && !playAttempted) attemptPlay();
       video.removeEventListener('loadeddata', onLoadedData);
     };
+    const onLoadedMetadata = () => {
+      console.log('Video event: loadedmetadata');
+      if (!isPlaying && !playAttempted) attemptPlay();
+      video.removeEventListener('loadedmetadata', onLoadedMetadata);
+    };
     const onWaiting = () => console.warn('Video event: waiting');
     const onStalled = () => console.warn('Video event: stalled');
     const onSuspend = () => console.warn('Video event: suspend');
@@ -133,6 +138,7 @@ export const Movement = () => {
     video.addEventListener('canplay', onCanPlay);
     video.addEventListener('canplaythrough', onCanPlayThrough);
     video.addEventListener('loadeddata', onLoadedData);
+    video.addEventListener('loadedmetadata', onLoadedMetadata);
     video.addEventListener('waiting', onWaiting);
     video.addEventListener('stalled', onStalled);
     video.addEventListener('suspend', onSuspend);
@@ -141,14 +147,24 @@ export const Movement = () => {
     // If video already has data, try immediately
     if (video.readyState >= 3) attemptPlay();
 
+    // Safety timeout: ensure playAttempted is set after 1500ms
+    const safetyTimeout = setTimeout(() => {
+      if (!playAttempted) {
+        console.warn('Video: Safety timeout triggered, showing tap-to-play');
+        setPlayAttempted(true);
+      }
+    }, 1500);
+
     return () => {
       if (cleaned) return;
       cleaned = true;
+      clearTimeout(safetyTimeout);
       video.removeEventListener('error', onError);
       video.removeEventListener('playing', onPlaying);
       video.removeEventListener('canplay', onCanPlay);
       video.removeEventListener('canplaythrough', onCanPlayThrough);
       video.removeEventListener('loadeddata', onLoadedData);
+      video.removeEventListener('loadedmetadata', onLoadedMetadata);
       video.removeEventListener('waiting', onWaiting);
       video.removeEventListener('stalled', onStalled);
       video.removeEventListener('suspend', onSuspend);
@@ -157,6 +173,9 @@ export const Movement = () => {
   }, [isVideoVisible, playAttempted, isPlaying]);
 
   if (!content) return null;
+
+  // Derive poster image from video URL
+  const posterUrl = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -176,6 +195,7 @@ export const Movement = () => {
               playsInline
               preload="auto"
               crossOrigin="anonymous"
+              poster={posterUrl}
             >
               <source src={content.video_url} type="video/mp4" />
               Your browser does not support the video tag.
@@ -194,7 +214,7 @@ export const Movement = () => {
             <button
               type="button"
               onClick={() => videoElementRef.current?.play().catch(() => {})}
-              className="absolute inset-0 flex items-center justify-center bg-black/30 text-white font-medium text-lg hover:bg-black/40 smooth-transition"
+              className="absolute inset-0 z-20 flex items-center justify-center bg-black/30 text-white font-medium text-lg hover:bg-black/40 smooth-transition"
             >
               Tap to play
             </button>
@@ -202,7 +222,7 @@ export const Movement = () => {
 
           {/* Error overlay */}
           {hasError && (
-            <div className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-black/40 text-white text-center px-6">
+            <div className="absolute inset-0 z-20 flex flex-col items-center justify-center gap-3 bg-black/40 text-white text-center px-6">
               <div className="text-sm opacity-80">
                 We couldn't load this video{errorInfo ? `: ${errorInfo}` : ''}.
               </div>
@@ -232,7 +252,7 @@ export const Movement = () => {
             href={content.video_link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center pointer-events-auto"
+            className="absolute inset-0 z-10 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center pointer-events-none group-hover:pointer-events-auto focus-within:pointer-events-auto"
           >
             <span className="text-white text-2xl font-bold tracking-wider">DISCOVER 29029</span>
           </a>
