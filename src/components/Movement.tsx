@@ -14,6 +14,9 @@ export const Movement = () => {
   const [content, setContent] = useState<MovementContent | null>(null);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
+  const videoElementRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [playAttempted, setPlayAttempted] = useState(false);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -52,6 +55,44 @@ export const Movement = () => {
     };
   }, [isVideoVisible]);
 
+  // Manual play control for cross-browser compatibility
+  useEffect(() => {
+    if (!isVideoVisible || !videoElementRef.current || playAttempted) return;
+
+    const video = videoElementRef.current;
+    
+    const attemptPlay = () => {
+      // Safari needs a slight delay after mounting
+      setTimeout(() => {
+        video.play()
+          .then(() => {
+            console.log('Video autoplay started successfully');
+            setIsPlaying(true);
+            setPlayAttempted(true);
+          })
+          .catch((error) => {
+            console.warn('Autoplay prevented:', error.message);
+            // Autoplay blocked - video will show first frame (acceptable UX)
+            setPlayAttempted(true);
+          });
+      }, 100); // Small delay ensures video is ready
+    };
+
+    // If video already has data loaded, play immediately
+    if (video.readyState >= 3) { // HAVE_FUTURE_DATA
+      attemptPlay();
+    } else {
+      // Wait for enough data to be loaded
+      const handleCanPlay = () => {
+        attemptPlay();
+        video.removeEventListener('canplay', handleCanPlay);
+      };
+      video.addEventListener('canplay', handleCanPlay);
+      
+      return () => video.removeEventListener('canplay', handleCanPlay);
+    }
+  }, [isVideoVisible, playAttempted]);
+
   if (!content) return null;
 
   return <section className="w-full bg-brand-warm section-spacing">
@@ -71,19 +112,23 @@ export const Movement = () => {
           >
             {isVideoVisible ? (
               <video 
+                ref={videoElementRef}
                 className="w-full h-full object-cover" 
-                autoPlay 
                 muted 
                 loop 
                 playsInline
                 preload="auto"
+                poster=""
               >
                 <source src={content.video_url} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
             ) : (
-              <div className="w-full h-full bg-brand-ink/10 flex items-center justify-center">
-                <span className="text-brand-ink-sub">Loading video...</span>
+              <div className="w-full h-full bg-gradient-to-br from-brand-ink/5 to-brand-ink/10 flex items-center justify-center">
+                <div className="flex flex-col items-center gap-2">
+                  <div className="w-12 h-12 border-4 border-brand-ink/20 border-t-brand-ink/60 rounded-full animate-spin"></div>
+                  <span className="text-brand-ink-sub text-sm">Loading video...</span>
+                </div>
               </div>
             )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center">
