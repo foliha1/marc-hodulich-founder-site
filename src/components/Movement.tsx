@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { supabase } from "@/integrations/supabase/client";
 
 interface MovementContent {
@@ -12,6 +12,8 @@ interface MovementContent {
 
 export const Movement = () => {
   const [content, setContent] = useState<MovementContent | null>(null);
+  const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const videoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const fetchContent = async () => {
@@ -24,6 +26,32 @@ export const Movement = () => {
     fetchContent();
   }, []);
 
+  // Lazy load video with Intersection Observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isVideoVisible) {
+            setIsVideoVisible(true);
+          }
+        });
+      },
+      {
+        rootMargin: '100px', // Start loading 100px before section is visible
+      }
+    );
+
+    if (videoRef.current) {
+      observer.observe(videoRef.current);
+    }
+
+    return () => {
+      if (videoRef.current) {
+        observer.unobserve(videoRef.current);
+      }
+    };
+  }, [isVideoVisible]);
+
   if (!content) return null;
 
   return <section className="w-full bg-brand-warm section-spacing">
@@ -34,17 +62,30 @@ export const Movement = () => {
         </div>
         
         {/* Movement Video */}
-        <div className="w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group">
+        <div ref={videoRef} className="w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden relative group">
           <a 
             href={content.video_link_url}
             target="_blank" 
             rel="noopener noreferrer"
             className="block w-full h-full relative"
           >
-            <video className="w-full h-full object-cover" autoPlay muted loop playsInline>
-              <source src={content.video_url} type="video/mp4" />
-              Your browser does not support the video tag.
-            </video>
+            {isVideoVisible ? (
+              <video 
+                className="w-full h-full object-cover" 
+                autoPlay 
+                muted 
+                loop 
+                playsInline
+                preload="metadata"
+              >
+                <source src={content.video_url} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : (
+              <div className="w-full h-full bg-brand-ink/10 flex items-center justify-center">
+                <span className="text-brand-ink-sub">Loading video...</span>
+              </div>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center">
               <span className="text-white text-2xl font-bold tracking-wider">DISCOVER 29029</span>
             </div>

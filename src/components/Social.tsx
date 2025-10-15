@@ -1,34 +1,62 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const Social = () => {
-  useEffect(() => {
-    // Defer Elfsight script loading for better performance
-    const loadScript = () => {
-      const script = document.createElement('script');
-      script.src = 'https://elfsightcdn.com/platform.js';
-      script.defer = true;
-      script.onerror = () => console.error('Failed to load Elfsight script');
-      document.body.appendChild(script);
-      return script;
-    };
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
-    const script = loadScript();
+  useEffect(() => {
+    // Lazy load Instagram widget using Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !isVisible) {
+            setIsVisible(true);
+          }
+        });
+      },
+      {
+        rootMargin: '200px', // Start loading 200px before section is visible
+      }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, [isVisible]);
+
+  useEffect(() => {
+    // Only load Elfsight script when section becomes visible
+    if (!isVisible) return;
+
+    const script = document.createElement('script');
+    script.src = 'https://elfsightcdn.com/platform.js';
+    script.defer = true;
+    script.onerror = () => console.error('Failed to load Elfsight script');
+    document.body.appendChild(script);
 
     return () => {
       if (script && document.body.contains(script)) {
         document.body.removeChild(script);
       }
     };
-  }, []);
+  }, [isVisible]);
 
   return (
-    <section className="w-full bg-white section-spacing">
+    <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up mb-16">
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
-        <div className="elfsight-app-7e1de5f0-11d6-4bf3-ae86-6bef6e382f63" data-elfsight-app-lazy></div>
+        {isVisible && (
+          <div className="elfsight-app-7e1de5f0-11d6-4bf3-ae86-6bef6e382f63" data-elfsight-app-lazy></div>
+        )}
       </div>
     </section>
   );

@@ -3,6 +3,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 import { useEffect, useState } from "react";
+import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
@@ -59,8 +60,12 @@ export const FailuresFirsts = () => {
                 >
                   <div className="aspect-[4/3]">
                     <img
-                      src={slide.image_url}
+                      srcSet={getResponsiveSrcSet(slide.image_url, [356, 640, 854, 1280], 80)}
+                      sizes="(max-width: 640px) 356px, (max-width: 768px) 427px, (max-width: 1024px) 640px, 854px"
+                      src={getOptimizedImageUrl(slide.image_url, 854, 80)}
                       alt={`Marc Hodulich as ${slide.caption} - ${slide.subcaption}`}
+                      width={(slide as any).width || 854}
+                      height={(slide as any).height || 640}
                       draggable="false"
                       className="w-full h-full object-cover rounded-[4px]"
                       loading="lazy"

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { HeroSkeleton } from "@/components/HeroSkeleton";
 import { useLoadingContext } from "@/contexts/LoadingContext";
+import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
 
 export const Hero = () => {
   const { data: content, isLoading } = useHeroContent();
@@ -13,7 +14,7 @@ export const Hero = () => {
   useEffect(() => {
     if (content?.background_image_url && !imageLoaded) {
       const img = new Image();
-      img.src = content.background_image_url;
+      img.src = getOptimizedImageUrl(content.background_image_url, 1280, 85);
       img.onload = () => {
         // Add small buffer to ensure DOM is fully painted
         setTimeout(() => {
@@ -64,8 +65,12 @@ export const Hero = () => {
       {isReady && (
         <div className="hidden lg:block absolute bottom-0 right-0 w-[clamp(56.16vw,70.2vw,84.24vw)] min-h-[84vh] max-h-[100vh] h-[93.6vh] animate-fade-in">
           <img 
-            src={content.background_image_url}
-            alt="Marc Hodulich - Endurance athlete and entrepreneur" 
+            srcSet={getResponsiveSrcSet(content.background_image_url, [854, 1280, 1920], 85)}
+            sizes="(min-width: 1024px) 70vw, 100vw"
+            src={getOptimizedImageUrl(content.background_image_url, 1280, 85)}
+            alt="Marc Hodulich - Endurance athlete and entrepreneur"
+            width={(content as any).background_image_width || 1280}
+            height={(content as any).background_image_height || 1920}
             className="w-full h-full object-contain object-bottom"
             loading="eager"
             fetchPriority="high"
@@ -100,8 +105,12 @@ export const Hero = () => {
       {isReady && (
         <div className="hidden md:block lg:hidden relative w-full animate-fade-in">
           <img 
-            src={content.background_image_url}
-            alt="Marc Hodulich - Endurance athlete and entrepreneur" 
+            srcSet={getResponsiveSrcSet(content.background_image_url, [640, 854, 1280], 85)}
+            sizes="(min-width: 768px) 100vw, 640px"
+            src={getOptimizedImageUrl(content.background_image_url, 854, 85)}
+            alt="Marc Hodulich - Endurance athlete and entrepreneur"
+            width={(content as any).background_image_width || 854}
+            height={(content as any).background_image_height || 1280}
             className="w-full h-auto object-contain object-bottom"
             loading="eager"
             decoding="async"
@@ -113,8 +122,12 @@ export const Hero = () => {
       {isReady && (
         <div className="md:hidden relative w-full min-h-80 animate-fade-in">
           <img 
-            src={content.background_image_url}
-            alt="Marc Hodulich - Endurance athlete and entrepreneur" 
+            srcSet={getResponsiveSrcSet(content.background_image_url, [356, 640], 85)}
+            sizes="100vw"
+            src={getOptimizedImageUrl(content.background_image_url, 640, 85)}
+            alt="Marc Hodulich - Endurance athlete and entrepreneur"
+            width={(content as any).background_image_width || 640}
+            height={(content as any).background_image_height || 960}
             className="w-full h-full object-contain object-bottom"
             loading="eager"
             decoding="async"

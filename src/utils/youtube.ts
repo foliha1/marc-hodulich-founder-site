@@ -19,8 +19,8 @@ export const extractYouTubeId = (url: string): string | null => {
 
 /**
  * Get YouTube thumbnail URL from video ID
- * Uses maxresdefault for highest quality
+ * Uses hqdefault for optimal balance of quality and performance (480x360)
  */
 export const getYouTubeThumbnail = (videoId: string): string => {
-  return `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
+  return `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
 };

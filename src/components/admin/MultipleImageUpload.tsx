@@ -5,11 +5,12 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Upload, X } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
+import { getImageDimensions } from "@/utils/imageOptimization";
 
 interface MultipleImageUploadProps {
   folder: string;
   label: string;
-  onUploadComplete: (urls: string[]) => void;
+  onUploadComplete: (data: Array<{ url: string; width: number; height: number }>) => void;
 }
 
 export const MultipleImageUpload = ({
@@ -32,8 +33,11 @@ export const MultipleImageUpload = ({
     }
   };
 
-  const uploadFile = async (file: File, index: number): Promise<string> => {
+  const uploadFile = async (file: File, index: number): Promise<{ url: string; width: number; height: number }> => {
     validateFile(file);
+
+    // Extract dimensions first
+    const dimensions = await getImageDimensions(file);
 
     const fileExt = file.name.split(".").pop();
     const fileName = `${Math.random()}.${fileExt}`;
@@ -53,7 +57,7 @@ export const MultipleImageUpload = ({
       .from("cms-images")
       .getPublicUrl(filePath);
 
-    return publicUrl;
+    return { url: publicUrl, ...dimensions };
   };
 
   const handleFileSelect = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,12 +65,12 @@ export const MultipleImageUpload = ({
     if (!files || files.length === 0) return;
 
     setUploading(true);
-    const urls: string[] = [];
+    const uploadResults: Array<{ url: string; width: number; height: number }> = [];
 
     try {
       for (let i = 0; i < files.length; i++) {
-        const url = await uploadFile(files[i], i);
-        urls.push(url);
+        const result = await uploadFile(files[i], i);
+        uploadResults.push(result);
       }
 
       toast({
@@ -74,7 +78,7 @@ export const MultipleImageUpload = ({
         description: `${files.length} image(s) uploaded successfully`,
       });
 
-      onUploadComplete(urls);
+      onUploadComplete(uploadResults);
       setUploadProgress({});
       
       if (fileInputRef.current) {

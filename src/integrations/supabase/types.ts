@@ -18,26 +18,32 @@ export type Database = {
         Row: {
           caption: string | null
           display_order: number
+          height: number | null
           id: string
           image_url: string
           subcaption: string | null
           updated_at: string | null
+          width: number | null
         }
         Insert: {
           caption?: string | null
           display_order: number
+          height?: number | null
           id?: string
           image_url: string
           subcaption?: string | null
           updated_at?: string | null
+          width?: number | null
         }
         Update: {
           caption?: string | null
           display_order?: number
+          height?: number | null
           id?: string
           image_url?: string
           subcaption?: string | null
           updated_at?: string | null
+          width?: number | null
         }
         Relationships: []
       }
@@ -70,7 +76,9 @@ export type Database = {
       }
       hero_content: {
         Row: {
+          background_image_height: number | null
           background_image_url: string
+          background_image_width: number | null
           description: string
           id: string
           subtitle: string
@@ -78,7 +86,9 @@ export type Database = {
           updated_at: string | null
         }
         Insert: {
+          background_image_height?: number | null
           background_image_url: string
+          background_image_width?: number | null
           description: string
           id?: string
           subtitle: string
@@ -86,7 +96,9 @@ export type Database = {
           updated_at?: string | null
         }
         Update: {
+          background_image_height?: number | null
           background_image_url?: string
+          background_image_width?: number | null
           description?: string
           id?: string
           subtitle?: string
@@ -99,26 +111,32 @@ export type Database = {
         Row: {
           description: string
           display_order: number
+          height: number | null
           id: string
           image_url: string
           title: string
           updated_at: string | null
+          width: number | null
         }
         Insert: {
           description: string
           display_order: number
+          height?: number | null
           id?: string
           image_url: string
           title: string
           updated_at?: string | null
+          width?: number | null
         }
         Update: {
           description?: string
           display_order?: number
+          height?: number | null
           id?: string
           image_url?: string
           title?: string
           updated_at?: string | null
+          width?: number | null
         }
         Relationships: []
       }

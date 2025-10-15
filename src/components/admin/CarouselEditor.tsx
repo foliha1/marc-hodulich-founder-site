@@ -225,12 +225,18 @@ export const CarouselEditor = () => {
           <CardContent className="space-y-4">
             <ImageUpload
               value={slide.image_url}
-              onChange={async (url) => {
+              onChange={async (url, dimensions) => {
+                const updates = { 
+                  image_url: url,
+                  width: dimensions?.width || null,
+                  height: dimensions?.height || null,
+                };
+                
                 // Update local state immediately for UI feedback
-                setSlides(slides.map((s) => (s.id === slide.id ? { ...s, image_url: url } : s)));
+                setSlides(slides.map((s) => (s.id === slide.id ? { ...s, ...updates } : s)));
                 
                 // Auto-save to database
-                await handleUpdate(slide.id, { image_url: url });
+                await handleUpdate(slide.id, updates);
               }}
               folder="carousel"
               label="Slide Image"

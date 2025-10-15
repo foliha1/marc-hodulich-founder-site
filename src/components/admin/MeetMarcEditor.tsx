@@ -135,8 +135,13 @@ export const MeetMarcEditor = () => {
             </div>
             <ImageUpload
               value={card.image_url}
-              onChange={(url) =>
-                setCards(cards.map((c) => (c.id === card.id ? { ...c, image_url: url } : c)))
+              onChange={(url, dimensions) =>
+                setCards(cards.map((c) => (c.id === card.id ? { 
+                  ...c, 
+                  image_url: url,
+                  width: dimensions?.width || null,
+                  height: dimensions?.height || null,
+                } : c)))
               }
               folder="meet-marc"
               label="Card Image"
@@ -147,6 +152,8 @@ export const MeetMarcEditor = () => {
                   title: card.title,
                   description: card.description,
                   image_url: card.image_url,
+                  width: card.width,
+                  height: card.height,
                 })
               }
               disabled={loading}

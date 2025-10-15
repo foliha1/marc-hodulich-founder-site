@@ -5,10 +5,11 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Progress } from "@/components/ui/progress";
 import { Upload, X } from "lucide-react";
+import { getImageDimensions } from "@/utils/imageOptimization";
 
 interface ImageUploadProps {
   value: string;
-  onChange: (url: string) => void;
+  onChange: (url: string, dimensions?: { width: number; height: number }) => void;
   folder: string;
   label: string;
 }
@@ -45,8 +46,9 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
     setUploadProgress(0);
 
     try {
-      // Simulate initial progress
+      // Extract image dimensions
       setUploadProgress(10);
+      const dimensions = await getImageDimensions(file);
       
       const fileExt = file.name.split('.').pop();
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
@@ -70,7 +72,7 @@ export const ImageUpload = ({ value, onChange, folder, label }: ImageUploadProps
         .getPublicUrl(filePath);
 
       setUploadProgress(100);
-      onChange(publicUrl);
+      onChange(publicUrl, dimensions);
       toast({ title: "Success", description: "Image uploaded successfully" });
     } catch (error: any) {
       toast({ variant: "destructive", title: "Upload failed", description: error.message });

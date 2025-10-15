@@ -15,6 +15,8 @@ export const HeroEditor = () => {
     description: "",
     subtitle: "",
     background_image_url: "",
+    background_image_width: null as number | null,
+    background_image_height: null as number | null,
   });
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
@@ -40,6 +42,8 @@ export const HeroEditor = () => {
         description: data.description,
         subtitle: data.subtitle,
         background_image_url: data.background_image_url,
+        background_image_width: data.background_image_width,
+        background_image_height: data.background_image_height,
       })
       .eq("id", data.id);
 
@@ -81,7 +85,14 @@ export const HeroEditor = () => {
         </div>
         <ImageUpload
           value={data.background_image_url}
-          onChange={(url) => setData({ ...data, background_image_url: url })}
+          onChange={(url, dimensions) => 
+            setData({ 
+              ...data, 
+              background_image_url: url,
+              background_image_width: dimensions?.width || null,
+              background_image_height: dimensions?.height || null,
+            })
+          }
           folder="hero"
           label="Background Image"
         />
