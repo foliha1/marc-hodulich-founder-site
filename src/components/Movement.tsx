@@ -76,7 +76,7 @@ export const Movement = () => {
                 muted 
                 loop 
                 playsInline
-                preload="metadata"
+                preload="auto"
               >
                 <source src={content.video_url} type="video/mp4" />
                 Your browser does not support the video tag.
