@@ -58,7 +58,7 @@ export const FailuresFirsts = () => {
                   className="mr-3 md:mr-6 w-[356px] sm:w-[427px] md:w-[640px] lg:w-[854px] cursor-pointer"
                   onClick={() => carouselApi?.scrollNext()}
                 >
-                  <div className="aspect-[4/3]">
+                  <div className="aspect-[4/3] relative">
                     <img
                       srcSet={getResponsiveSrcSet(slide.image_url, [356, 640, 854, 1280], 80)}
                       sizes="(max-width: 640px) 356px, (max-width: 768px) 427px, (max-width: 1024px) 640px, 854px"
@@ -70,6 +70,16 @@ export const FailuresFirsts = () => {
                       className="w-full h-full object-cover rounded-[4px]"
                       loading="lazy"
                     />
+                    {(slide.caption || slide.subcaption) && (
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 pt-12 rounded-b-[4px]">
+                        {slide.caption && (
+                          <p className="text-white font-semibold text-sm md:text-base">{slide.caption}</p>
+                        )}
+                        {slide.subcaption && (
+                          <p className="text-white/80 text-xs md:text-sm mt-1">{slide.subcaption}</p>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </div>
               </CarouselItem>

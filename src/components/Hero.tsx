@@ -1,9 +1,10 @@
 import { ChevronDown } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { HeroSkeleton } from "@/components/HeroSkeleton";
 import { useLoadingContext } from "@/contexts/LoadingContext";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { sanitizeHtml } from "@/utils/sanitizeHtml";
 
 export const Hero = () => {
   const { data: content, isLoading } = useHeroContent();
@@ -84,7 +85,7 @@ export const Hero = () => {
         <div className={`max-w-2xl transition-all duration-[800ms] ${isReady ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {isReady && (
             <>
-              <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
+              <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: sanitizeHtml(content.title) }} />
               <p className="body-text mb-8 text-white/90">
                 {content.description}
               </p>

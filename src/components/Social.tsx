@@ -34,6 +34,9 @@ export const Social = () => {
     // Only load Elfsight script when section becomes visible
     if (!isVisible) return;
 
+    // Guard against duplicate script injection
+    if (document.querySelector('script[src*="elfsightcdn"]')) return;
+
     const script = document.createElement('script');
     script.src = 'https://elfsightcdn.com/platform.js';
     script.defer = true;

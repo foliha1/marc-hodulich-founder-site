@@ -1,6 +1,5 @@
 import { Hero } from "@/components/Hero";
 import { MeetMarc } from "@/components/MeetMarc";
-import { PeaksValleys } from "@/components/PeaksValleys";
 import { FailuresFirsts } from "@/components/FailuresFirsts";
 import { Movement } from "@/components/Movement";
 import { Speaking } from "@/components/Speaking";
@@ -13,7 +12,6 @@ const Index = () => {
     <main className="w-full">
       <Hero />
       <MeetMarc />
-      {/* <PeaksValleys /> */}
       <FailuresFirsts />
       <Movement />
       <Speaking />
