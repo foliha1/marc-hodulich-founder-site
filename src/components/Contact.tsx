@@ -1,27 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { useEffect, useState } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-interface ContactContent {
-  title: string;
-  description: string;
-  button_text: string;
-  email: string;
-}
+import { useContactContent } from "@/hooks/useContactContent";
 
 export const Contact = () => {
-  const [content, setContent] = useState<ContactContent | null>(null);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      const { data } = await supabase
-        .from("contact_content")
-        .select("*")
-        .single();
-      if (data) setContent(data);
-    };
-    fetchContent();
-  }, []);
+  const { data: content } = useContactContent();
 
   if (!content) return null;
 
