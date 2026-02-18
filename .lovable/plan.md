@@ -1,56 +1,41 @@
 
 
-# Fix Image Loading Performance
+# Fix Image Cropping After Optimization
 
-## Root Cause
+## Problem
 
-The `getOptimizedImageUrl` function appends `?width=X&quality=Y` to storage URLs, but uses the **wrong endpoint**. The current URLs look like:
+The `/render/image/public/` endpoint is working correctly (images reduced from ~3MB to ~57KB), but it uses `resizing_type:fill` which crops images server-side before the browser receives them. Combined with CSS aspect ratio constraints, this creates awkward cropping -- especially for portrait-oriented photos in the Meet Marc section.
 
-```
-/storage/v1/object/public/cms-images/hero/image.png?width=1280&quality=85
-```
+**Specific issues:**
+- **MeetMarc mobile**: Images use `w-full h-auto` with no aspect ratio constraint, so portrait photos stretch the full screen height (e.g., the blue sky/hat photo takes up 2+ screens)
+- **MeetMarc desktop**: `aspect-[16/9] object-cover` crops portrait photos too aggressively, cutting off heads and faces
+- **Carousel**: The `aspect-[4/3]` container works reasonably well but the server-side fill crop may still cut important parts
 
-These query params are completely ignored -- the original full-size file is served every time. Observed sizes:
-- Hero PNG: **1.9 MB** (should be ~100-200 KB after resize + format conversion)
-- Meet Marc JPG: **2.98 MB** (should be ~50-100 KB at 640px wide)
+## Solution
 
-The correct endpoint for on-the-fly image transformations is:
+### 1. Use `resize=fit` instead of `fill` in the render URL
 
-```
-/storage/v1/render/image/public/cms-images/hero/image.png?width=1280&quality=85
-```
+Add `resize=fit` to the Supabase render URL parameters. This tells Supabase to resize the image to fit within the requested dimensions **without cropping**, preserving the full image. The CSS `object-cover` on the browser side will then handle the visual cropping with better control.
 
-## Fix
+**File:** `src/utils/imageOptimization.ts`
+- Change the return URL to include `&resize=fit` so the server doesn't crop
 
-**Single file change:** `src/utils/imageOptimization.ts`
+### 2. Fix MeetMarc mobile image aspect ratio
 
-Update `getOptimizedImageUrl` to rewrite `/object/public/` to `/render/image/public/` in storage URLs, and add `format=webp` for modern browser compression:
+**File:** `src/components/MeetMarc.tsx`
+- Replace the two separate `<img>` tags (mobile without aspect ratio, desktop with 16:9) with a single responsive image that uses a consistent, forgiving aspect ratio
+- Use `aspect-[4/3]` for all screen sizes -- this works well for both landscape and portrait source images
+- Keep `object-cover` for consistent visual cropping in the browser
+- Use `object-top` to prioritize showing faces/heads rather than centering
 
-```typescript
-export const getOptimizedImageUrl = (url: string, width: number, quality: number = 80): string => {
-  if (!url) return url;
-  if (!url.includes('supabase.co')) return url;
+### 3. No changes needed for Carousel or Hero
 
-  // Switch from /object/public/ to /render/image/public/ for on-the-fly transforms
-  const transformUrl = url.replace(
-    '/storage/v1/object/public/',
-    '/storage/v1/render/image/public/'
-  );
+- Carousel already uses `aspect-[4/3]` with `object-cover` which works well
+- Hero uses `object-contain` which shows the full image without any cropping
 
-  return `${transformUrl}?width=${width}&quality=${quality}&format=origin`;
-};
-```
+## Technical Details
 
-Note: Using `format=origin` keeps the original format (PNG/JPG). If the project's Supabase plan supports WebP conversion, we could use `format=webp` for even smaller files -- but `origin` is safe and universally supported.
-
-## Expected Impact
-
-- Hero image: ~1.9 MB down to ~200-400 KB (resized to 1280px wide)
-- Meet Marc images: ~3 MB down to ~80-150 KB (resized to 640px wide)  
-- Carousel images: Similar 5-10x reductions
-- **Total page weight reduction: roughly 70-80%** for images
-
-## Files Modified
-
-- `src/utils/imageOptimization.ts` -- one function change (swap endpoint path)
+**Files to modify:**
+- `src/utils/imageOptimization.ts` -- add `resize=fit` parameter
+- `src/components/MeetMarc.tsx` -- consolidate image tags, use consistent `aspect-[4/3] object-cover object-top`
 
