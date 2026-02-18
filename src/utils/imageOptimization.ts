@@ -20,7 +20,7 @@ export const getOptimizedImageUrl = (url: string, width: number, quality: number
     '/storage/v1/render/image/public/'
   );
 
-  return `${transformUrl}?width=${width}&quality=${quality}&format=origin`;
+  return `${transformUrl}?width=${width}&quality=${quality}&format=origin&resize=fit`;
 };
 
 /**
