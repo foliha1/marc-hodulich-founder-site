@@ -1,11 +1,31 @@
-import { useEffect, useRef, useState } from "react";
-import { useMovementContent } from "@/hooks/useMovementContent";
+import { useEffect, useState, useRef } from "react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface MovementContent {
+  title: string;
+  description: string;
+  video_url: string;
+  video_link_url: string;
+  quote: string;
+  quote_author: string;
+}
 
 export const Movement = () => {
-  const { data: content } = useMovementContent();
+  const [content, setContent] = useState<MovementContent | null>(null);
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const fetchContent = async () => {
+      const { data } = await supabase
+        .from("movement_content")
+        .select("*")
+        .single();
+      if (data) setContent(data);
+    };
+    fetchContent();
+  }, []);
 
   // IntersectionObserver for scroll-triggered autoplay
   useEffect(() => {
@@ -39,8 +59,7 @@ export const Movement = () => {
 
   const posterUrl = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
 
-  return (
-    <section className="w-full bg-brand-warm section-spacing">
+  return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-slide-up">
           <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
@@ -50,7 +69,7 @@ export const Movement = () => {
         {/* Movement Video - Autoplay on scroll */}
         <div
           ref={videoRef}
-          className="relative w-full h-[400px] rounded-[4px] mb-24 md:mb-32 lg:mb-48 overflow-hidden group"
+          className="relative w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden group"
         >
           <video
             ref={videoElementRef}
@@ -89,6 +108,5 @@ export const Movement = () => {
           </div>
         </div>
       </div>
-    </section>
-  );
+    </section>;
 };

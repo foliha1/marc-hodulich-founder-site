@@ -13,14 +13,8 @@ export const getOptimizedImageUrl = (url: string, width: number, quality: number
   
   // Only apply transformations to Supabase Storage URLs
   if (!url.includes('supabase.co')) return url;
-
-  // Switch from /object/public/ to /render/image/public/ for on-the-fly transforms
-  const transformUrl = url.replace(
-    '/storage/v1/object/public/',
-    '/storage/v1/render/image/public/'
-  );
-
-  return `${transformUrl}?width=${width}&quality=${quality}&format=origin&resize=fit`;
+  
+  return `${url}?width=${width}&quality=${quality}`;
 };
 
 /**

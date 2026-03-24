@@ -5,27 +5,22 @@ export const LoadingScreen = () => {
   const { isPageReady } = useLoadingContext();
   const [minTimeElapsed, setMinTimeElapsed] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [shouldRender, setShouldRender] = useState(true);
 
   useEffect(() => {
+    // Minimum display time of 800ms
     const timer = setTimeout(() => {
       setMinTimeElapsed(true);
     }, 800);
+
     return () => clearTimeout(timer);
   }, []);
 
   useEffect(() => {
+    // Fade out when both page is ready AND minimum time has elapsed
     if (isPageReady && minTimeElapsed) {
       setIsVisible(false);
-      // Fully unmount after fade-out transition completes
-      const timer = setTimeout(() => {
-        setShouldRender(false);
-      }, 850);
-      return () => clearTimeout(timer);
     }
   }, [isPageReady, minTimeElapsed]);
-
-  if (!shouldRender) return null;
 
   return (
     <div
