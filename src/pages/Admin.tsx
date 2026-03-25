@@ -10,13 +10,11 @@ import { CarouselEditor } from "@/components/admin/CarouselEditor";
 import { MovementEditor } from "@/components/admin/MovementEditor";
 import { PodcastsEditor } from "@/components/admin/PodcastsEditor";
 import { ContactEditor } from "@/components/admin/ContactEditor";
-import { useLoadingContext } from "@/contexts/LoadingContext";
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { setPageReady } = useLoadingContext();
   useEffect(() => {
     const checkAdminAccess = async () => {
       const {
