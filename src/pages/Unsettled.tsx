@@ -15,6 +15,7 @@ const Unsettled = () => {
             <p className="body-text text-white/80 mb-12">
               Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services. Please follow the prompts below to make a payment.
             </p>
+            {/* Payment button hidden for now
             <Button
               asChild
               size="lg"
@@ -24,6 +25,7 @@ const Unsettled = () => {
                 MAKE A PAYMENT
               </a>
             </Button>
+            */}
           </div>
         </div>
       </section>
