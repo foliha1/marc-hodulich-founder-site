@@ -32,7 +32,7 @@ export const Footer = () => {
             </defs>
           </svg>
           <p className="body-text text-[#F2F2F2]">
-            © 2017–2025 Marc Hodulich. All rights reserved.
+            © 2017–{new Date().getFullYear()} Marc Hodulich. All rights reserved.
           </p>
         </div>
       </div>

@@ -9,6 +9,7 @@ export const Hero = () => {
   if (isLoading || !content) {
     return (
       <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
+        <Navigation variant="light" />
       </section>
     );
   }

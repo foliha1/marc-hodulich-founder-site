@@ -18,10 +18,10 @@ const Unsettled = () => {
             <Button
               asChild
               size="lg"
-              className="bg-white hover:bg-white/90 text-brand-red px-8 py-4 text-lg font-semibold smooth-transition"
+              className="bg-white hover:bg-brand-ink text-brand-red hover:text-white px-8 py-4 text-lg font-semibold uppercase tracking-wider smooth-transition"
             >
               <a href="https://buy.stripe.com/PLACEHOLDER" target="_blank" rel="noopener noreferrer">
-                Make a Payment
+                MAKE A PAYMENT
               </a>
             </Button>
           </div>
