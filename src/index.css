@@ -319,6 +319,8 @@
   }
   
   .section-spacing {
+    contain: layout;
+    content-visibility: auto;
     padding-top: clamp(120px, 15vw, 200px);
     padding-bottom: clamp(120px, 15vw, 200px);
   }
