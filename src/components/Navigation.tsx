@@ -73,7 +73,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
         }`}
       >
         {/* Close button */}
-        <div className="pt-9 px-6 lg:px-8">
+        <div className="py-6 px-6 lg:px-8">
           <div className="max-w-7xl mx-auto flex justify-end">
             <button
               onClick={() => setIsOpen(false)}
