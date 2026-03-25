@@ -2,6 +2,7 @@ import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
+import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
