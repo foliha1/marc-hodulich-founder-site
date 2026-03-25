@@ -2,6 +2,7 @@ import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
+import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
@@ -29,7 +30,9 @@ export const Speaking = () => {
             >
               <div className="aspect-video overflow-hidden relative">
                 <img 
-                  src={podcast.thumbnail_url}
+                  srcSet={getResponsiveSrcSet(podcast.thumbnail_url, [356, 640], 80)}
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  src={getOptimizedImageUrl(podcast.thumbnail_url, 640, 80)}
                   alt={podcast.title}
                   className="w-full h-full object-cover smooth-transition group-hover:scale-105"
                   loading="lazy"
