@@ -4,12 +4,10 @@ import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 import { useEffect, useState } from "react";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const sectionAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   if (isLoading || !data || data.slides.length === 0) return <FailuresFirstsSkeleton />;
 
