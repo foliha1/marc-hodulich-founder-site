@@ -14,7 +14,7 @@ export const getOptimizedImageUrl = (url: string, width: number, quality: number
   // Only apply transformations to Supabase Storage URLs
   if (!url.includes('supabase.co')) return url;
   
-  return `${url}?width=${width}&quality=${quality}`;
+  return `${url}?width=${width}&quality=${quality}&format=origin`;
 };
 
 /**
