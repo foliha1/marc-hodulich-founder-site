@@ -31,7 +31,7 @@ export const Footer = () => {
               </clipPath>
             </defs>
           </svg>
-          <p className="body-text <p className="body-text text-[#F2F2F2]">">
+          <p className="body-text text-[#F2F2F2]">
             © 2017–2025 Marc Hodulich. All rights reserved.
           </p>
         </div>
