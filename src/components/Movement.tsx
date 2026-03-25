@@ -41,7 +41,7 @@ export const Movement = () => {
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up">
+        <div className="animate-in">
           <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
@@ -75,7 +75,7 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div className="animate-slide-up">
+        <div className="animate-in">
           <div className="flex flex-col items-center">
             <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">

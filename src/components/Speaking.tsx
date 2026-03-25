@@ -13,7 +13,7 @@ export const Speaking = () => {
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-slide-up mb-16">
+        <div className="animate-in mb-16">
           <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
@@ -25,7 +25,7 @@ export const Speaking = () => {
             <div 
               key={podcast.id}
               onClick={() => setSelectedVideo(podcast.podcast_url)}
-              className="group animate-fade-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer"
+              className="group animate-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer"
               style={{ animationDelay: `${index * 0.1}s`, backgroundColor: '#f2f2f2' }}
             >
               <div className="aspect-video overflow-hidden relative">

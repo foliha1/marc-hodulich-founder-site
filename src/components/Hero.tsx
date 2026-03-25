@@ -53,7 +53,7 @@ export const Hero = () => {
       </div>
       
       {/* Hero Image - Desktop: Right bleed with limited scaling (±20%) */}
-      <div className="hidden lg:block absolute bottom-0 right-0 w-[clamp(56.16vw,70.2vw,84.24vw)] min-h-[84vh] max-h-[100vh] h-[93.6vh] animate-fade-in">
+      <div className="hidden lg:block absolute bottom-0 right-0 w-[clamp(56.16vw,70.2vw,84.24vw)] min-h-[84vh] max-h-[100vh] h-[93.6vh] animate-in">
         <img 
           srcSet={getResponsiveSrcSet(content.background_image_url, [854, 1280, 1920], 85)}
           sizes="(min-width: 1024px) 70vw, 100vw"
@@ -87,7 +87,7 @@ export const Hero = () => {
       </div>
 
       {/* Tablet Hero Image - Below content with appropriate sizing */}
-      <div className="hidden md:block lg:hidden relative w-full animate-fade-in">
+      <div className="hidden md:block lg:hidden relative w-full animate-in">
         <img 
           srcSet={getResponsiveSrcSet(content.background_image_url, [640, 854, 1280], 85)}
           sizes="(min-width: 768px) 100vw, 640px"
@@ -102,7 +102,7 @@ export const Hero = () => {
       </div>
 
       {/* Mobile Hero Image - Below content with no cropping */}
-      <div className="md:hidden relative w-full min-h-80 animate-fade-in">
+      <div className="md:hidden relative w-full min-h-80 animate-in">
         <img 
           srcSet={getResponsiveSrcSet(content.background_image_url, [356, 640], 85)}
           sizes="100vw"
