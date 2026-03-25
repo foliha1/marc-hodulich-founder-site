@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useContactContent } from "@/hooks/useContactContent";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Contact = () => {
   const { data: content } = useContactContent();
