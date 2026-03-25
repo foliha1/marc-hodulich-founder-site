@@ -3,6 +3,7 @@ import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
