@@ -78,7 +78,7 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div className="animate-in">
+        <div ref={quoteAnimation.ref} className={`transition-all duration-700 ease-out ${quoteAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <div className="flex flex-col items-center">
             <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
