@@ -245,7 +245,7 @@
   }
 
   .animate-in-delay.entered {
-    animation: enterUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+    animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
 
 }
