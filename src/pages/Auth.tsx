@@ -27,12 +27,10 @@ const Auth = () => {
       const { data: { session } } = await supabase.auth.getSession();
       if (session) {
         navigate("/admin");
-      } else {
-        setPageReady();
       }
     };
     checkUser();
-  }, [navigate, setPageReady]);
+  }, [navigate]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();

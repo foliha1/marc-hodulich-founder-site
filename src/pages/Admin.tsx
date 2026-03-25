@@ -41,7 +41,6 @@ const Admin = () => {
       }
       setIsAdmin(true);
       setLoading(false);
-      setPageReady();
     };
     checkAdminAccess();
 

@@ -28,12 +28,7 @@ export const Hero = () => {
     }
   }, [content, imageLoaded]);
 
-  // Signal page is ready when both data exists and hero image is loaded
-  useEffect(() => {
-    if (content && imageLoaded) {
-      setPageReady();
-    }
-  }, [content, imageLoaded, setPageReady]);
+  }, [content, imageLoaded]);
 
   const isReady = !isLoading && content && imageLoaded;
 
