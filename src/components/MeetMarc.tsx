@@ -69,7 +69,7 @@ const MeetMarcCard = ({
   return (
     <div 
       ref={cardAnimation.ref}
-      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center transition-all duration-700 will-change-[opacity,transform] opacity-100 translate-y-0 animate-in`}
+      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center transition-all duration-700 ease-out ${cardAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
       <div className="lg:w-1/2">
         <img 
