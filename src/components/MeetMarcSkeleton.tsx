@@ -24,7 +24,7 @@ export const MeetMarcSkeleton = () => {
                 className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center`}
               >
                 <div className="lg:w-1/2">
-                  <Skeleton className="w-full aspect-[16/9] rounded bg-brand-stone skeleton-shimmer" />
+                  <Skeleton className="w-full aspect-[16/9] rounded bg-brand-stone" />
                 </div>
                 <div className="lg:w-1/2 space-y-4">
                   <Skeleton className="h-12 w-3/4 bg-brand-stone" />
