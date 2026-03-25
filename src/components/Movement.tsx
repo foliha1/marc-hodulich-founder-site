@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef } from "react";
 import { useMovementContent } from "@/hooks/useMovementContent";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Movement = () => {
   const { data: content } = useMovementContent();
