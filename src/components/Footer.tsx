@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return <footer className="w-full bg-brand-ink text-white flex flex-col justify-center py-24 md:py-36 lg:py-48">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center w-full">
