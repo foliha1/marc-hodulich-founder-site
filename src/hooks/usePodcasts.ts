@@ -22,6 +22,6 @@ export const usePodcasts = () => {
       if (error) throw error;
       return data as Podcast[];
     },
-    staleTime: 5 * 60 * 1000,
+    
   });
 };

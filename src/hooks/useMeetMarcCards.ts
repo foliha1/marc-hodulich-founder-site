@@ -31,6 +31,6 @@ export const useMeetMarcCards = () => {
         section: sectionResponse.data as SectionContent | null
       };
     },
-    staleTime: 5 * 60 * 1000,
+    
   });
 };

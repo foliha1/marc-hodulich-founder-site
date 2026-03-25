@@ -20,6 +20,6 @@ export const useHeroContent = () => {
       if (error) throw error;
       return data as HeroContent;
     },
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    
   });
 };
