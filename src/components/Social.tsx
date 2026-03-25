@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 export const Social = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
