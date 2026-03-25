@@ -3,6 +3,7 @@ import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 export const Social = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const headerAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   useEffect(() => {
     // Lazy load Instagram widget using Intersection Observer
