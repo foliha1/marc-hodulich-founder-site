@@ -44,7 +44,7 @@ export const Social = () => {
   return (
     <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={headerAnimation.ref} className={`mb-16 transition-all duration-700 ease-out ${headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className="mb-16 animate-in">
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         

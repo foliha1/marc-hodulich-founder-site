@@ -1,14 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useMovementContent } from "@/hooks/useMovementContent";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Movement = () => {
   const { data: content } = useMovementContent();
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
-  const sectionAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
-  const quoteAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   // IntersectionObserver for scroll-triggered autoplay
   useEffect(() => {
@@ -44,7 +41,7 @@ export const Movement = () => {
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={sectionAnimation.ref} className={`transition-all duration-700 ease-out ${sectionAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className="animate-in">
           <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
@@ -78,7 +75,7 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div ref={quoteAnimation.ref} className={`transition-all duration-700 ease-out ${quoteAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+        <div className="animate-in">
           <div className="flex flex-col items-center">
             <blockquote className="mx-auto text-center max-w-5xl px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
