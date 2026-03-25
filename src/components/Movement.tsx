@@ -58,7 +58,7 @@ export const Movement = () => {
             loop
             playsInline
             autoPlay
-            preload="auto"
+            preload="metadata"
             poster={posterUrl}
           >
             <source src={content.video_url} type="video/mp4" />
