@@ -28,8 +28,6 @@ export const Hero = () => {
     }
   }, [content, imageLoaded]);
 
-  }, [content, imageLoaded]);
-
   const isReady = !isLoading && content && imageLoaded;
 
   return (
