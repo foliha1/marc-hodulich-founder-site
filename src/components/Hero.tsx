@@ -70,7 +70,7 @@ export const Hero = () => {
       
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
-        <div className="max-w-2xl">
+        <div className="max-w-2xl animate-in">
           <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
           <p className="body-text mb-8 text-white/90">
             {content.description}
