@@ -1,31 +1,11 @@
 import { useEffect, useState, useRef } from "react";
-import { supabase } from "@/integrations/supabase/client";
-
-interface MovementContent {
-  title: string;
-  description: string;
-  video_url: string;
-  video_link_url: string;
-  quote: string;
-  quote_author: string;
-}
+import { useMovementContent } from "@/hooks/useMovementContent";
 
 export const Movement = () => {
-  const [content, setContent] = useState<MovementContent | null>(null);
+  const { data: content } = useMovementContent();
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    const fetchContent = async () => {
-      const { data } = await supabase
-        .from("movement_content")
-        .select("*")
-        .single();
-      if (data) setContent(data);
-    };
-    fetchContent();
-  }, []);
 
   // IntersectionObserver for scroll-triggered autoplay
   useEffect(() => {
