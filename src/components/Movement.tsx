@@ -7,6 +7,8 @@ export const Movement = () => {
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
+  const sectionAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
+  const quoteAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   // IntersectionObserver for scroll-triggered autoplay
   useEffect(() => {
