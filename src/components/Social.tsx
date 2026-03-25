@@ -31,20 +31,15 @@ export const Social = () => {
   }, [isVisible]);
 
   useEffect(() => {
-    // Only load Elfsight script when section becomes visible
     if (!isVisible) return;
+
+    if (document.querySelector('script[src*="elfsight"]')) return;
 
     const script = document.createElement('script');
     script.src = 'https://elfsightcdn.com/platform.js';
     script.defer = true;
     script.onerror = () => console.error('Failed to load Elfsight script');
     document.body.appendChild(script);
-
-    return () => {
-      if (script && document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
   }, [isVisible]);
 
   return (
