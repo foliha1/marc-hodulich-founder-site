@@ -1,6 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { Navigation } from "@/components/Navigation";
 
 export const Hero = () => {
   const { data: content, isLoading } = useHeroContent();
