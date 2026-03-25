@@ -283,10 +283,6 @@
     will-change: opacity, transform;
   }
   
-  .section-spacing {
-    contain: layout;
-    content-visibility: auto;
-  }
 }
 
 @layer utilities {
