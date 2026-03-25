@@ -33,9 +33,6 @@ export const Footer = () => {
               </clipPath>
             </defs>
           </svg>
-          <Link to="/unsettled" className="caption-text text-[#F2F2F2]/60 hover:text-[#F2F2F2] smooth-transition">
-            Executive Coaching
-          </Link>
           <p className="body-text text-[#F2F2F2]">
             © 2017–2025 Marc Hodulich. All rights reserved.
           </p>
