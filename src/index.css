@@ -231,13 +231,21 @@
   }
   
   .animate-in {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .animate-in.entered {
     animation: enterUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
-    will-change: opacity, transform;
   }
 
   .animate-in-delay {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  .animate-in-delay.entered {
     animation: enterUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
-    will-change: opacity, transform;
   }
 
 }
