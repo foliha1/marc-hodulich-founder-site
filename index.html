@@ -29,5 +29,41 @@
   <body style="background-color: #EB2719;">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        var observer = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("entered");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: "0px 0px -40px 0px", threshold: 0.01 }
+        );
+
+        function observeElements() {
+          document.querySelectorAll(".animate-in:not(.entered), .animate-in-delay:not(.entered)").forEach(function (el) {
+            var rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
+              el.classList.add("entered");
+            } else {
+              observer.observe(el);
+            }
+          });
+        }
+
+        observeElements();
+
+        var mutationObserver = new MutationObserver(function () {
+          observeElements();
+        });
+        mutationObserver.observe(document.getElementById("root"), {
+          childList: true,
+          subtree: true,
+        });
+      });
+    </script>
   </body>
 </html>
