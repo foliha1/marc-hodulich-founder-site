@@ -80,7 +80,7 @@ export const Hero = () => {
           </div>
           
           {/* Scroll indicator - directly beneath subtitle */}
-          <div className="animate-bounce">
+          <div className="animate-bounce opacity-100">
             <ChevronDown className="w-6 h-6 text-white/80" />
           </div>
         </div>
