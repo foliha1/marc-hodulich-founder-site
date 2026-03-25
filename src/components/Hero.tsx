@@ -2,12 +2,10 @@ import { ChevronDown } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { HeroSkeleton } from "@/components/HeroSkeleton";
-import { useLoadingContext } from "@/contexts/LoadingContext";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
 
 export const Hero = () => {
   const { data: content, isLoading } = useHeroContent();
-  const { setPageReady } = useLoadingContext();
   const [imageLoaded, setImageLoaded] = useState(false);
 
   // Preload hero image when content arrives
