@@ -44,7 +44,7 @@ export const Movement = () => {
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-in">
+        <div ref={sectionAnimation.ref} className={`transition-all duration-700 ease-out ${sectionAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
