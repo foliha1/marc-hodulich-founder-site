@@ -1,7 +1,7 @@
 export const Footer = () => {
   return <footer className="w-full bg-brand-ink text-white flex flex-col justify-center py-24 md:py-36 lg:py-48">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center w-full">
-        <div className="flex flex-col items-center gap-24 md:gap-36 lg:gap-48">
+        <div className="flex flex-col items-center gap-24 md:gap-36 lg:gap-48 animate-in">
           <svg width="220" height="100" viewBox="0 0 220 100" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-40 h-18 md:w-[187px] md:h-[86px] lg:w-[216px] lg:h-[101px]" aria-label="Marc Hodulich Logo">
             <g clipPath="url(#clip0_229_401)">
               <path d="M213.131 0V26.5818H57.2103V0H48.3375L29.9754 50.4981L11.2992 0H2.3468V58.5782H8.5351V8.32378L26.9091 58.3304L26.9966 58.5782H32.6361L51.022 8.33177V58.5782H57.2103V31.9964H213.131V58.5782H219.319V0H213.131Z" fill="#F2F2F2" />

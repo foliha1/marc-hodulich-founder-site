@@ -49,7 +49,7 @@ export const Movement = () => {
         {/* Movement Video - Autoplay on scroll */}
         <div
           ref={videoRef}
-          className="relative w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden group"
+          className="relative w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden group animate-in"
         >
           <video
             ref={videoElementRef}
