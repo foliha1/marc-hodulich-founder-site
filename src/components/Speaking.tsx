@@ -3,12 +3,10 @@ import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
-import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
-  const sectionAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   if (isLoading || !podcasts || podcasts.length === 0) return <SpeakingSkeleton />;
 
