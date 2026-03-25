@@ -3,17 +3,19 @@ import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
+  const sectionAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   if (isLoading || !podcasts || podcasts.length === 0) return <SpeakingSkeleton />;
 
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-in mb-16">
+        <div ref={sectionAnimation.ref} className={`mb-16 transition-all duration-700 ease-out ${sectionAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.

@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 export const Social = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const headerAnimation = useScrollAnimation({ threshold: 0.08, rootMargin: "0px 0px 80px 0px", triggerOnce: true, fallbackTimeout: 1500 });
 
   useEffect(() => {
     // Lazy load Instagram widget using Intersection Observer
@@ -45,7 +46,7 @@ export const Social = () => {
   return (
     <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-in mb-16">
+        <div ref={headerAnimation.ref} className={`mb-16 transition-all duration-700 ease-out ${headerAnimation.isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
           <h1 className="display-title text-brand-ink mb-6">In the Wild</h1>
         </div>
         
