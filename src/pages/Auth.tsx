@@ -20,7 +20,7 @@ const Auth = () => {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
-  const { setPageReady } = useLoadingContext();
+  
 
   useEffect(() => {
     const checkUser = async () => {
