@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export const Footer = () => {
   return <footer className="w-full bg-brand-ink text-white flex flex-col justify-center py-24 md:py-36 lg:py-48">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 text-center w-full">
@@ -31,6 +33,9 @@ export const Footer = () => {
               </clipPath>
             </defs>
           </svg>
+          <Link to="/unsettled" className="caption-text text-[#F2F2F2]/60 hover:text-[#F2F2F2] smooth-transition">
+            Executive Coaching
+          </Link>
           <p className="body-text text-[#F2F2F2]">
             © 2017–2025 Marc Hodulich. All rights reserved.
           </p>
