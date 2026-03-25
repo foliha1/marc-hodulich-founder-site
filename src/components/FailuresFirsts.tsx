@@ -4,6 +4,7 @@ import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 import { useEffect, useState } from "react";
 import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { useScrollAnimation } from "@/hooks/useScrollAnimation";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
