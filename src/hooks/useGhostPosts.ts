@@ -9,10 +9,8 @@ export const useGhostPosts = () => {
         .browse({ limit: 50 })
         .include({ authors: true, tags: true })
         .fetch();
-      if (!res.success) {
-        throw new Error(res.errors.map((e) => e.message).join(", "));
-      }
-      return res.data;
+      if (res.success) return res.data;
+      throw new Error("Failed to load posts");
     },
   });
 };
@@ -26,10 +24,8 @@ export const useGhostPost = (slug?: string) => {
         .read({ slug: slug as string })
         .include({ authors: true, tags: true })
         .fetch();
-      if (!res.success) {
-        throw new Error(res.errors.map((e) => e.message).join(", "));
-      }
-      return res.data;
+      if (res.success) return res.data;
+      throw new Error("Failed to load post");
     },
   });
 };
