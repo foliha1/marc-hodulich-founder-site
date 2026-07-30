@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Unsettled from "./pages/Unsettled";
 import Editorial from "./pages/Editorial";
+import EditorialPost from "./pages/EditorialPost";
 
 const Auth = lazy(() => import("./pages/Auth"));
 const Admin = lazy(() => import("./pages/Admin"));
@@ -36,6 +37,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/unsettled" element={<Unsettled />} />
             <Route path="/editorial" element={<Editorial />} />
+            <Route path="/editorial/:slug" element={<EditorialPost />} />
             <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
