@@ -102,6 +102,13 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
             >
               Coaching
             </Link>
+            <Link
+              to="/editorial"
+              onClick={() => setIsOpen(false)}
+              className="hero-title text-brand-ink uppercase hover:text-brand-red smooth-transition"
+            >
+              Editorial
+            </Link>
           </div>
         </nav>
       </div>
