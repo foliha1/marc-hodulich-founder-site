@@ -36,7 +36,6 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/unsettled" element={<Unsettled />} />
             <Route path="/editorial" element={<Editorial />} />
-            <Route path="/editorial/:slug" element={<EditorialPost />} />
             <Route path="/admin" element={<Admin />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
