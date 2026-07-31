@@ -8,7 +8,6 @@ import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
 import Unsettled from "./pages/Unsettled";
 import Editorial from "./pages/Editorial";
-import EditorialPost from "./pages/EditorialPost";
 
 const Auth = lazy(() => import("./pages/Auth"));
 const Admin = lazy(() => import("./pages/Admin"));
