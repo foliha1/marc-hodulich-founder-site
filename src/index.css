@@ -247,56 +247,6 @@
   .animate-in-delay.entered {
     animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
-
-  /* Ghost article rendered HTML */
-  .ghost-content > * + * {
-    margin-top: 1.25em;
-  }
-
-  .ghost-content h2,
-  .ghost-content h3,
-  .ghost-content h4 {
-    color: hsl(var(--brand-ink));
-    margin-top: 2em;
-    text-transform: uppercase;
-    letter-spacing: 0.02em;
-  }
-
-  .ghost-content a {
-    color: hsl(var(--brand-red));
-    text-decoration: underline;
-    text-underline-offset: 3px;
-  }
-
-  .ghost-content img,
-  .ghost-content figure img,
-  .ghost-content iframe {
-    width: 100%;
-    height: auto;
-  }
-
-  .ghost-content figcaption {
-    font-size: var(--text-caption);
-    color: hsl(var(--brand-muted));
-    margin-top: 0.5em;
-    text-align: center;
-  }
-
-  .ghost-content ul,
-  .ghost-content ol {
-    padding-left: 1.25rem;
-    list-style: revert;
-  }
-
-  .ghost-content blockquote {
-    border-left: 3px solid hsl(var(--brand-red));
-    padding-left: 1rem;
-    font-style: italic;
-  }
-
-  .ghost-content hr {
-    border-color: hsl(var(--brand-stone));
-  }
 }
 
 @layer utilities {
