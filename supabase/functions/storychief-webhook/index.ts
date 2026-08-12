@@ -200,9 +200,13 @@ Deno.serve(async (req: Request) => {
         const now = Math.floor(Date.now() / 1000)
         const tsSeconds = ts > 1e11 ? Math.floor(ts / 1000) : ts
         if (Math.abs(now - tsSeconds) <= TIMESTAMP_TOLERANCE_S) {
-          if (await signatureMatches(key, `${timestamp}.${rawBody}`, provided)) {
+          // StoryChief signs `${timestamp}:${rawBody}` with HMAC-SHA256 (verified empirically).
+          if (await signatureMatches(key, `${timestamp}:${rawBody}`, provided)) {
             valid = true
             matched = 'header+timestamp'
+          } else if (await signatureMatches(key, `${timestamp}.${rawBody}`, provided)) {
+            valid = true
+            matched = 'header+timestamp-dot'
           }
         } else {
           console.warn('storychief-webhook stale timestamp')
