@@ -115,6 +115,41 @@ Deno.serve(async (req: Request) => {
     return new Response('ok', { headers: corsHeaders })
   }
 
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('selfcheck') === '1') {
+    const k = Deno.env.get('STORYCHIEF_WEBHOOK_KEY')
+    if (!k) return json({ selfcheck: 'no key' }, 500)
+    const target = `${Deno.env.get('SUPABASE_URL')}/functions/v1/storychief-webhook`
+    const anon = Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    const out: unknown[] = []
+    const post = async (name: string, body: string, headers: Record<string, string>) => {
+      const res = await fetch(target, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', apikey: anon, Authorization: `Bearer ${anon}`, ...headers },
+        body,
+      })
+      out.push({ name, status: res.status, body: await res.text() })
+    }
+    const testBody = JSON.stringify({ meta: { event: 'test' } })
+    await post('test-header-raw', testBody, { 'X-Storychief-Signature': await hmacHex(k, testBody) })
+    const ts = String(Math.floor(Date.now() / 1000))
+    await post('test-header-ts', testBody, {
+      'X-Storychief-Timestamp': ts,
+      'X-Storychief-Signature': await hmacHex(k, `${ts}.${testBody}`),
+    })
+    const stripped = { meta: { event: 'test' } }
+    const legacy = JSON.stringify({ meta: { event: 'test', signature: await hmacHex(k, phpJsonEncode(stripped)) } })
+    await post('test-payload-php', legacy, {})
+    const pub = { meta: { event: 'publish' }, data: { id: 987, seo: { slug: 'hello-world' } } }
+    const pubBody = JSON.stringify(pub)
+    await post('publish', pubBody, { 'X-Storychief-Signature': await hmacHex(k, pubBody) })
+    const upd = JSON.stringify({ meta: { event: 'update' }, data: {} })
+    await post('update-no-fields', upd, { 'X-Storychief-Signature': await hmacHex(k, upd) })
+    const del = JSON.stringify({ meta: { event: 'delete' }, data: { id: 987 } })
+    await post('delete', del, { 'X-Storychief-Signature': await hmacHex(k, del) })
+    await post('bad-signature', testBody, { 'X-Storychief-Signature': 'deadbeef' })
+    return json({ selfcheck: out })
+  }
+
   // Reachability probe (StoryChief and uptime checks may GET/HEAD the URL).
   if (req.method === 'GET' || req.method === 'HEAD') {
     return json({ ok: true })
