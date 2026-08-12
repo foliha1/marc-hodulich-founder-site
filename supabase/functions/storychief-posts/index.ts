@@ -29,7 +29,7 @@ for (const url of variants) {
 }
 
 Deno.serve(() => {
-  return new Response(JSON.stringify({ dest, results }, null, 2), {
+  return new Response(JSON.stringify({ destLength: dest.length, results }, null, 2), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   })
 })
