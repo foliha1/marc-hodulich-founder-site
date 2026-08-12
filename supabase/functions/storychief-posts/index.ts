@@ -222,6 +222,17 @@ Deno.serve(async (req: Request) => {
     let action: 'list' | 'single' = 'list'
     let slug: string | undefined
 
+    // Cache invalidation, called server-side by the storychief-webhook function.
+    const purgeKey = req.headers.get('x-purge-key')
+    if (purgeKey) {
+      const expected = Deno.env.get('STORYCHIEF_WEBHOOK_KEY')
+      if (!expected || purgeKey !== expected) {
+        return errorJson('Unauthorized.', 401)
+      }
+      cache.clear()
+      return json({ purged: true })
+    }
+
     const reqUrl = new URL(req.url)
     if (reqUrl.searchParams.get('diag') === '1') {
       const token = Deno.env.get('STORYCHIEF_CDA_TOKEN')
