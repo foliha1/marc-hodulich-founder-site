@@ -12,9 +12,9 @@
 //   1) X-Storychief-Signature            = HMAC-SHA256(raw body, key)
 //   2) X-Storychief-Signature + X-Storychief-Timestamp
 //                                        = HMAC-SHA256(`${ts}.${raw body}`, key)
-//   3) In-payload meta.signature (legacy publish webhook) = HMAC-SHA256 over the
-//      payload with `meta.signature` removed, or over `data` only — both in
-//      JS and PHP (`json_encode`) serialization flavours.
+//   3) In-payload meta.mac (documented legacy publish webhook) = HMAC-SHA256
+//      over `data` using PHP `json_encode` semantics. The older
+//      `meta.signature` alias remains accepted for backwards compatibility.
 
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 
@@ -36,11 +36,51 @@ async function hmacHex(key: string, message: string): Promise<string> {
   return [...new Uint8Array(sig)].map((b) => b.toString(16).padStart(2, '0')).join('')
 }
 
+async function hmacBytes(key: string, message: string): Promise<Uint8Array> {
+  const cryptoKey = await crypto.subtle.importKey(
+    'raw',
+    encoder.encode(key),
+    { name: 'HMAC', hash: 'SHA-256' },
+    false,
+    ['sign'],
+  )
+  return new Uint8Array(await crypto.subtle.sign('HMAC', cryptoKey, encoder.encode(message)))
+}
+
 function timingSafeEqual(a: string, b: string): boolean {
   if (a.length !== b.length) return false
   let diff = 0
   for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i)
   return diff === 0
+}
+
+function timingSafeEqualBytes(a: Uint8Array, b: Uint8Array): boolean {
+  if (a.length !== b.length) return false
+  let diff = 0
+  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i]
+  return diff === 0
+}
+
+function decodeSignature(value: string): Uint8Array | null {
+  const normalized = value.trim().replace(/^sha256=/i, '')
+  if (/^[0-9a-f]{64}$/i.test(normalized)) {
+    return Uint8Array.from(normalized.match(/.{2}/g) ?? [], (byte) => parseInt(byte, 16))
+  }
+
+  try {
+    const base64 = normalized.replace(/-/g, '+').replace(/_/g, '/')
+    const padded = base64.padEnd(Math.ceil(base64.length / 4) * 4, '=')
+    const binary = atob(padded)
+    return Uint8Array.from(binary, (char) => char.charCodeAt(0))
+  } catch {
+    return null
+  }
+}
+
+async function signatureMatches(key: string, message: string, provided: string): Promise<boolean> {
+  const decoded = decodeSignature(provided)
+  if (!decoded) return false
+  return timingSafeEqualBytes(decoded, await hmacBytes(key, message))
 }
 
 /** Mimic PHP json_encode() defaults: escaped slashes and \uXXXX for non-ASCII. */
@@ -65,11 +105,11 @@ function headerSignature(req: Request): string | null {
     req.headers.get('storychief-signature') ??
     req.headers.get('x-signature')
   if (!raw) return null
-  return raw.trim().replace(/^sha256=/i, '').toLowerCase()
+  return raw.trim()
 }
 
 interface SCPayload {
-  meta?: { event?: string; signature?: string; test?: boolean }
+  meta?: { event?: string; mac?: string; signature?: string; test?: boolean }
   data?: Record<string, unknown>
   event?: string
   [k: string]: unknown
@@ -177,7 +217,7 @@ Deno.serve(async (req: Request) => {
         const now = Math.floor(Date.now() / 1000)
         const tsSeconds = ts > 1e11 ? Math.floor(ts / 1000) : ts
         if (Math.abs(now - tsSeconds) <= TIMESTAMP_TOLERANCE_S) {
-          if (timingSafeEqual(provided, await hmacHex(key, `${timestamp}.${rawBody}`))) {
+          if (await signatureMatches(key, `${timestamp}.${rawBody}`, provided)) {
             valid = true
             matched = 'header+timestamp'
           }
@@ -186,30 +226,38 @@ Deno.serve(async (req: Request) => {
         }
       }
     }
-    if (!valid && timingSafeEqual(provided, await hmacHex(key, rawBody))) {
+    if (!valid && (await signatureMatches(key, rawBody, provided))) {
       valid = true
       matched = 'header-raw-body'
     }
   }
 
+  const inPayloadMac = typeof payload.meta?.mac === 'string' ? payload.meta.mac : null
   const inPayloadSignature =
-    typeof payload.meta?.signature === 'string' ? payload.meta.signature.toLowerCase() : null
+    typeof payload.meta?.signature === 'string' ? payload.meta.signature : null
+  const inPayloadAuth = inPayloadMac ?? inPayloadSignature
 
-  if (!valid && inPayloadSignature) {
+  if (!valid && inPayloadAuth) {
     const stripped: SCPayload = {
       ...payload,
       meta: { ...(payload.meta ?? {}) },
     }
+    delete (stripped.meta as Record<string, unknown>).mac
     delete (stripped.meta as Record<string, unknown>).signature
 
-    const candidates: Array<[string, string]> = [
-      ['payload-js', JSON.stringify(stripped)],
-      ['payload-php', phpJsonEncode(stripped)],
-      ['data-js', JSON.stringify(payload.data ?? {})],
-      ['data-php', phpJsonEncode(payload.data ?? {})],
-    ]
+    const candidates: Array<[string, string]> = inPayloadMac
+      ? [
+          ['meta.mac-data-php', phpJsonEncode(payload.data ?? {})],
+          ['meta.mac-data-js', JSON.stringify(payload.data ?? {})],
+        ]
+      : [
+          ['payload-js', JSON.stringify(stripped)],
+          ['payload-php', phpJsonEncode(stripped)],
+          ['data-js', JSON.stringify(payload.data ?? {})],
+          ['data-php', phpJsonEncode(payload.data ?? {})],
+        ]
     for (const [name, message] of candidates) {
-      if (timingSafeEqual(inPayloadSignature, await hmacHex(key, message))) {
+      if (await signatureMatches(key, message, inPayloadAuth)) {
         valid = true
         matched = name
         break
@@ -221,6 +269,7 @@ Deno.serve(async (req: Request) => {
     console.warn('storychief-webhook rejected: signature mismatch', {
       event,
       has_header_signature: !!provided,
+      has_payload_mac: !!inPayloadMac,
       has_payload_signature: !!inPayloadSignature,
       has_timestamp: !!timestamp,
     })
