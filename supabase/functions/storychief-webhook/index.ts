@@ -262,10 +262,7 @@ Deno.serve(async (req: Request) => {
       has_payload_signature: !!inPayloadSignature,
       has_timestamp: !!timestamp,
     })
-    // TEMP DIAGNOSTIC — remove once the construction is identified.
-    if (provided) await logSignatureDiagnostic(key, rawBody, provided, timestamp)
     return json({ error: 'Invalid signature.' }, 401)
-
   }
 
   console.log('storychief-webhook accepted', { event, scheme: matched })
