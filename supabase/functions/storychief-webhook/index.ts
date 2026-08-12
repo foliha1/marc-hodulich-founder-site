@@ -13,7 +13,8 @@
 //   2) X-Storychief-Signature + X-Storychief-Timestamp
 //                                        = HMAC-SHA256(`${ts}.${raw body}`, key)
 //   3) In-payload meta.mac (documented legacy publish webhook) = HMAC-SHA256
-//      over `data` using PHP `json_encode` semantics. The older
+//      over the payload after removing `meta.mac`, using PHP `json_encode`
+//      semantics. Data-only variants remain accepted for compatibility. The older
 //      `meta.signature` alias remains accepted for backwards compatibility.
 
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
@@ -228,6 +229,8 @@ Deno.serve(async (req: Request) => {
 
     const candidates: Array<[string, string]> = inPayloadMac
       ? [
+          ['meta.mac-payload-php', phpJsonEncode(stripped)],
+          ['meta.mac-payload-js', JSON.stringify(stripped)],
           ['meta.mac-data-php', phpJsonEncode(payload.data ?? {})],
           ['meta.mac-data-js', JSON.stringify(payload.data ?? {})],
         ]

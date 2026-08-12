@@ -21,9 +21,12 @@ function base64(bytes: Uint8Array): string {
   return btoa(String.fromCharCode(...bytes))
 }
 
-Deno.test('documented legacy meta.mac signs the data JSON', async () => {
-  const data = { id: 42, seo: { slug: 'documented-mac' } }
-  const mac = hex(await sign('test-key', JSON.stringify(data)))
+Deno.test('documented legacy meta.mac signs the payload after meta.mac is removed', async () => {
+  const payload = {
+    meta: { event: 'publish' },
+    data: { id: 42, seo: { slug: 'documented-mac' } },
+  }
+  const mac = hex(await sign('test-key', JSON.stringify(payload)))
   assertEquals(mac.length, 64)
   assert(/^[0-9a-f]+$/.test(mac))
 })
