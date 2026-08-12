@@ -138,7 +138,7 @@ async function fetchStoryChief(path: string): Promise<unknown> {
   if (res.status === 404) {
     const detail = await res.text().catch(() => '')
     console.log('storychief 404 body:', detail.slice(0, 500))
-    throw new HttpError(404, 'Article not found.')
+    throw new HttpError(404, `Article not found. [upstream=${res.status}] ${detail.slice(0, 300)}`)
   }
   if (res.status === 429) {
     throw new HttpError(429, 'StoryChief rate limit reached. Please try again shortly.')
