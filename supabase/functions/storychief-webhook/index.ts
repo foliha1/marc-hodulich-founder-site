@@ -108,32 +108,6 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
-  if (req.method === 'GET' && new URL(req.url).searchParams.get('selfcheck') === '1') {
-    const k = Deno.env.get('STORYCHIEF_WEBHOOK_KEY')
-    if (!k) return json({ selfcheck: 'no key' }, 500)
-    const target = `${Deno.env.get('SUPABASE_URL')}/functions/v1/storychief-webhook`
-    const anon = Deno.env.get('SUPABASE_ANON_KEY') ?? ''
-    const out: unknown[] = []
-    const cases: Array<[string, string, boolean]> = [
-      ['test', JSON.stringify({ meta: { event: 'test' }, data: {} }), true],
-      ['publish', JSON.stringify({ meta: { event: 'publish' }, data: { id: 12345, seo: { slug: 'my-test-article' } } }), true],
-      ['update', JSON.stringify({ meta: { event: 'update' }, data: { id: 12345, slug: 'my-test-article' } }), true],
-      ['delete', JSON.stringify({ meta: { event: 'delete' }, data: { id: 12345 } }), true],
-      ['bad-signature', JSON.stringify({ meta: { event: 'publish' }, data: { id: 1 } }), false],
-    ]
-    for (const [name, body, signed] of cases) {
-      const sig = signed ? await hmacHex(k, body) : 'deadbeef'
-      const res = await fetch(target, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'x-storychief-signature': sig, apikey: anon, Authorization: `Bearer ${anon}` },
-        body,
-      })
-      out.push({ name, status: res.status, body: await res.text() })
-    }
-    const unsigned = await fetch(target, { method: 'POST', headers: { 'Content-Type': 'application/json', apikey: anon, Authorization: `Bearer ${anon}` }, body: '{}' })
-    out.push({ name: 'unsigned', status: unsigned.status, body: await unsigned.text() })
-    return json({ selfcheck: out })
-  }
   if (req.method !== 'POST') {
     return json({ error: 'Method not allowed.' }, 405)
   }
