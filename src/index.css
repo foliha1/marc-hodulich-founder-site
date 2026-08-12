@@ -247,6 +247,96 @@
   .animate-in-delay.entered {
     animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
+
+  /* Long-form article typography (StoryChief editorial posts) */
+  .prose-editorial {
+    line-height: 1.7;
+    color: hsl(var(--brand-ink));
+  }
+  .prose-editorial > * + * {
+    margin-top: 1.4em;
+  }
+  .prose-editorial h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    margin-top: 2em;
+    margin-bottom: 0.6em;
+    color: hsl(var(--brand-ink));
+  }
+  .prose-editorial h3 {
+    font-size: clamp(1.25rem, 3vw, 1.6rem);
+    font-weight: 700;
+    margin-top: 1.6em;
+    margin-bottom: 0.5em;
+    color: hsl(var(--brand-ink));
+  }
+  .prose-editorial p {
+    font-size: var(--text-body);
+    line-height: 1.7;
+  }
+  .prose-editorial a {
+    color: hsl(var(--brand-red));
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    transition: color 0.3s ease;
+  }
+  .prose-editorial a:hover {
+    color: hsl(var(--brand-red-dark));
+  }
+  .prose-editorial img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin: 1.8em 0;
+  }
+  .prose-editorial blockquote {
+    border-left: 3px solid hsl(var(--brand-red));
+    padding-left: 1.25rem;
+    font-style: italic;
+    color: hsl(var(--brand-ink-sub));
+    margin: 1.8em 0;
+  }
+  .prose-editorial ul,
+  .prose-editorial ol {
+    padding-left: 1.5rem;
+  }
+  .prose-editorial li {
+    margin-top: 0.5em;
+  }
+  .prose-editorial ul li {
+    list-style: disc;
+  }
+  .prose-editorial ol li {
+    list-style: decimal;
+  }
+  .prose-editorial figure {
+    margin: 1.8em 0;
+  }
+  .prose-editorial figcaption {
+    font-size: 0.875rem;
+    color: hsl(var(--brand-muted));
+    text-align: center;
+    margin-top: 0.5em;
+  }
+  .prose-editorial pre {
+    background: hsl(var(--brand-ink));
+    color: hsl(var(--brand-warm));
+    padding: 1.25rem;
+    border-radius: 4px;
+    overflow-x: auto;
+    font-size: 0.95rem;
+  }
+  .prose-editorial code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.95em;
+  }
+  .prose-editorial :not(pre) > code {
+    background: hsl(var(--brand-stone));
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+  }
 }
 
 @layer utilities {
