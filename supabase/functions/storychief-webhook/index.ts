@@ -108,6 +108,18 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
+  if (req.method === 'GET' && new URL(req.url).searchParams.get('selfcheck') === '1') {
+    const k = Deno.env.get('STORYCHIEF_WEBHOOK_KEY')
+    if (!k) return json({ selfcheck: 'no key' }, 500)
+    const body = JSON.stringify({ meta: { event: 'test' }, data: {} })
+    const sig = await hmacHex(k, body)
+    const res = await fetch(req.url.split('?')[0], {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-storychief-signature': sig },
+      body,
+    })
+    return json({ selfcheck: { status: res.status, body: await res.text() } })
+  }
   if (req.method !== 'POST') {
     return json({ error: 'Method not allowed.' }, 405)
   }
