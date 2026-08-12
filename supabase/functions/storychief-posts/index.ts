@@ -126,6 +126,7 @@ async function fetchStoryChief(path: string): Promise<unknown> {
   if (!destinationId) throw new Error('STORYCHIEF_DESTINATION_ID is not configured.')
 
   const url = `${BASE_URL}/${destinationId}${path}`
+  console.log('storychief request:', JSON.stringify({ path, hasToken: !!token, destinationIdLength: destinationId.length }))
   const res = await fetch(url, {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -133,7 +134,10 @@ async function fetchStoryChief(path: string): Promise<unknown> {
     },
   })
 
+  console.log('storychief upstream status:', res.status)
   if (res.status === 404) {
+    const detail = await res.text().catch(() => '')
+    console.log('storychief 404 body:', detail.slice(0, 500))
     throw new HttpError(404, 'Article not found.')
   }
   if (res.status === 429) {
