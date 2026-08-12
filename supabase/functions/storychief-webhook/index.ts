@@ -1,23 +1,26 @@
 // StoryChief Headless Website destination webhook.
 //
-// Purpose: receive StoryChief `test`, `publish`, `update` and `delete` events,
-// validate the request signature with the server-side STORYCHIEF_WEBHOOK_KEY,
-// and invalidate the short-lived cache held by the `storychief-posts` function.
+// Receives StoryChief `test`, `publish`, `update` and `delete` events, validates
+// the request with the server-side STORYCHIEF_WEBHOOK_KEY, and invalidates the
+// short-lived cache held by the `storychief-posts` function.
 //
-// Secrets (env only, never returned to the client):
+// Secrets (env only, never returned to the client or logged):
 //   STORYCHIEF_WEBHOOK_KEY — shared signing key configured on the destination
 //
-// Signature validation supports the shapes StoryChief uses:
-//   1) X-Storychief-Signature: HMAC-SHA256(raw body, key)
-//   2) X-Storychief-Signature + X-Storychief-Timestamp:
-//        HMAC-SHA256(`${timestamp}.${raw body}`, key)
-//   3) Legacy in-payload `meta.signature`: HMAC-SHA256(json(payload.data), key)
+// Signature validation covers every documented StoryChief variant. The RAW,
+// unmodified request body is always used for the header-based schemes:
+//   1) X-Storychief-Signature            = HMAC-SHA256(raw body, key)
+//   2) X-Storychief-Signature + X-Storychief-Timestamp
+//                                        = HMAC-SHA256(`${ts}.${raw body}`, key)
+//   3) In-payload meta.signature (legacy publish webhook) = HMAC-SHA256 over the
+//      payload with `meta.signature` removed, or over `data` only — both in
+//      JS and PHP (`json_encode`) serialization flavours.
 
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 
 const SITE_ORIGIN = 'https://marchodulich.com'
 const MAX_BODY_BYTES = 1_000_000
-const TIMESTAMP_TOLERANCE_S = 60 * 5
+const TIMESTAMP_TOLERANCE_S = 60 * 10
 
 const encoder = new TextEncoder()
 
@@ -40,6 +43,14 @@ function timingSafeEqual(a: string, b: string): boolean {
   return diff === 0
 }
 
+/** Mimic PHP json_encode() defaults: escaped slashes and \uXXXX for non-ASCII. */
+function phpJsonEncode(value: unknown): string {
+  const s = JSON.stringify(value) ?? 'null'
+  return s
+    .replace(/\//g, '\\/')
+    .replace(/[\u0080-\uFFFF]/g, (c) => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'))
+}
+
 function json(body: unknown, status = 200) {
   return new Response(JSON.stringify(body), {
     status,
@@ -51,9 +62,9 @@ function headerSignature(req: Request): string | null {
   const raw =
     req.headers.get('x-storychief-signature') ??
     req.headers.get('x-storychief-hmac-sha256') ??
-    req.headers.get('storychief-signature')
+    req.headers.get('storychief-signature') ??
+    req.headers.get('x-signature')
   if (!raw) return null
-  // Tolerate "sha256=<hex>" prefixes.
   return raw.trim().replace(/^sha256=/i, '').toLowerCase()
 }
 
@@ -64,18 +75,13 @@ interface SCPayload {
   [k: string]: unknown
 }
 
-function pickSlug(data: Record<string, unknown> | undefined): string | null {
-  if (!data) return null
-  const seo = data.seo as Record<string, unknown> | undefined
-  const candidates = [
-    seo?.slug,
-    (data as Record<string, unknown>).seo_slug,
-    data.slug,
-    data.permalink,
-  ]
+function pickSlug(data: Record<string, unknown> | undefined | null): string | null {
+  if (!data || typeof data !== 'object') return null
+  const seo = (data.seo ?? null) as Record<string, unknown> | null
+  const candidates = [seo?.slug, data.seo_slug, data.slug, data.permalink, data.url]
   for (const c of candidates) {
     if (typeof c === 'string' && c.trim()) {
-      const last = c.trim().replace(/\/+$/, '').split('/').pop()
+      const last = c.trim().replace(/[?#].*$/, '').replace(/\/+$/, '').split('/').pop()
       if (last) return last
     }
   }
@@ -108,6 +114,12 @@ Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
+
+  // Reachability probe (StoryChief and uptime checks may GET/HEAD the URL).
+  if (req.method === 'GET' || req.method === 'HEAD') {
+    return json({ ok: true })
+  }
+
   if (req.method !== 'POST') {
     return json({ error: 'Method not allowed.' }, 405)
   }
@@ -123,65 +135,129 @@ Deno.serve(async (req: Request) => {
     return json({ error: 'Payload too large.' }, 413)
   }
 
-  let payload: SCPayload
-  try {
-    payload = JSON.parse(rawBody || '{}')
-  } catch {
-    return json({ error: 'Invalid JSON body.' }, 400)
+  // Diagnostics: header names only + body size. Never values, never secrets.
+  const headerNames = [...req.headers.keys()].filter((h) => !/authorization|apikey|cookie/i.test(h))
+  console.log('storychief-webhook request', {
+    headers: headerNames,
+    body_bytes: rawBody.length,
+    content_type: req.headers.get('content-type'),
+  })
+
+  let payload: SCPayload = {}
+  if (rawBody.trim()) {
+    try {
+      payload = JSON.parse(rawBody)
+    } catch {
+      // StoryChief may post form-encoded data; try that before failing.
+      try {
+        const params = new URLSearchParams(rawBody)
+        const obj: Record<string, unknown> = {}
+        for (const [k, v] of params) obj[k] = v
+        payload = obj as SCPayload
+      } catch {
+        return json({ error: 'Invalid body.' }, 400)
+      }
+    }
   }
 
-  // ---- signature validation -------------------------------------------
+  const event = String(payload.meta?.event ?? payload.event ?? 'test').toLowerCase()
+
+  // ---- signature validation (raw body for all header-based schemes) ----
   const provided = headerSignature(req)
   const timestamp =
     req.headers.get('x-storychief-timestamp') ?? req.headers.get('storychief-timestamp')
 
   let valid = false
+  let matched = 'none'
 
   if (provided) {
     if (timestamp) {
       const ts = Number(timestamp)
-      if (!Number.isFinite(ts)) return json({ error: 'Invalid timestamp.' }, 401)
-      const now = Math.floor(Date.now() / 1000)
-      const tsSeconds = ts > 1e11 ? Math.floor(ts / 1000) : ts
-      if (Math.abs(now - tsSeconds) > TIMESTAMP_TOLERANCE_S) {
-        return json({ error: 'Stale request.' }, 401)
+      if (Number.isFinite(ts)) {
+        const now = Math.floor(Date.now() / 1000)
+        const tsSeconds = ts > 1e11 ? Math.floor(ts / 1000) : ts
+        if (Math.abs(now - tsSeconds) <= TIMESTAMP_TOLERANCE_S) {
+          if (timingSafeEqual(provided, await hmacHex(key, `${timestamp}.${rawBody}`))) {
+            valid = true
+            matched = 'header+timestamp'
+          }
+        } else {
+          console.warn('storychief-webhook stale timestamp')
+        }
       }
-      valid = timingSafeEqual(provided, await hmacHex(key, `${timestamp}.${rawBody}`))
     }
-    if (!valid) valid = timingSafeEqual(provided, await hmacHex(key, rawBody))
+    if (!valid && timingSafeEqual(provided, await hmacHex(key, rawBody))) {
+      valid = true
+      matched = 'header-raw-body'
+    }
   }
 
-  if (!valid && typeof payload.meta?.signature === 'string') {
-    const expected = await hmacHex(key, JSON.stringify(payload.data ?? {}))
-    valid = timingSafeEqual(payload.meta.signature.toLowerCase(), expected)
+  const inPayloadSignature =
+    typeof payload.meta?.signature === 'string' ? payload.meta.signature.toLowerCase() : null
+
+  if (!valid && inPayloadSignature) {
+    const stripped: SCPayload = {
+      ...payload,
+      meta: { ...(payload.meta ?? {}) },
+    }
+    delete (stripped.meta as Record<string, unknown>).signature
+
+    const candidates: Array<[string, string]> = [
+      ['payload-js', JSON.stringify(stripped)],
+      ['payload-php', phpJsonEncode(stripped)],
+      ['data-js', JSON.stringify(payload.data ?? {})],
+      ['data-php', phpJsonEncode(payload.data ?? {})],
+    ]
+    for (const [name, message] of candidates) {
+      if (timingSafeEqual(inPayloadSignature, await hmacHex(key, message))) {
+        valid = true
+        matched = name
+        break
+      }
+    }
   }
 
   if (!valid) {
+    console.warn('storychief-webhook rejected: signature mismatch', {
+      event,
+      has_header_signature: !!provided,
+      has_payload_signature: !!inPayloadSignature,
+      has_timestamp: !!timestamp,
+    })
     return json({ error: 'Invalid signature.' }, 401)
   }
 
+  console.log('storychief-webhook accepted', { event, scheme: matched })
+
   // ---- event handling --------------------------------------------------
-  const event = String(payload.meta?.event ?? payload.event ?? 'test').toLowerCase()
   const allowed = ['test', 'publish', 'update', 'delete']
   if (!allowed.includes(event)) {
+    console.warn('storychief-webhook unsupported event', { event })
     return json({ error: `Unsupported event: ${event}` }, 400)
   }
 
+  // The test event must succeed with no article, slug or cache record.
   if (event === 'test') {
-    return json({ received: true, event })
+    return json({ success: true, received: true, event: 'test' })
   }
 
-  await purgePostsCache()
+  try {
+    await purgePostsCache()
+  } catch (e) {
+    console.error('cache purge threw (ignored):', e)
+  }
 
-  const data = (payload.data ?? {}) as Record<string, unknown>
-  const id = data.id ?? data.article_id ?? null
-  const slug = pickSlug(data)
+  const data = (payload.data && typeof payload.data === 'object' ? payload.data : {}) as Record<
+    string,
+    unknown
+  >
+  const id = data.id ?? data.article_id ?? payload.id ?? null
+  const slug = pickSlug(data) ?? pickSlug(payload as Record<string, unknown>)
   const permalink = slug ? `${SITE_ORIGIN}/editorial/${slug}` : null
 
   if (event === 'delete') {
-    return json({ received: true, event, id })
+    return json({ success: true, received: true, event, id })
   }
 
-  // publish + update
-  return json({ received: true, event, id, permalink })
+  return json({ success: true, received: true, event, id, permalink })
 })
