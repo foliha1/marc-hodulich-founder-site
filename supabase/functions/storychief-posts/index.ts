@@ -222,6 +222,33 @@ Deno.serve(async (req: Request) => {
     let action: 'list' | 'single' = 'list'
     let slug: string | undefined
 
+    const reqUrl = new URL(req.url)
+    if (reqUrl.searchParams.get('diag') === '1') {
+      const token = Deno.env.get('STORYCHIEF_CDA_TOKEN')
+      const destinationId = Deno.env.get('STORYCHIEF_DESTINATION_ID')
+      const target = `${BASE_URL}/${destinationId}/articles?count=10&page=1&sort_by=published&sort_order=desc`
+      const res = await fetch(target, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          Accept: 'application/json',
+        },
+      })
+      const text = await res.text().catch(() => '')
+      return json({
+        diag: {
+          request_url_shape: `${BASE_URL}/{destination_id}/articles?count=10&page=1&sort_by=published&sort_order=desc`,
+          base_url_used: BASE_URL,
+          auth_scheme: 'Bearer',
+          token_present: !!token,
+          destination_id_present: !!destinationId,
+          destination_id_length: destinationId?.length ?? 0,
+          status: res.status,
+          content_type: res.headers.get('content-type'),
+          body_snippet: text.slice(0, 500),
+        },
+      })
+    }
+
     if (req.method === 'GET') {
       const url = new URL(req.url)
       slug = url.searchParams.get('slug') ?? undefined
