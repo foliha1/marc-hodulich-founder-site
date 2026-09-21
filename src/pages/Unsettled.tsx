@@ -13,7 +13,7 @@ const Unsettled = () => {
           <div className="max-w-2xl text-center animate-in">
             <h1 className="hero-title text-white mb-6">UNSETTLED</h1>
             <p className="body-text text-white/80 mb-12">
-              Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services. Please follow the prompts below to make a payment.
+              Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services.
             </p>
             {/* Payment button hidden for now
             <Button
