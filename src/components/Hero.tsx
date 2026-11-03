@@ -43,8 +43,9 @@ export const Hero = () => {
           sizes="(min-width: 1024px) 70vw, 100vw"
           src={getOptimizedImageUrl(content.background_image_url, 1280, 85)}
           alt="Marc Hodulich - Endurance athlete and entrepreneur"
-          width={content.background_image_width || 1280}
-          height={content.background_image_height || 1920}
+          {...(content.background_image_width && content.background_image_height
+            ? { width: content.background_image_width, height: content.background_image_height }
+            : {})}
           className="w-full h-auto lg:h-full object-contain object-bottom"
           loading="eager"
           {...({ fetchpriority: "high" } as object)}
