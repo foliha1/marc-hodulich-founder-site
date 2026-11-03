@@ -1,6 +1,6 @@
 import { useMeetMarcCards } from "@/hooks/useMeetMarcCards";
 import { MeetMarcSkeleton } from "@/components/MeetMarcSkeleton";
-import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@/utils/imageOptimization";
 
 export const MeetMarc = () => {
   const { data, isLoading } = useMeetMarcCards();
@@ -63,9 +63,10 @@ const MeetMarcCard = ({
           alt={card.title}
           width={(card as any).width || 640}
           height={(card as any).height || 480}
-          className="w-full h-auto object-cover rounded sm:hidden" 
-          loading="lazy" 
-          decoding="async" 
+          className="w-full h-auto object-cover rounded sm:hidden"
+          loading="lazy"
+          decoding="async"
+          onError={fallbackToOriginal(card.image_url)}
         />
         <img 
           srcSet={getResponsiveSrcSet(card.image_url, [640, 854], 80)}
@@ -74,9 +75,10 @@ const MeetMarcCard = ({
           alt={card.title}
           width={(card as any).width || 854}
           height={(card as any).height || 480}
-          className="hidden sm:block w-full aspect-[16/9] object-cover rounded" 
-          loading="lazy" 
-          decoding="async" 
+          className="hidden sm:block w-full aspect-[16/9] object-cover rounded"
+          loading="lazy"
+          decoding="async"
+          onError={fallbackToOriginal(card.image_url)}
         />
       </div>
       <div className="lg:w-1/2 space-y-6">

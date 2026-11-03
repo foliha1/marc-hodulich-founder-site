@@ -14,9 +14,7 @@ export const Movement = () => {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVideoVisible(true);
-        }
+        setIsVideoVisible(entry.isIntersecting);
       },
       { rootMargin: '200px' }
     );
@@ -25,10 +23,17 @@ export const Movement = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Attempt autoplay when video becomes visible
+  // Play when visible, pause when out of view; respect reduced motion
   useEffect(() => {
     const video = videoElementRef.current;
-    if (!video || !isVideoVisible) return;
+    if (!video) return;
+
+    if (!isVideoVisible) {
+      video.pause();
+      return;
+    }
+
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
     video.play().catch(() => {
       // Silently handle autoplay restrictions (rare with muted videos)
@@ -57,9 +62,9 @@ export const Movement = () => {
             muted
             loop
             playsInline
-            autoPlay
-            preload="metadata"
+            preload="none"
             poster={posterUrl}
+            aria-hidden="true"
           >
             <source src={content.video_url} type="video/mp4" />
           </video>

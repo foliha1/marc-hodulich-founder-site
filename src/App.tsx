@@ -1,18 +1,16 @@
-import React, { lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import NotFound from "./pages/NotFound";
 import Index from "./pages/Index";
-import Unsettled from "./pages/Unsettled";
-import Editorial from "./pages/Editorial";
-import EditorialPreview from "./pages/EditorialPreview";
-import EditorialPost from "./pages/EditorialPost";
 
+const NotFound = lazy(() => import("./pages/NotFound"));
+const Unsettled = lazy(() => import("./pages/Unsettled"));
+const Editorial = lazy(() => import("./pages/Editorial"));
+const EditorialPreview = lazy(() => import("./pages/EditorialPreview"));
+const EditorialPost = lazy(() => import("./pages/EditorialPost"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Admin = lazy(() => import("./pages/Admin"));
+const Toaster = lazy(() => import("@/components/ui/toaster").then(m => ({ default: m.Toaster })));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -28,25 +26,24 @@ const queryClient = new QueryClient({
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <Suspense fallback={null}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/unsettled" element={<Unsettled />} />
-            <Route path="/editorial" element={<Editorial />} />
-            <Route path="/editorial-preview" element={<EditorialPreview />} />
-            <Route path="/editorial-preview/:slug" element={<EditorialPost />} />
-            <Route path="/admin" element={<Admin />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </TooltipProvider>
+    <BrowserRouter>
+      <Suspense fallback={null}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/unsettled" element={<Unsettled />} />
+          <Route path="/editorial" element={<Editorial />} />
+          <Route path="/editorial-preview" element={<EditorialPreview />} />
+          <Route path="/editorial-preview/:slug" element={<EditorialPost />} />
+          <Route path="/admin" element={<Admin />} />
+          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      <Suspense fallback={null}>
+        <Toaster />
+      </Suspense>
+    </BrowserRouter>
   </QueryClientProvider>
 );
 

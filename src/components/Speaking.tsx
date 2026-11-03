@@ -2,7 +2,7 @@ import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
-import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@/utils/imageOptimization";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
@@ -37,6 +37,7 @@ export const Speaking = () => {
                   className="w-full h-full object-cover smooth-transition group-hover:scale-105"
                   loading="lazy"
                   decoding="async"
+                  onError={fallbackToOriginal(podcast.thumbnail_url)}
                 />
                 <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
                   <div className="w-16 h-16 bg-brand-red/90 rounded-full flex items-center justify-center smooth-transition group-hover:scale-110">

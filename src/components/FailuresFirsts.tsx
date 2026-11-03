@@ -3,7 +3,7 @@ import { ChevronRight, ChevronLeft } from "lucide-react";
 import { useCarouselSlides } from "@/hooks/useCarouselSlides";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 import { useEffect, useState } from "react";
-import { getOptimizedImageUrl, getResponsiveSrcSet } from "@/utils/imageOptimization";
+import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@/utils/imageOptimization";
 
 export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
@@ -69,6 +69,7 @@ export const FailuresFirsts = () => {
                       draggable="false"
                       className="w-full h-full object-cover rounded-[4px]"
                       loading="lazy"
+                      onError={fallbackToOriginal(slide.image_url)}
                     />
                   </div>
                 </div>
