@@ -29,6 +29,15 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
     };
   }, [isOpen]);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [isOpen]);
+
   const fill = variant === "light" ? "#F2F2F2" : "hsl(0, 0%, 11%)";
   const lineColor = variant === "light" ? "bg-[#F2F2F2]" : "bg-brand-ink";
 
@@ -36,8 +45,8 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
     <>
       <header className={`fixed top-0 left-0 right-0 z-50 py-6 px-6 lg:px-8 transition-all duration-300 ${scrolled ? (variant === "light" ? "bg-brand-red/95 backdrop-blur-sm" : "bg-brand-warm/95 backdrop-blur-sm") : ""}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <Link to="/">
-            <svg width="320" height="26" viewBox="0 0 318 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[clamp(12rem,15vw,20rem)] h-auto">
+          <Link to="/" aria-label="Marc Hodulich, home">
+            <svg aria-hidden="true" width="320" height="26" viewBox="0 0 318 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[clamp(12rem,15vw,20rem)] h-auto">
               <path d="M4.81302 25.3167H0V0.75H7.513L12.0074 20.0667L16.4682 0.75H23.8974V25.3167H19.0844V8.7C19.0844 8.22222 19.09 7.55556 19.1011 6.7C19.1123 5.83333 19.1179 5.16667 19.1179 4.7L14.4391 25.3167H9.4248L4.77948 4.7C4.77948 5.16667 4.78507 5.83333 4.79625 6.7C4.80743 7.55556 4.81302 8.22222 4.81302 8.7V25.3167Z" fill={fill}/>
               <path d="M45.5704 20.2667H36.4642L34.7537 25.3167H29.3537L38.1748 0.75H44.0108L52.7648 25.3167H47.1636L45.5704 20.2667ZM44.1282 16.0333L41.0425 6.36667L37.8562 16.0333H44.1282Z" fill={fill}/>
               <path d="M68.8198 15.6833H63.4869V25.3167H58.4391V0.75H70.5639C72.2968 0.783333 73.6272 0.994444 74.5552 1.38333C75.4943 1.77222 76.2881 2.34444 76.9365 3.1C77.4732 3.72222 77.898 4.41111 78.2111 5.16667C78.5241 5.92222 78.6806 6.78333 78.6806 7.75C78.6806 8.91667 78.3843 10.0667 77.7918 11.2C77.1993 12.3222 76.221 13.1167 74.857 13.5833C75.9974 14.0389 76.8024 14.6889 77.2719 15.5333C77.7527 16.3667 77.993 17.6444 77.993 19.3667V21.0167C77.993 22.1389 78.0378 22.9 78.1272 23.3C78.2614 23.9333 78.5744 24.4 79.0663 24.7V25.3167H73.3813C73.2247 24.7722 73.1129 24.3333 73.0459 24C72.9117 23.3111 72.839 22.6056 72.8279 21.8833L72.7943 19.6C72.7719 18.0333 72.4813 16.9889 71.9223 16.4667C71.3744 15.9444 70.3403 15.6833 68.8198 15.6833ZM71.9558 11.2167C72.9844 10.75 73.4987 9.82778 73.4987 8.45C73.4987 6.96111 73.0011 5.96111 72.0061 5.45C71.4471 5.16111 70.6086 5.01667 69.4906 5.01667H63.4869V11.6167H69.3397C70.5024 11.6167 71.3744 11.4833 71.9558 11.2167Z" fill={fill}/>
@@ -58,6 +67,8 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
             onClick={() => setIsOpen(true)}
             className="flex flex-col justify-center items-center w-11 h-11 cursor-pointer"
             aria-label="Open menu"
+            aria-expanded={isOpen}
+            aria-controls="site-menu"
           >
             <span className={`block w-6 h-[2px] ${lineColor}`} />
             <span className={`block w-6 h-[2px] ${lineColor} mt-[5px]`} />
@@ -68,6 +79,12 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
 
       {/* Full-screen overlay menu */}
       <div
+        id="site-menu"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Site menu"
+        aria-hidden={!isOpen}
+        {...(!isOpen ? { inert: "" } : {})}
         className={`fixed inset-0 z-[60] bg-brand-warm flex flex-col transition-opacity duration-300 ${
           isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
@@ -80,7 +97,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
               className="flex items-center justify-center w-11 h-11 cursor-pointer text-brand-ink"
               aria-label="Close menu"
             >
-              <span className="text-[32px] leading-none">×</span>
+              <span aria-hidden="true" className="text-[32px] leading-none">×</span>
             </button>
           </div>
         </div>

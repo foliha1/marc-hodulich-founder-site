@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useStoryChiefPostList, type StoryChiefPostListItem } from "@/hooks/useStoryChiefPosts";
 
 const formatDate = (iso: string | null): string => {
@@ -63,6 +64,7 @@ const PostCard = ({ post, index }: { post: StoryChiefPostListItem; index: number
 
 const EditorialPreview = () => {
   const { data: posts, isLoading, error } = useStoryChiefPostList();
+  useDocumentTitle("Editorial");
 
   return (
     <section className="w-full bg-brand-warm text-brand-ink min-h-screen flex flex-col">

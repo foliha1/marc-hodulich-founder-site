@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useStoryChiefPost } from "@/hooks/useStoryChiefPosts";
 
 const formatDate = (iso: string | null): string => {
@@ -18,6 +19,7 @@ const formatDate = (iso: string | null): string => {
 const EditorialPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: post, isLoading, error } = useStoryChiefPost(slug);
+  useDocumentTitle(post?.title, post?.meta_description || post?.excerpt);
 
   return (
     <section className="w-full bg-brand-warm text-brand-ink min-h-screen flex flex-col">

@@ -248,6 +248,21 @@
     animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .animate-in,
+    .animate-in.entered,
+    .animate-in-delay,
+    .animate-in-delay.entered {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+
+    .animate-bounce {
+      animation: none;
+    }
+  }
+
   /* Long-form article typography (StoryChief editorial posts) */
   .prose-editorial {
     line-height: 1.7;

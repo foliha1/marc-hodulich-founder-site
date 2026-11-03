@@ -9,7 +9,8 @@ export const FailuresFirsts = () => {
   const { data, isLoading } = useCarouselSlides();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
-  if (isLoading || !data || data.slides.length === 0) return <FailuresFirstsSkeleton />;
+  if (isLoading) return <FailuresFirstsSkeleton />;
+  if (!data || data.slides.length === 0) return null;
 
   const { slides, section } = data;
 
@@ -17,21 +18,21 @@ export const FailuresFirsts = () => {
     <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-in">
-          <h1 className="display-title text-brand-ink mb-6">{section?.title || "FAILURES, FIRSTS, AND FOUNDATIONS"}</h1>
+          <h2 className="display-title text-brand-ink mb-6">{section?.title || "FAILURES, FIRSTS, AND FOUNDATIONS"}</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl leading-relaxed mb-8">
             {section?.paragraph || "Marc's path as an entrepreneur and athlete proves that failure isn't the end, it's the making of a meaningful story. He sold payroll door-to-door in Manhattan, spent years in management consulting while raising millions for pediatric cancer research through The Wall Street Decathlon, and launched BeerFit, a nationwide mash-up of craft beer and fun runs. Each chapter, whether success or setback, was a step toward 29029, built from day one to be more than a race, a brand defined by You vs. You."}
           </p>
           <div className="flex items-center gap-12 mb-16">
             <button 
               onClick={() => carouselApi?.scrollPrev()} 
-              className="transition-transform hover:scale-110 focus:outline-none rounded"
+              className="transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-ink focus-visible:ring-offset-4 rounded"
               aria-label="Previous slide"
             >
               <ChevronLeft className="w-8 h-8 text-brand-ink" />
             </button>
             <button 
               onClick={() => carouselApi?.scrollNext()} 
-              className="transition-transform hover:scale-110 focus:outline-none rounded"
+              className="transition-transform hover:scale-110 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-ink focus-visible:ring-offset-4 rounded"
               aria-label="Next slide"
             >
               <ChevronRight className="w-8 h-8 text-brand-ink" />

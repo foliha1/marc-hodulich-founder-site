@@ -47,7 +47,7 @@ export const Movement = () => {
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="animate-in">
-          <h1 className="display-title text-brand-ink mb-6">{content.title}</h1>
+          <h2 className="display-title text-brand-ink mb-6">{content.title}</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
         
@@ -74,7 +74,7 @@ export const Movement = () => {
             href={content.video_link_url}
             target="_blank"
             rel="noopener noreferrer"
-            className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-0 group-hover:opacity-100 smooth-transition flex items-center justify-center z-10"
+            className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white smooth-transition flex items-end justify-center pb-8 lg:items-center lg:pb-0 z-10"
           >
             <span className="text-white text-2xl font-bold tracking-wider">DISCOVER 29029</span>
           </a>

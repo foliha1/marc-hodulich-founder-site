@@ -5,7 +5,8 @@ import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@
 export const MeetMarc = () => {
   const { data, isLoading } = useMeetMarcCards();
 
-  if (isLoading || !data || data.cards.length === 0) return <MeetMarcSkeleton />;
+  if (isLoading) return <MeetMarcSkeleton />;
+  if (!data || data.cards.length === 0) return null;
   
   const { cards, section } = data;
 
@@ -15,9 +16,9 @@ export const MeetMarc = () => {
         {/* Section Header */}
         <div className="mb-24">
           <div className="animate-in">
-            <h1 className="hero-title text-brand-ink">
+            <h2 className="hero-title text-brand-ink">
               {section?.title || "MEET MARC"}
-            </h1>
+            </h2>
           </div>
           <div className="mt-12 max-w-3xl animate-in-delay">
             <p className="body-text text-brand-ink-sub leading-relaxed">
@@ -82,7 +83,7 @@ const MeetMarcCard = ({
         />
       </div>
       <div className="lg:w-1/2 space-y-6">
-        <h4 className="subtitle text-brand-ink text-lg">{card.title}</h4>
+        <h3 className="subtitle text-brand-ink text-lg">{card.title}</h3>
         <p className="body-text text-brand-ink-sub leading-relaxed">
           {card.description}
         </p>

@@ -10,7 +10,7 @@ export const Contact = () => {
     <section className="w-full bg-white section-spacing">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
         <div className="animate-in">
-          <h1 className="hero-title text-brand-ink mb-8">{content.title}</h1>
+          <h2 className="hero-title text-brand-ink mb-8">{content.title}</h2>
           <p className="body-text text-brand-ink-sub mb-12 max-w-xl mx-auto">
             {content.description}
           </p>

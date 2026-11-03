@@ -8,13 +8,14 @@ export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
-  if (isLoading || !podcasts || podcasts.length === 0) return <SpeakingSkeleton />;
+  if (isLoading) return <SpeakingSkeleton />;
+  if (!podcasts || podcasts.length === 0) return null;
 
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-16 animate-in">
-          <h1 className="display-title text-brand-ink mb-6">Marc in Conversation</h1>
+          <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
           </p>
@@ -22,10 +23,12 @@ export const Speaking = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {podcasts.map((podcast, index) => (
-            <div 
+            <button
+              type="button"
               key={podcast.id}
               onClick={() => setSelectedVideo(podcast.podcast_url)}
-              className="group animate-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer"
+              aria-label={`Play: ${podcast.title}`}
+              className="group animate-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-4"
               style={{ animationDelay: `${index * 0.1}s`, backgroundColor: '#f2f2f2' }}
             >
               <div className="aspect-video overflow-hidden relative">
@@ -39,7 +42,7 @@ export const Speaking = () => {
                   decoding="async"
                   onError={fallbackToOriginal(podcast.thumbnail_url)}
                 />
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
+                <div aria-hidden="true" className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
                   <div className="w-16 h-16 bg-brand-red/90 rounded-full flex items-center justify-center smooth-transition group-hover:scale-110">
                     <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z" />
@@ -48,11 +51,11 @@ export const Speaking = () => {
                 </div>
               </div>
               <div className="p-6">
-                <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition">
+                <span className="block body-text tracking-tight text-brand-ink group-hover:text-brand-red smooth-transition">
                   {podcast.title}
-                </h3>
+                </span>
               </div>
-            </div>
+            </button>
           ))}
         </div>
       </div>

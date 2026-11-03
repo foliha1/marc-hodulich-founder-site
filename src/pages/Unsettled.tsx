@@ -1,8 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const Unsettled = () => {
+  useDocumentTitle("Unsettled Coaching");
   return (
     <>
       <section className="w-full bg-brand-red text-white min-h-screen flex flex-col">

@@ -1,6 +1,8 @@
 import { Navigation } from "@/components/Navigation";
+import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 const Editorial = () => {
+  useDocumentTitle("Editorial");
   return (
     <section className="w-full bg-brand-warm text-brand-ink min-h-screen flex flex-col">
       <Navigation variant="dark" />
