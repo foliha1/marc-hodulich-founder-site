@@ -49,11 +49,8 @@ export const Newsletter = () => {
     >
       <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
         <div className="reveal mb-1">
-          <p className="caption-text text-brand-red tracking-[0.2em] uppercase mb-3">
+          <p className="text-2xl md:text-3xl font-medium text-brand-red tracking-[0.2em] uppercase">
             The Newsletter
-          </p>
-          <p className="body-text text-white/80">
-            Sign up to get new issues in your inbox.
           </p>
         </div>
         <div ref={ref} style={{ height: "40vmin", minHeight: 360, maxHeight: 520 }} />
