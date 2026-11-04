@@ -263,6 +263,7 @@ export type Database = {
       section_content: {
         Row: {
           id: string
+          image_url: string | null
           paragraph: string
           section_name: string
           title: string
@@ -270,6 +271,7 @@ export type Database = {
         }
         Insert: {
           id?: string
+          image_url?: string | null
           paragraph: string
           section_name: string
           title: string
@@ -277,6 +279,7 @@ export type Database = {
         }
         Update: {
           id?: string
+          image_url?: string | null
           paragraph?: string
           section_name?: string
           title?: string

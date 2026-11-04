@@ -12,6 +12,7 @@ interface MeetMarcCard {
 interface SectionContent {
   title: string;
   paragraph: string;
+  image_url: string | null;
 }
 
 export const useMeetMarcCards = () => {
@@ -20,7 +21,7 @@ export const useMeetMarcCards = () => {
     queryFn: async () => {
       const [cardsResponse, sectionResponse] = await Promise.all([
         supabase.from("meet_marc_cards").select("*").order("display_order"),
-        supabase.from("section_content").select("title, paragraph").eq("section_name", "meet_marc").maybeSingle()
+        supabase.from("section_content").select("title, paragraph, image_url").eq("section_name", "meet_marc").maybeSingle()
       ]);
       
       if (cardsResponse.error) throw cardsResponse.error;

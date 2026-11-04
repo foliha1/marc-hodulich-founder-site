@@ -53,7 +53,7 @@ export const Hero = () => {
         You vs. You
       </span>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-16 lg:pb-24">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:pl-16 lg:pr-8 pt-32 pb-16 lg:pb-24">
         <div className="reveal">
           <p className="eyebrow text-brand-warm mb-6 md:mb-8 [&]:text-brand-warm tracking-[0.35em]">{content.subtitle}</p>
           <h1 className="font-display text-[clamp(2.1rem,8.6vw,9rem)]">

@@ -64,6 +64,7 @@ export const MeetMarcEditor = () => {
       .update({
         title: sectionContent.title,
         paragraph: sectionContent.paragraph,
+        image_url: sectionContent.image_url,
       })
       .eq("id", sectionContent.id);
 
@@ -105,6 +106,14 @@ export const MeetMarcEditor = () => {
                 rows={4}
               />
             </div>
+            <ImageUpload
+              value={sectionContent.image_url || ""}
+              onChange={(url) =>
+                setSectionContent({ ...sectionContent, image_url: url })
+              }
+              folder="meet-marc"
+              label="Portrait Photo (next to the heading)"
+            />
             <Button onClick={handleUpdateSection} disabled={loading}>
               Save Section Content
             </Button>
