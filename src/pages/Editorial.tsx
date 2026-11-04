@@ -210,7 +210,6 @@ const Editorial = () => {
                   className="reveal rounded-[4px] p-6 border border-dashed border-brand-ink/15"
                   style={{ animationDelay: `${(posts.length + i) * 0.08}s` }}
                 >
-                  <span className="block caption-text uppercase tracking-wider text-brand-muted mb-3">Coming soon</span>
                   <h3 className="body-text text-brand-ink-sub">{title}</h3>
                 </div>
               ))}
