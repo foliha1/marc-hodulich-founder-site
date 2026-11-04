@@ -65,7 +65,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
           {/* Hamburger button */}
           <button
             onClick={() => setIsOpen(true)}
-            className="flex flex-col justify-center items-center w-11 h-11 cursor-pointer"
+            className="press active:scale-[0.97] flex flex-col justify-center items-center w-11 h-11 cursor-pointer"
             aria-label="Open menu"
             aria-expanded={isOpen}
             aria-controls="site-menu"
@@ -85,8 +85,8 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
         aria-label="Site menu"
         aria-hidden={!isOpen}
         {...(!isOpen ? { inert: "" } : {})}
-        className={`fixed inset-0 z-[60] bg-brand-warm flex flex-col transition-opacity duration-300 ${
-          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 z-[60] bg-brand-warm flex flex-col transition-opacity ${
+          isOpen ? "duration-300 opacity-100 pointer-events-auto" : "duration-200 opacity-0 pointer-events-none"
         }`}
       >
         {/* Close button */}
@@ -94,7 +94,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
           <div className="max-w-7xl mx-auto flex justify-end">
             <button
               onClick={() => setIsOpen(false)}
-              className="flex items-center justify-center w-11 h-11 cursor-pointer text-brand-ink"
+              className="press active:scale-[0.97] flex items-center justify-center w-11 h-11 cursor-pointer text-brand-ink"
               aria-label="Close menu"
             >
               <span aria-hidden="true" className="text-[32px] leading-none">×</span>
@@ -108,21 +108,24 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
             <Link
               to="/"
               onClick={() => setIsOpen(false)}
-              className="hero-title text-brand-ink uppercase hover:text-brand-red smooth-transition"
+              className={`menu-link hero-title text-brand-ink uppercase hover:text-brand-red ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+              style={{ transitionDelay: isOpen ? "0ms" : "0ms" }}
             >
               Home
             </Link>
             <Link
               to="/unsettled"
               onClick={() => setIsOpen(false)}
-              className="hero-title text-brand-ink uppercase hover:text-brand-red smooth-transition"
+              className={`menu-link hero-title text-brand-ink uppercase hover:text-brand-red ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+              style={{ transitionDelay: isOpen ? "50ms" : "0ms" }}
             >
               Coaching
             </Link>
             <Link
               to="/editorial"
               onClick={() => setIsOpen(false)}
-              className="hero-title text-brand-ink uppercase hover:text-brand-red smooth-transition"
+              className={`menu-link hero-title text-brand-ink uppercase hover:text-brand-red ${isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"}`}
+              style={{ transitionDelay: isOpen ? "100ms" : "0ms" }}
             >
               Editorial
             </Link>

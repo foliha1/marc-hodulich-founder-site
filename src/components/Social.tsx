@@ -44,7 +44,7 @@ export const Social = () => {
   return (
     <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-16 animate-in">
+        <div className="mb-10 lg:mb-16 reveal">
           <h2 className="display-title text-brand-ink mb-6">In the Wild</h2>
         </div>
         

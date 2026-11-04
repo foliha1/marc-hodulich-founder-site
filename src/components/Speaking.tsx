@@ -2,7 +2,7 @@ import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
-import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@/utils/imageOptimization";
+import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
@@ -14,7 +14,7 @@ export const Speaking = () => {
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-16 animate-in">
+        <div className="mb-10 lg:mb-16 reveal">
           <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl">
             Talks and conversations on leadership, endurance, and designing a life with intention.
@@ -28,16 +28,17 @@ export const Speaking = () => {
               key={podcast.id}
               onClick={() => setSelectedVideo(podcast.podcast_url)}
               aria-label={`Play: ${podcast.title}`}
-              className="group animate-in rounded-[4px] overflow-hidden smooth-transition cursor-pointer block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-4"
+              className="group reveal rounded-[4px] overflow-hidden smooth-transition press active:scale-[0.97] cursor-pointer block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-4"
               style={{ animationDelay: `${index * 0.1}s`, backgroundColor: '#f2f2f2' }}
             >
-              <div className="aspect-video overflow-hidden relative">
+              <div className="aspect-video overflow-hidden relative bg-brand-stone">
                 <img 
                   srcSet={getResponsiveSrcSet(podcast.thumbnail_url, [356, 640], 80)}
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   src={getOptimizedImageUrl(podcast.thumbnail_url, 640, 80)}
                   alt={podcast.title}
-                  className="w-full h-full object-cover smooth-transition group-hover:scale-105"
+                  className="img-fade w-full h-full object-cover group-hover:scale-105"
+                  {...fadeInProps}
                   loading="lazy"
                   decoding="async"
                   onError={fallbackToOriginal(podcast.thumbnail_url)}

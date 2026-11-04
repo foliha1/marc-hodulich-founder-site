@@ -61,7 +61,8 @@
     --shadow-card: 0 4px 6px -1px hsl(var(--brand-ink) / 0.1), 0 2px 4px -1px hsl(var(--brand-ink) / 0.06);
     
     /* Animations */
-    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out-soft: cubic-bezier(0.23, 1, 0.32, 1);
+    --transition-smooth: color 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft), border-color 0.3s var(--ease-out-soft), opacity 0.3s var(--ease-out-soft), transform 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft);
     --transition-bounce: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     
     /* Typography Scale - Mobile-optimized */
@@ -230,29 +231,57 @@
     transition: var(--transition-bounce);
   }
   
-  .animate-in {
+  .reveal {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(16px);
   }
 
-  .animate-in.entered {
-    animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) both;
+  .reveal.entered {
+    animation: enterUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
   }
 
-  .animate-in-delay {
+  .reveal-delay {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(16px);
   }
 
-  .animate-in-delay.entered {
-    animation: enterUp 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+  .reveal-delay.entered {
+    animation: enterUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) 0.15s both;
+  }
+
+  /* Images fade in once loaded instead of popping in */
+  .img-fade {
+    opacity: 0;
+    transition: opacity 500ms cubic-bezier(0.23, 1, 0.32, 1), transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .img-fade.is-loaded {
+    opacity: 1;
+  }
+
+  /* Press feedback (doubled class beats single-class transition utilities) */
+  .press.press {
+    transition: color 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft), transform 160ms ease-out;
+  }
+
+  /* Menu links fade up when the overlay opens */
+  .menu-link {
+    transition: color 0.3s var(--ease-out-soft), opacity 300ms ease-out, transform 300ms ease-out;
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .animate-in,
-    .animate-in.entered,
-    .animate-in-delay,
-    .animate-in-delay.entered {
+    .img-fade {
+      transition: opacity 200ms ease-out;
+    }
+
+    .menu-link {
+      transform: none !important;
+    }
+
+    .reveal,
+    .reveal.entered,
+    .reveal-delay,
+    .reveal-delay.entered {
       opacity: 1;
       transform: none;
       animation: none;

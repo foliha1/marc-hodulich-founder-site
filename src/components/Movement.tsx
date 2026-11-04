@@ -46,7 +46,7 @@ export const Movement = () => {
 
   return <section className="w-full bg-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="animate-in">
+        <div className="reveal">
           <h2 className="display-title text-brand-ink mb-6">{content.title}</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
         </div>
@@ -54,7 +54,7 @@ export const Movement = () => {
         {/* Movement Video - Autoplay on scroll */}
         <div
           ref={videoRef}
-          className="relative w-full h-[400px] rounded-[4px] mb-[200px] overflow-hidden group animate-in"
+          className="relative w-full h-[400px] rounded-[4px] mb-24 lg:mb-[200px] overflow-hidden group reveal"
         >
           <video
             ref={videoElementRef}
@@ -80,9 +80,9 @@ export const Movement = () => {
           </a>
         </div>
         
-        <div className="animate-in">
+        <div className="reveal">
           <div className="flex flex-col items-center">
-            <blockquote className="mx-auto text-center max-w-5xl px-8">
+            <blockquote className="mx-auto text-center max-w-5xl px-0 md:px-8">
               <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
                 "{content.quote}"
               </p>

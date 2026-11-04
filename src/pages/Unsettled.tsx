@@ -12,7 +12,7 @@ const Unsettled = () => {
 
         {/* Centered Content */}
         <div className="flex-1 flex items-center justify-center px-6 lg:px-8">
-          <div className="max-w-2xl text-center animate-in">
+          <div className="max-w-2xl text-center reveal">
             <h1 className="hero-title text-white mb-6">UNSETTLED</h1>
             <p className="body-text text-white/80 mb-12">
               Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services.

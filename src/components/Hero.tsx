@@ -1,6 +1,6 @@
 import { ChevronDown } from "lucide-react";
 import { useHeroContent } from "@/hooks/useHeroContent";
-import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal } from "@/utils/imageOptimization";
+import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
 import { Navigation } from "@/components/Navigation";
 
 export const Hero = () => {
@@ -20,7 +20,7 @@ export const Hero = () => {
 
       {/* Text Content Overlay - Left justified, starts below logo on mobile */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
-        <div className="max-w-2xl animate-in">
+        <div className="max-w-2xl reveal">
           <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
           <p className="body-text mb-8 text-white/90">
             {content.description}
@@ -37,7 +37,7 @@ export const Hero = () => {
       </div>
 
       {/* Hero Image - single responsive image (previously 3 separate tags downloaded the photo 3 times) */}
-      <div className="relative w-full min-h-80 md:min-h-0 lg:absolute lg:bottom-0 lg:right-0 lg:w-[clamp(56.16vw,70.2vw,84.24vw)] lg:min-h-[84vh] lg:max-h-[100vh] lg:h-[93.6vh] animate-in">
+      <div className="relative w-full min-h-80 md:min-h-0 lg:absolute lg:bottom-0 lg:right-0 lg:w-[clamp(56.16vw,70.2vw,84.24vw)] lg:min-h-[84vh] lg:max-h-[100vh] lg:h-[93.6vh]">
         <img
           srcSet={getResponsiveSrcSet(content.background_image_url, [640, 854, 1280, 1920], 85)}
           sizes="(min-width: 1024px) 70vw, 100vw"
@@ -46,7 +46,8 @@ export const Hero = () => {
           {...(content.background_image_width && content.background_image_height
             ? { width: content.background_image_width, height: content.background_image_height }
             : {})}
-          className="w-full h-auto lg:h-full object-contain object-bottom"
+          className="img-fade w-full h-auto lg:h-full object-contain object-bottom"
+          {...fadeInProps}
           loading="eager"
           {...({ fetchpriority: "high" } as object)}
           decoding="async"

@@ -80,3 +80,16 @@ export const getImageDimensions = (file: File): Promise<{ width: number; height:
     img.src = objectUrl;
   });
 };
+
+/**
+ * Props that make an <img> fade in once loaded (pair with the "img-fade" class).
+ * Handles images already complete from cache, and re-fades after an onError fallback.
+ */
+const markLoaded = (img: HTMLImageElement | null) => {
+  if (img && img.complete && img.naturalWidth > 0) img.classList.add("is-loaded");
+};
+
+export const fadeInProps = {
+  ref: markLoaded,
+  onLoad: (event: SyntheticEvent<HTMLImageElement>) => event.currentTarget.classList.add("is-loaded"),
+};

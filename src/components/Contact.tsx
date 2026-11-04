@@ -9,7 +9,7 @@ export const Contact = () => {
   return (
     <section className="w-full bg-white section-spacing">
       <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <div className="animate-in">
+        <div className="reveal">
           <h2 className="hero-title text-brand-ink mb-8">{content.title}</h2>
           <p className="body-text text-brand-ink-sub mb-12 max-w-xl mx-auto">
             {content.description}
@@ -18,7 +18,7 @@ export const Contact = () => {
           <Button 
             asChild
             size="lg"
-            className="bg-brand-ink hover:bg-brand-red text-white px-8 py-4 text-lg font-semibold smooth-transition"
+            className="bg-brand-ink hover:bg-brand-red text-white px-8 py-4 text-lg font-semibold press active:scale-[0.97]"
           >
             <a href={`mailto:${content.email}`}>
               {content.button_text}

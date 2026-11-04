@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useStoryChiefPostList, type StoryChiefPostListItem } from "@/hooks/useStoryChiefPosts";
 
@@ -19,15 +20,16 @@ const formatDate = (iso: string | null): string => {
 const PostCard = ({ post, index }: { post: StoryChiefPostListItem; index: number }) => (
   <Link
     to={`/editorial-preview/${post.slug}`}
-    className="group animate-in rounded-[4px] overflow-hidden smooth-transition block"
+    className="group reveal rounded-[4px] overflow-hidden smooth-transition block"
     style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
   >
     {post.featured_image ? (
-      <div className="aspect-[4/3] overflow-hidden">
+      <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
         <img
           src={post.featured_image}
           alt={post.title}
-          className="w-full h-full object-cover smooth-transition group-hover:scale-105"
+          className="img-fade w-full h-full object-cover group-hover:scale-105"
+          {...fadeInProps}
           loading="lazy"
           decoding="async"
         />
@@ -72,7 +74,7 @@ const EditorialPreview = () => {
 
       <div className="flex-1 px-6 lg:px-8 pt-32 pb-24">
         <div className="max-w-7xl mx-auto w-full">
-          <div className="mb-16 animate-in">
+          <div className="mb-16 reveal">
             <h1 className="display-title text-brand-ink mb-6">Editorial</h1>
             <p className="body-text text-brand-ink-sub max-w-3xl">
               Writing on leadership, endurance, and building a life with intention.

@@ -8,7 +8,7 @@ const Editorial = () => {
       <Navigation variant="dark" />
 
       <div className="flex-1 flex flex-col items-center justify-center px-6 lg:px-8 py-32">
-        <div className="max-w-2xl text-center animate-in">
+        <div className="max-w-2xl text-center reveal">
           <h1 className="hero-title mb-6">EDITORIAL</h1>
         </div>
       </div>

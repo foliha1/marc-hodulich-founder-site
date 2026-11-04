@@ -44,7 +44,7 @@
         );
 
         function observeElements() {
-          document.querySelectorAll(".animate-in:not(.entered), .animate-in-delay:not(.entered)").forEach(function (el) {
+          document.querySelectorAll(".reveal:not(.entered), .reveal-delay:not(.entered)").forEach(function (el) {
             var rect = el.getBoundingClientRect();
             if (rect.top < window.innerHeight - 40 && rect.bottom > 0) {
               el.classList.add("entered");

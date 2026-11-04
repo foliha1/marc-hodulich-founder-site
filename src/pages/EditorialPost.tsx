@@ -1,5 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useStoryChiefPost } from "@/hooks/useStoryChiefPosts";
 
@@ -35,7 +36,7 @@ const EditorialPost = () => {
           </Link>
 
           {isLoading && (
-            <div className="animate-in">
+            <div className="reveal">
               <div className="h-8 w-2/3 bg-brand-stone animate-pulse mb-6" />
               <div className="h-5 w-1/2 bg-brand-stone animate-pulse mb-10" />
               <div className="space-y-4">
@@ -47,7 +48,7 @@ const EditorialPost = () => {
           )}
 
           {error && (
-            <div className="text-center py-20 animate-in">
+            <div className="text-center py-20 reveal">
               <h1 className="section-title text-brand-ink mb-4">Article not found</h1>
               <p className="body-text text-brand-ink-sub mb-8">
                 The article you're looking for doesn't exist or has been moved.
@@ -62,7 +63,7 @@ const EditorialPost = () => {
           )}
 
           {!isLoading && !error && post && (
-            <article className="animate-in">
+            <article className="reveal">
               {post.tags.length > 0 && (
                 <div className="flex flex-wrap gap-3 mb-4">
                   {post.tags.map((tag) => (
@@ -92,11 +93,12 @@ const EditorialPost = () => {
               </div>
 
               {post.featured_image && (
-                <div className="aspect-[16/9] overflow-hidden rounded-[4px] mb-10 elegant-shadow">
+                <div className="aspect-[16/9] overflow-hidden rounded-[4px] mb-10 elegant-shadow bg-brand-stone">
                   <img
                     src={post.featured_image}
                     alt={post.title}
-                    className="w-full h-full object-cover"
+                    className="img-fade w-full h-full object-cover"
+                    {...fadeInProps}
                     loading="lazy"
                     decoding="async"
                   />
