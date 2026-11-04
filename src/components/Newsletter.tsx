@@ -1,30 +1,23 @@
 import { CSSProperties, useEffect, useRef } from "react";
-import { fadeInProps } from "@/utils/imageOptimization";
 
-const NEWSLETTER_MASTHEAD_URL =
-  "https://ontkueksqeqypaxvysvu.supabase.co/storage/v1/object/public/cms-images/newsletter-header-warm.png";
-
-// Masthead banner for the UNSETTLED newsletter (portrait + wordmark lockup).
-// The artwork's background was recolored to the page's exact background
-// (#F2F2F2) and is served untransformed, so it sits on the page with no box,
-// band, or seam. On phones it is scaled up past the content column for
-// legibility; only its outer padding is clipped, never the artwork.
+// Masthead for the UNSETTLED newsletter: real text, not an image, so the
+// title always renders. Mirrors the artwork's lockup — bold tracked caps for
+// the wordmark, italic serif for the byline.
 export const NewsletterMasthead = () => (
   <div className="reveal">
     <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">
       The Newsletter
     </p>
-    <div className="overflow-hidden py-1 md:py-2">
-      <img
-        src={NEWSLETTER_MASTHEAD_URL}
-        alt="UNSETTLED with Marc Hodulich"
-        width={1200}
-        height={240}
-        className="img-fade block h-auto w-[160%] md:w-full max-w-[880px] -translate-x-[20.5%]"
-        {...fadeInProps}
-        loading="lazy"
-        decoding="async"
-      />
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-1 md:py-2">
+      <span className="font-bold uppercase tracking-[0.1em] text-brand-ink leading-none text-[clamp(1.6rem,3.4vw,2.4rem)]">
+        Unsettled
+      </span>
+      <span
+        className="italic text-brand-ink-sub text-[clamp(1.05rem,2.1vw,1.5rem)]"
+        style={{ fontFamily: "Georgia, 'Times New Roman', serif" }}
+      >
+        with Marc Hodulich
+      </span>
     </div>
   </div>
 );
