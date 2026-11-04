@@ -259,6 +259,20 @@
     opacity: 1;
   }
 
+  /* Lazy-loaded content placeholder: soft stone with a slow sheen */
+  .skeleton {
+    background-color: hsl(var(--brand-stone) / 0.55);
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      hsl(var(--brand-warm) / 0.85) 50%,
+      transparent 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 200% 100%;
+    animation: skeletonSheen 1.6s ease-in-out infinite;
+  }
+
   /* Press feedback (doubled class beats single-class transition utilities) */
   .press.press {
     transition: color 0.3s var(--ease-out-soft), background-color 0.3s var(--ease-out-soft), box-shadow 0.3s var(--ease-out-soft), transform 160ms ease-out;
@@ -288,6 +302,10 @@
     }
 
     .animate-bounce {
+      animation: none;
+    }
+
+    .skeleton {
       animation: none;
     }
   }
@@ -419,6 +437,15 @@
   .section-spacing {
     padding-top: clamp(120px, 15vw, 200px);
     padding-bottom: clamp(120px, 15vw, 200px);
+  }
+}
+
+@keyframes skeletonSheen {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
   }
 }
 

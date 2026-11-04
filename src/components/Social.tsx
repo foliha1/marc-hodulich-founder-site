@@ -3,7 +3,10 @@ import { useSectionContent } from "@/hooks/useSectionContent";
 export const Social = () => {
   const { data: section } = useSectionContent("social");
   const [isVisible, setIsVisible] = useState(false);
+  const [widgetReady, setWidgetReady] = useState(false);
+  const [placeholderGone, setPlaceholderGone] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
+  const widgetRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Lazy load Instagram widget using Intersection Observer
@@ -40,6 +43,45 @@ export const Social = () => {
     document.body.appendChild(script);
   }, [isVisible]);
 
+  // Hold the placeholder until the widget has actually rendered something
+  useEffect(() => {
+    if (!isVisible) return;
+
+    const el = widgetRef.current;
+    const hasContent = () => !!el && el.childElementCount > 0;
+
+    if (hasContent()) {
+      setWidgetReady(true);
+      return;
+    }
+
+    let observer: MutationObserver | undefined;
+    if (el) {
+      observer = new MutationObserver(() => {
+        if (hasContent()) {
+          setWidgetReady(true);
+          observer?.disconnect();
+        }
+      });
+      observer.observe(el, { childList: true, subtree: true });
+    }
+
+    // Don't leave a shimmering box on screen if the widget never arrives
+    const safety = window.setTimeout(() => setWidgetReady(true), 12000);
+
+    return () => {
+      observer?.disconnect();
+      window.clearTimeout(safety);
+    };
+  }, [isVisible]);
+
+  // Unmount the placeholder once its fade-out has finished
+  useEffect(() => {
+    if (!widgetReady) return;
+    const t = window.setTimeout(() => setPlaceholderGone(true), 500);
+    return () => window.clearTimeout(t);
+  }, [widgetReady]);
+
   return (
     <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
@@ -47,9 +89,31 @@ export const Social = () => {
           <h2 className="display-title text-brand-ink mb-6">{section?.title || "In the Wild"}</h2>
         </div>
         
-        {isVisible && (
-          <div className="elfsight-app-7e1de5f0-11d6-4bf3-ae86-6bef6e382f63" data-elfsight-app-lazy></div>
-        )}
+        <div className="grid">
+          {isVisible && (
+            <div
+              ref={widgetRef}
+              className="col-start-1 row-start-1 elfsight-app-7e1de5f0-11d6-4bf3-ae86-6bef6e382f63"
+              data-elfsight-app-lazy
+            ></div>
+          )}
+
+          {!placeholderGone && (
+            <div
+              aria-hidden="true"
+              className={`col-start-1 row-start-1 pointer-events-none grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 transition-opacity duration-500 ${
+                widgetReady ? "opacity-0" : "opacity-100"
+              }`}
+            >
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className={`skeleton aspect-square rounded-[4px] ${i > 3 ? "hidden sm:block" : ""}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );

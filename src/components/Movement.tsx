@@ -5,6 +5,7 @@ export const Movement = () => {
   const { data: content } = useMovementContent();
   const [isVideoVisible, setIsVideoVisible] = useState(false);
   const [hasBeenNear, setHasBeenNear] = useState(false);
+  const [mediaReady, setMediaReady] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
 
@@ -42,6 +43,21 @@ export const Movement = () => {
     });
   }, [isVideoVisible, hasBeenNear]);
 
+  // Keep the placeholder up until the poster (or a first frame) is actually on screen
+  useEffect(() => {
+    if (!hasBeenNear || !content) return;
+
+    const img = new Image();
+    img.onload = () => setMediaReady(true);
+    img.onerror = () => setMediaReady(true);
+    img.src = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
+
+    return () => {
+      img.onload = null;
+      img.onerror = null;
+    };
+  }, [hasBeenNear, content]);
+
   if (!content) return null;
 
   const posterUrl = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
@@ -58,6 +74,12 @@ export const Movement = () => {
           ref={videoRef}
           className="relative w-full h-[400px] rounded-[4px] mb-24 lg:mb-[200px] overflow-hidden group reveal"
         >
+          <div
+            aria-hidden="true"
+            className={`skeleton absolute inset-0 pointer-events-none transition-opacity duration-500 ${
+              mediaReady ? "opacity-0" : "opacity-100"
+            }`}
+          />
           <video
             ref={videoElementRef}
             className="w-full h-full object-cover"
@@ -66,6 +88,7 @@ export const Movement = () => {
             playsInline
             preload="none"
             poster={hasBeenNear ? posterUrl : undefined}
+            onCanPlay={() => setMediaReady(true)}
             aria-hidden="true"
           >
             {hasBeenNear && <source src={content.video_url} type="video/mp4" />}
