@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
+import { usePressFeatures } from "@/hooks/usePressFeatures";
 import { useSectionContent } from "@/hooks/useSectionContent";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
@@ -8,6 +9,8 @@ import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInPr
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
   const { data: section } = useSectionContent("speaking");
+  const { data: features } = usePressFeatures();
+  const press = (features ?? []).filter((f) => f.kind === "press");
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   useEffect(() => {
@@ -67,6 +70,44 @@ export const Speaking = () => {
             </button>
           ))}
         </div>
+
+        {press.length > 0 && (
+          <div className="mt-16 lg:mt-20 pt-10 border-t border-brand-ink/10">
+            <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-8 reveal">Features &amp; Press</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {press.map((f, index) => (
+                <a
+                  key={f.id}
+                  href={f.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group reveal flex items-center gap-4 rounded-[4px] p-3 smooth-transition"
+                  style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+                >
+                  {f.image_url && (
+                    <div className="w-20 h-20 shrink-0 overflow-hidden rounded-[2px] bg-brand-stone">
+                      <img
+                        src={getOptimizedImageUrl(f.image_url, 160, 80)}
+                        alt=""
+                        className="img-fade w-full h-full object-cover object-top"
+                        {...fadeInProps}
+                        onError={fallbackToOriginal(f.image_url)}
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <span className="block caption-text uppercase tracking-wider text-brand-red mb-1">{f.outlet}</span>
+                    <span className="block caption-text text-brand-ink group-hover:text-brand-red smooth-transition line-clamp-2">
+                      {f.title} <span aria-hidden="true" className="text-brand-muted">↗</span>
+                    </span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
 
       <VideoModal 
