@@ -10,8 +10,11 @@ const NEWSLETTER_MASTHEAD_URL =
 // band, or seam. On phones it is scaled up past the content column for
 // legibility; only its outer padding is clipped, never the artwork.
 export const NewsletterMasthead = () => (
-  <div className="reveal py-1 md:py-2" aria-label="UNSETTLED with Marc Hodulich">
-    <div className="flex justify-center overflow-hidden">
+  <div className="reveal">
+    <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 text-center">
+      The Newsletter
+    </p>
+    <div className="flex justify-center overflow-hidden py-1 md:py-2">
       <img
         src={NEWSLETTER_MASTHEAD_URL}
         alt="UNSETTLED with Marc Hodulich"
