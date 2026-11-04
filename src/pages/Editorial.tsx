@@ -182,7 +182,8 @@ const Editorial = () => {
           <div className="mb-16 reveal">
             <h1 className="display-title text-brand-ink mb-6">Editorial</h1>
             <p className="body-text text-brand-ink-sub max-w-3xl">
-              Writing on leadership, endurance, and building a life with intention.
+              My observations, learnings, and challenges, meant to bring a little
+              authenticity, levity, and direction to a world full of noise.
             </p>
           </div>
 
