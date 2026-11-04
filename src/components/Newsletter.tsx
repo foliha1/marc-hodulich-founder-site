@@ -14,12 +14,24 @@ const GHOST_SIGNUP_ATTRS: Record<string, string> = {
   "data-locale": "en",
 };
 
+// Light, form-only variant (no title/description) for light pages.
+const GHOST_MINIMAL_ATTRS: Record<string, string> = {
+  "data-background-color": "#f2f2f2",
+  "data-text-color": "#1c1c1c",
+  "data-button-color": "#e1251b",
+  "data-button-text-color": "#FFFFFF",
+  "data-site": "https://marc-hodulich-1.ghost.io/",
+  "data-locale": "en",
+};
+
 export const GhostSignupForm = ({
   style,
   className,
+  minimal = false,
 }: {
   style?: CSSProperties;
   className?: string;
+  minimal?: boolean;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,7 +45,7 @@ export const GhostSignupForm = ({
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/ghost/signup-form@~0.4/umd/signup-form.min.js";
       s.async = true;
-      Object.entries(GHOST_SIGNUP_ATTRS).forEach(([k, v]) => s.setAttribute(k, v));
+      Object.entries(minimal ? GHOST_MINIMAL_ATTRS : GHOST_SIGNUP_ATTRS).forEach(([k, v]) => s.setAttribute(k, v));
       el.appendChild(s);
     };
     const io = new IntersectionObserver(
@@ -47,7 +59,7 @@ export const GhostSignupForm = ({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, []);
+  }, [minimal]);
 
   return <div ref={ref} className={className} style={style} />;
 };
@@ -69,15 +81,15 @@ export const Newsletter = () => (
   </section>
 );
 
-// Contained signup panel used at the bottom of the Editorial page.
-// Full-bleed on phones so the form keeps its full width; a centered card above.
+// Quiet, minimal signup row at the bottom of the Editorial page.
 export const NewsletterBox = () => (
-  <div className="mt-24 md:mt-32 reveal" aria-label="Newsletter signup">
-    <div className="max-md:-mx-6 md:mx-auto md:max-w-3xl bg-brand-night max-md:rounded-none md:rounded-[4px] elegant-shadow px-6 py-10 md:px-12 md:py-12 text-center">
-      <p className="text-2xl md:text-3xl font-medium text-brand-red tracking-[0.2em] uppercase mb-6">
-        The Newsletter
+  <section className="mt-24 md:mt-32 pt-12 md:pt-16 border-t border-brand-ink/10 reveal" aria-label="Newsletter signup">
+    <div className="max-w-xl mx-auto text-center">
+      <p className="text-xs font-medium text-brand-red tracking-[0.2em] uppercase mb-3">The Newsletter</p>
+      <p className="body-text text-brand-ink-sub mb-6">
+        Get new letters from <em>UNSETTLED with Marc Hodulich</em> in your inbox.
       </p>
-      <GhostSignupForm style={{ height: "40vmin", minHeight: 360, maxHeight: 460 }} />
+      <GhostSignupForm minimal style={{ height: 64 }} />
     </div>
-  </div>
+  </section>
 );
