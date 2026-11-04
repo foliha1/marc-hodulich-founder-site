@@ -4,6 +4,7 @@ import { useMovementContent } from "@/hooks/useMovementContent";
 export const Movement = () => {
   const { data: content } = useMovementContent();
   const [isVideoVisible, setIsVideoVisible] = useState(false);
+  const [hasBeenNear, setHasBeenNear] = useState(false);
   const videoRef = useRef<HTMLDivElement>(null);
   const videoElementRef = useRef<HTMLVideoElement>(null);
 
@@ -15,18 +16,19 @@ export const Movement = () => {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsVideoVisible(entry.isIntersecting);
+        if (entry.isIntersecting) setHasBeenNear(true);
       },
-      { rootMargin: '200px' }
+      { rootMargin: '300px' }
     );
 
     observer.observe(element);
     return () => observer.disconnect();
-  }, []);
+  }, [content]);
 
   // Play when visible, pause when out of view; respect reduced motion
   useEffect(() => {
     const video = videoElementRef.current;
-    if (!video) return;
+    if (!video || !hasBeenNear) return;
 
     if (!isVideoVisible) {
       video.pause();
@@ -38,7 +40,7 @@ export const Movement = () => {
     video.play().catch(() => {
       // Silently handle autoplay restrictions (rare with muted videos)
     });
-  }, [isVideoVisible]);
+  }, [isVideoVisible, hasBeenNear]);
 
   if (!content) return null;
 
@@ -63,10 +65,10 @@ export const Movement = () => {
             loop
             playsInline
             preload="none"
-            poster={posterUrl}
+            poster={hasBeenNear ? posterUrl : undefined}
             aria-hidden="true"
           >
-            <source src={content.video_url} type="video/mp4" />
+            {hasBeenNear && <source src={content.video_url} type="video/mp4" />}
           </video>
           
           {/* "Discover 29029" CTA overlay on hover */}

@@ -10,13 +10,14 @@ export const Social = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting && !isVisible) {
+          if (entry.isIntersecting) {
             setIsVisible(true);
+            observer.disconnect();
           }
         });
       },
       {
-        rootMargin: '200px', // Start loading 200px before section is visible
+        rootMargin: '300px', // Start loading shortly before section is visible
       }
     );
 
@@ -24,12 +25,8 @@ export const Social = () => {
       observer.observe(sectionRef.current);
     }
 
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, [isVisible]);
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!isVisible) return;
@@ -44,7 +41,7 @@ export const Social = () => {
   }, [isVisible]);
 
   return (
-    <section ref={sectionRef} className="w-full bg-white section-spacing">
+    <section ref={sectionRef} className="w-full bg-white section-spacing min-h-[400px]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-16 reveal">
           <h2 className="display-title text-brand-ink mb-6">{section?.title || "In the Wild"}</h2>
