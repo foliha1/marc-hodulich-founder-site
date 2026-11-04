@@ -2,7 +2,7 @@ import { useParams, Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
-import { useStoryChiefPost } from "@/hooks/useStoryChiefPosts";
+import { useGhostPost } from "@/hooks/useGhostPosts";
 
 const formatDate = (iso: string | null): string => {
   if (!iso) return "";
@@ -19,7 +19,7 @@ const formatDate = (iso: string | null): string => {
 
 const EditorialPost = () => {
   const { slug } = useParams<{ slug: string }>();
-  const { data: post, isLoading, error } = useStoryChiefPost(slug);
+  const { data: post, isLoading, error } = useGhostPost(slug);
   useDocumentTitle(post?.title, post?.meta_description || post?.excerpt);
 
   return (
@@ -29,7 +29,7 @@ const EditorialPost = () => {
       <div className="flex-1 px-6 lg:px-8 pt-32 pb-24">
         <div className="max-w-3xl mx-auto w-full">
           <Link
-            to="/editorial-preview"
+            to="/editorial"
             className="caption-text uppercase tracking-wider text-brand-muted hover:text-brand-red smooth-transition inline-block mb-8"
           >
             ← Back to Editorial
@@ -54,7 +54,7 @@ const EditorialPost = () => {
                 The article you're looking for doesn't exist or has been moved.
               </p>
               <Link
-                to="/editorial-preview"
+                to="/editorial"
                 className="caption-text uppercase tracking-wider text-brand-red hover:text-brand-red-dark smooth-transition"
               >
                 Return to Editorial

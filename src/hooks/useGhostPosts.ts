@@ -1,25 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 
-/** Stable, normalized post shape — decoupled from StoryChief's raw schema. */
-export interface StoryChiefAuthor {
+/** Stable, normalized post shape — decoupled from Ghost's raw schema. */
+export interface GhostAuthor {
   name: string;
   avatar?: string | null;
 }
 
-export interface StoryChiefPostListItem {
+export interface GhostPostListItem {
   id: string;
   slug: string;
   title: string;
   excerpt: string;
   featured_image: string | null;
   published_at: string | null;
-  author: StoryChiefAuthor | null;
+  author: GhostAuthor | null;
   tags: string[];
   reading_time?: number | null;
 }
 
-export interface StoryChiefPost extends StoryChiefPostListItem {
+export interface GhostPost extends GhostPostListItem {
   content_html: string;
   meta_description?: string | null;
 }
@@ -30,15 +30,15 @@ interface EdgeFunctionResponse<T> {
 }
 
 /**
- * Fetch the list of published StoryChief posts via the `storychief-posts`
+ * Fetch the list of published Ghost posts via the `ghost-posts`
  * edge function. Cached for 5 minutes by React Query.
  */
-export const useStoryChiefPostList = () =>
-  useQuery<StoryChiefPostListItem[]>({
-    queryKey: ["storychief-posts", "list"],
+export const useGhostPostList = () =>
+  useQuery<GhostPostListItem[]>({
+    queryKey: ["ghost-posts", "list"],
     queryFn: async () => {
-      const { data, error } = await supabase.functions.invoke<EdgeFunctionResponse<StoryChiefPostListItem[]>>(
-        "storychief-posts",
+      const { data, error } = await supabase.functions.invoke<EdgeFunctionResponse<GhostPostListItem[]>>(
+        "ghost-posts",
         { method: "POST", body: { action: "list" } }
       );
       if (error) throw new Error(error.message);
@@ -49,16 +49,16 @@ export const useStoryChiefPostList = () =>
   });
 
 /**
- * Fetch a single StoryChief post by slug via the `storychief-posts` edge
+ * Fetch a single Ghost post by slug via the `ghost-posts` edge
  * function. Cached for 10 minutes by React Query.
  */
-export const useStoryChiefPost = (slug: string | undefined) =>
-  useQuery<StoryChiefPost>({
-    queryKey: ["storychief-posts", "post", slug],
+export const useGhostPost = (slug: string | undefined) =>
+  useQuery<GhostPost>({
+    queryKey: ["ghost-posts", "post", slug],
     queryFn: async () => {
       if (!slug) throw new Error("Missing post slug");
-      const { data, error } = await supabase.functions.invoke<EdgeFunctionResponse<StoryChiefPost>>(
-        "storychief-posts",
+      const { data, error } = await supabase.functions.invoke<EdgeFunctionResponse<GhostPost>>(
+        "ghost-posts",
         { method: "POST", body: { slug } }
       );
       if (error) throw new Error(error.message);

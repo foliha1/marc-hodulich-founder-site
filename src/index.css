@@ -312,7 +312,7 @@
     }
   }
 
-  /* Long-form article typography (StoryChief editorial posts) */
+  /* Long-form article typography (Ghost editorial posts) */
   .prose-editorial {
     line-height: 1.7;
     color: hsl(var(--brand-ink));
