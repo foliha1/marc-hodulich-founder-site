@@ -3,12 +3,12 @@ import { CSSProperties, useEffect, useRef } from "react";
 // Masthead for the UNSETTLED newsletter: real text, not an image, so the
 // title always renders. Mirrors the artwork's lockup — bold tracked caps for
 // the wordmark, italic serif for the byline.
-export const NewsletterMasthead = ({ subtitle }: { subtitle?: string }) => (
+export const NewsletterMasthead = () => (
   <div className="reveal">
     <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">
       The Newsletter
     </p>
-    <h1 className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-1 md:py-2">
+    <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 py-1 md:py-2">
       <span className="font-bold uppercase tracking-[0.1em] text-brand-ink leading-none text-[clamp(1.6rem,3.4vw,2.4rem)]">
         Unsettled
       </span>
@@ -18,10 +18,7 @@ export const NewsletterMasthead = ({ subtitle }: { subtitle?: string }) => (
       >
         with Marc Hodulich
       </span>
-    </h1>
-    {subtitle && (
-      <p className="body-text text-brand-ink-sub max-w-3xl mt-3 md:mt-4">{subtitle}</p>
-    )}
+    </div>
   </div>
 );
 
