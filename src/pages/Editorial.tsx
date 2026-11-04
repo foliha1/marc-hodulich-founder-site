@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { NewsletterBox } from "@/components/Newsletter";
 import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGhostPostList, type GhostPostListItem } from "@/hooks/useGhostPosts";
@@ -117,6 +118,8 @@ const Editorial = () => {
               ))}
             </div>
           )}
+
+          <NewsletterBox />
         </div>
       </div>
     </section>
