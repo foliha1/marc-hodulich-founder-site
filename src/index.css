@@ -261,6 +261,20 @@
     opacity: 1;
   }
 
+  /* Hero photo shade: keeps the horizon glow at the top while the
+     foreground and bottom fall to black, matching the concept art. */
+  .hero-shade {
+    background: linear-gradient(
+      to top,
+      hsl(var(--brand-night)) 0%,
+      hsl(var(--brand-night) / 0.9) 12%,
+      hsl(var(--brand-night) / 0.6) 28%,
+      hsl(var(--brand-night) / 0.42) 50%,
+      hsl(var(--brand-night) / 0.28) 70%,
+      hsl(var(--brand-night) / 0.22) 100%
+    );
+  }
+
   /* Lazy-loaded content placeholder: soft stone with a slow sheen */
   .skeleton {
     background-color: hsl(var(--brand-stone) / 0.55);

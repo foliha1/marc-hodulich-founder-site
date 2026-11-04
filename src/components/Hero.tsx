@@ -36,14 +36,14 @@ export const Hero = () => {
         sizes="100vw"
         src={getOptimizedImageUrl(content.background_image_url, 1920, 85)}
         alt="Marc Hodulich - Endurance athlete and entrepreneur"
-        className="img-fade absolute inset-0 w-full h-full object-cover object-center grayscale opacity-45"
+        className="img-fade absolute inset-0 w-full h-full object-cover object-center grayscale brightness-[0.62]"
         {...fadeInProps}
         loading="eager"
         {...({ fetchpriority: "high" } as object)}
         decoding="async"
         onError={fallbackToOriginal(content.background_image_url)}
       />
-      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-brand-night via-brand-night/50 to-brand-night/30" />
+      <div aria-hidden="true" className="absolute inset-0 hero-shade" />
 
       {/* Vertical side labels */}
       <span aria-hidden="true" className="hidden lg:block absolute left-7 top-28 text-[0.62rem] tracking-[0.4em] uppercase text-brand-warm/50 [writing-mode:vertical-rl]">
