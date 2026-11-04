@@ -183,15 +183,11 @@ const Editorial = () => {
       <div className="flex-1 px-6 lg:px-8 pt-32 pb-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="mb-16 reveal">
-            <h1 className="display-title text-brand-ink mb-6">Editorial</h1>
-            <p className="body-text text-brand-ink-sub max-w-3xl">
-              My observations, learnings, and challenges, meant to bring a little
-              authenticity, levity, and direction to a world full of noise.
-            </p>
+            <h1 className="display-title text-brand-ink text-center">Editorial</h1>
           </div>
 
           <div className="mb-8 md:mb-10">
-            <NewsletterMasthead />
+            <NewsletterMasthead subtitle="My observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise." />
           </div>
 
           {isLoading && (

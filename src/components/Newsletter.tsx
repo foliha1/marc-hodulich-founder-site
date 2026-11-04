@@ -3,7 +3,7 @@ import { CSSProperties, useEffect, useRef } from "react";
 // Masthead for the UNSETTLED newsletter: real text, not an image, so the
 // title always renders. Mirrors the artwork's lockup — bold tracked caps for
 // the wordmark, italic serif for the byline.
-export const NewsletterMasthead = () => (
+export const NewsletterMasthead = ({ subtitle }: { subtitle?: string }) => (
   <div className="reveal">
     <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">
       The Newsletter
@@ -19,6 +19,13 @@ export const NewsletterMasthead = () => (
         with Marc Hodulich
       </span>
     </div>
+    {subtitle && (
+      <p
+        className="text-brand-ink-sub max-w-2xl mt-2 md:mt-3 leading-relaxed text-[clamp(0.9rem,1.5vw,1.02rem)]"
+      >
+        {subtitle}
+      </p>
+    )}
   </div>
 );
 
