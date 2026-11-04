@@ -18,6 +18,8 @@
     --brand-red-dark: 4 84% 35%;
     --brand-cream: 40 20% 97%;
     --brand-stone: 30 6% 85%;
+    /* Night: matches the newsletter embed's own background (#08090c) */
+    --brand-night: 225 20% 4%;
     
     /* Core System Colors */
     --background: 0 0% 95%;
@@ -428,6 +430,10 @@
   
   .bg-brand-cream {
     background-color: hsl(var(--brand-cream));
+  }
+  
+  .bg-brand-night {
+    background-color: hsl(var(--brand-night));
   }
   
   .border-brand-red {

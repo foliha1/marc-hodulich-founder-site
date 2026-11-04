@@ -20,8 +20,9 @@ export const Newsletter = () => {
         "data-text-color": "#FFFFFF",
         "data-button-color": "#e1251b",
         "data-button-text-color": "#FFFFFF",
-        "data-title": "Marc Hodulich",
-        "data-description": "Thoughts, stories and ideas.",
+        "data-title": "UNSETTLED with Marc Hodulich",
+        "data-description":
+          "My observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise.",
         "data-site": "https://marc-hodulich-1.ghost.io/",
         "data-locale": "en",
       };
@@ -42,8 +43,21 @@ export const Newsletter = () => {
   }, []);
 
   return (
-    <section className="w-full" aria-label="Newsletter signup">
-      <div ref={ref} style={{ height: "40vmin", minHeight: 360 }} />
+    <section
+      className="w-full bg-brand-night pt-[clamp(120px,15vw,200px)] pb-[clamp(40px,5vw,72px)]"
+      aria-label="Newsletter signup"
+    >
+      <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
+        <div className="reveal mb-1">
+          <p className="caption-text text-brand-red tracking-[0.2em] uppercase mb-3">
+            The Newsletter
+          </p>
+          <p className="body-text text-white/80">
+            Sign up to get new issues in your inbox.
+          </p>
+        </div>
+        <div ref={ref} style={{ height: "40vmin", minHeight: 360, maxHeight: 520 }} />
+      </div>
     </section>
   );
 };
