@@ -106,7 +106,7 @@ export const Newsletter = () => (
 // Quiet, minimal signup row at the bottom of the Editorial page.
 export const NewsletterBox = () => (
   <section className="mt-24 md:mt-32 pt-12 md:pt-16 border-t border-brand-ink/10 reveal" aria-label="Newsletter signup">
-    <div className="max-w-xl mx-auto text-center">
+    <div className="max-w-xl text-left">
       <p className="text-xs font-medium text-brand-red tracking-[0.2em] uppercase mb-3">The Newsletter</p>
       <p className="body-text text-brand-ink-sub mb-6">
         Get new letters from <em>UNSETTLED with Marc Hodulich</em> in your inbox.
