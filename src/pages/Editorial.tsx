@@ -64,8 +64,28 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
   </Link>
 );
 
-// Placeholder cards shown until enough letters are published to fill a row.
-const UPCOMING = ["What if fulfillment happens before the finish line?", "Placeholder"];
+// Upcoming letters shown until they are published in Ghost.
+interface UpcomingLetter {
+  title: string;
+  date: string;
+}
+
+const UPCOMING: UpcomingLetter[] = [
+  { title: "What if fulfillment happens before the finish line?", date: "Nov. 10" },
+];
+
+const UpcomingCard = ({ item, index }: { item: UpcomingLetter; index: number }) => (
+  <div
+    className="reveal rounded-[4px] overflow-hidden smooth-transition flex flex-col p-6"
+    style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+  >
+    <h3 className="body-text text-brand-ink mb-3">{item.title}</h3>
+    <div className="flex items-center justify-between text-brand-muted mt-auto pt-4">
+      <span className="caption-text">Marc Hodulich</span>
+      <span className="caption-text">{item.date}</span>
+    </div>
+  </div>
+);
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/marchodulich/";
 
@@ -204,14 +224,8 @@ const Editorial = () => {
               {posts.map((post, index) => (
                 <PostCard key={post.id} post={post} index={index} />
               ))}
-              {UPCOMING.slice(0, Math.max(0, 3 - posts.length)).map((title, i) => (
-                <div
-                  key={title}
-                  className="reveal rounded-[4px] p-6 border border-dashed border-brand-ink/15"
-                  style={{ animationDelay: `${(posts.length + i) * 0.08}s` }}
-                >
-                  <h3 className="body-text text-brand-ink-sub">{title}</h3>
-                </div>
+              {UPCOMING.slice(0, Math.max(0, 3 - posts.length)).map((item, i) => (
+                <UpcomingCard key={item.title} item={item} index={posts.length + i} />
               ))}
             </div>
           )}
