@@ -83,7 +83,7 @@ export const Movement = () => {
         <div className="reveal">
           <div className="flex flex-col items-center">
             <blockquote className="mx-auto text-center max-w-5xl px-0 md:px-8">
-              <p className="display-title text-brand-ink italic leading-relaxed text-3xl md:text-4xl lg:text-5xl">
+              <p className="display-title text-brand-ink italic text-[1.375rem] leading-snug md:text-4xl lg:text-5xl max-md:text-balance">
                 "{content.quote}"
               </p>
               <cite className="body-text text-brand-ink-sub mt-8 block not-italic">
