@@ -76,10 +76,10 @@ const UPCOMING: UpcomingLetter[] = [
 
 const UpcomingCard = ({ item, index }: { item: UpcomingLetter; index: number }) => (
   <div
-    className="reveal rounded-[4px] overflow-hidden smooth-transition flex flex-col p-6"
+    className="group reveal rounded-[4px] overflow-hidden smooth-transition flex flex-col p-6"
     style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
   >
-    <h3 className="body-text text-brand-ink mb-3">{item.title}</h3>
+    <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition mb-3">{item.title}</h3>
     <div className="flex items-center justify-between text-brand-muted mt-auto pt-4">
       <span className="caption-text">Marc Hodulich</span>
       <span className="caption-text">{item.date}</span>
