@@ -12,6 +12,7 @@ import { PodcastsEditor } from "@/components/admin/PodcastsEditor";
 import { ContactEditor } from "@/components/admin/ContactEditor";
 import { SectionTextEditor } from "@/components/admin/SectionTextEditor";
 import { AdminsEditor } from "@/components/admin/AdminsEditor";
+import { PressEditor } from "@/components/admin/PressEditor";
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -98,13 +99,14 @@ const Admin = () => {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue="hero" className="w-full">
-          <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 lg:grid lg:grid-cols-8">
+          <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 lg:grid lg:grid-cols-9">
             <TabsTrigger value="hero">Hero</TabsTrigger>
             <TabsTrigger value="meet-marc">Meet Marc</TabsTrigger>
             <TabsTrigger value="carousel">Carousel</TabsTrigger>
             <TabsTrigger value="movement">Movement</TabsTrigger>
             <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
             <TabsTrigger value="social">Social</TabsTrigger>
+            <TabsTrigger value="press">Editorial</TabsTrigger>
             <TabsTrigger value="contact">Contact</TabsTrigger>
             <TabsTrigger value="admins">Admins</TabsTrigger>
           </TabsList>
@@ -127,6 +129,9 @@ const Admin = () => {
             </TabsContent>
             <TabsContent value="social">
               <SectionTextEditor sectionName="social" heading="In the Wild Section Content" showParagraph={false} />
+            </TabsContent>
+            <TabsContent value="press">
+              <PressEditor />
             </TabsContent>
             <TabsContent value="contact">
               <ContactEditor />

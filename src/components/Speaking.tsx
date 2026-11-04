@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
 import { useSectionContent } from "@/hooks/useSectionContent";
@@ -10,11 +10,17 @@ export const Speaking = () => {
   const { data: section } = useSectionContent("speaking");
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
+  useEffect(() => {
+    if (!isLoading && window.location.hash === "#conversation") {
+      document.getElementById("conversation")?.scrollIntoView();
+    }
+  }, [isLoading]);
+
   if (isLoading) return <SpeakingSkeleton />;
   if (!podcasts || podcasts.length === 0) return null;
 
   return (
-    <section className="w-full bg-white section-spacing">
+    <section id="conversation" className="w-full bg-white section-spacing scroll-mt-20">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-16 reveal">
           <h2 className="display-title text-brand-ink mb-6">{section?.title || "Marc in Conversation"}</h2>

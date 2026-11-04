@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { NewsletterBox } from "@/components/Newsletter";
-import { fadeInProps } from "@/utils/imageOptimization";
+import { fadeInProps, getOptimizedImageUrl, fallbackToOriginal } from "@/utils/imageOptimization";
+import { usePressFeatures } from "@/hooks/usePressFeatures";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGhostPostList, type GhostPostListItem } from "@/hooks/useGhostPosts";
 
@@ -63,6 +64,88 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
   </Link>
 );
 
+const LINKEDIN_URL = "https://www.linkedin.com/in/marchodulich/";
+
+const PressSection = () => {
+  const { data } = usePressFeatures();
+  const press = (data ?? []).filter((f) => f.kind === "press");
+  const linkedin = (data ?? []).filter((f) => f.kind === "linkedin" && f.excerpt);
+
+  return (
+    <>
+      {press.length > 0 && (
+        <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10">
+          <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">Features &amp; Press</p>
+          <h2 className="body-text text-brand-ink mb-10 reveal">Marc in the press</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {press.map((f, index) => (
+              <a
+                key={f.id}
+                href={f.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group reveal rounded-[4px] overflow-hidden smooth-transition block"
+                style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+              >
+                {f.image_url && (
+                  <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
+                    <img
+                      src={getOptimizedImageUrl(f.image_url, 640, 80)}
+                      alt={f.title}
+                      className="img-fade w-full h-full object-cover object-top group-hover:scale-105"
+                      {...fadeInProps}
+                      onError={fallbackToOriginal(f.image_url)}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                )}
+                <div className="p-6">
+                  <span className="block caption-text uppercase tracking-wider text-brand-red mb-3">{f.outlet}</span>
+                  <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition mb-3">{f.title}</h3>
+                  {f.excerpt && <p className="caption-text text-brand-ink-sub line-clamp-3 mb-4">{f.excerpt}</p>}
+                  <span className="caption-text text-brand-muted">Read the feature ↗</span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+
+      <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10">
+        <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">From LinkedIn</p>
+        <h2 className="body-text text-brand-ink mb-8 reveal">Notes from Marc</h2>
+        {linkedin.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {linkedin.map((p) => (
+              <a
+                key={p.id}
+                href={p.url || LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group reveal block border-l-2 border-brand-red pl-5"
+              >
+                <p className="body-text italic text-brand-ink line-clamp-5 mb-3">“{p.excerpt}”</p>
+                <span className="caption-text text-brand-muted group-hover:text-brand-red smooth-transition">
+                  Read on LinkedIn ↗
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+        <a
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="reveal inline-block caption-text uppercase tracking-wider text-brand-ink hover:text-brand-red smooth-transition border-b border-current pb-0.5"
+        >
+          Follow Marc on LinkedIn ↗
+        </a>
+      </section>
+    </>
+  );
+};
+
 const Editorial = () => {
   const { data: posts, isLoading, error } = useGhostPostList();
   useDocumentTitle("Editorial");
@@ -116,6 +199,22 @@ const Editorial = () => {
               ))}
             </div>
           )}
+
+          <PressSection />
+
+          <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10 reveal">
+            <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">Listen</p>
+            <h2 className="body-text text-brand-ink mb-2">Marc in Conversation</h2>
+            <p className="caption-text text-brand-ink-sub mb-5 max-w-xl">
+              Podcasts and talks on leadership, endurance, and designing a life with intention.
+            </p>
+            <a
+              href="/#conversation"
+              className="caption-text uppercase tracking-wider text-brand-ink hover:text-brand-red smooth-transition border-b border-current pb-0.5"
+            >
+              Watch the conversations →
+            </a>
+          </section>
 
           <NewsletterBox />
         </div>

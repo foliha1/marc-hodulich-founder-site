@@ -221,6 +221,45 @@ export type Database = {
         }
         Relationships: []
       }
+      press_features: {
+        Row: {
+          created_at: string
+          display_order: number
+          excerpt: string
+          id: string
+          image_url: string
+          kind: string
+          outlet: string
+          title: string
+          updated_at: string
+          url: string
+        }
+        Insert: {
+          created_at?: string
+          display_order?: number
+          excerpt?: string
+          id?: string
+          image_url?: string
+          kind?: string
+          outlet?: string
+          title?: string
+          updated_at?: string
+          url?: string
+        }
+        Update: {
+          created_at?: string
+          display_order?: number
+          excerpt?: string
+          id?: string
+          image_url?: string
+          kind?: string
+          outlet?: string
+          title?: string
+          updated_at?: string
+          url?: string
+        }
+        Relationships: []
+      }
       section_content: {
         Row: {
           id: string
