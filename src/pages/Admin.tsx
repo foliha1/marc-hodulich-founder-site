@@ -11,6 +11,7 @@ import { MovementEditor } from "@/components/admin/MovementEditor";
 import { PodcastsEditor } from "@/components/admin/PodcastsEditor";
 import { ContactEditor } from "@/components/admin/ContactEditor";
 import { SectionTextEditor } from "@/components/admin/SectionTextEditor";
+import { AdminsEditor } from "@/components/admin/AdminsEditor";
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -97,7 +98,7 @@ const Admin = () => {
 
       <main className="max-w-7xl mx-auto px-6 py-8">
         <Tabs defaultValue="hero" className="w-full">
-          <TabsList className="grid w-full grid-cols-7">
+          <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 lg:grid lg:grid-cols-8">
             <TabsTrigger value="hero">Hero</TabsTrigger>
             <TabsTrigger value="meet-marc">Meet Marc</TabsTrigger>
             <TabsTrigger value="carousel">Carousel</TabsTrigger>
@@ -105,6 +106,7 @@ const Admin = () => {
             <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
             <TabsTrigger value="social">Social</TabsTrigger>
             <TabsTrigger value="contact">Contact</TabsTrigger>
+            <TabsTrigger value="admins">Admins</TabsTrigger>
           </TabsList>
 
           <div className="mt-6">
@@ -128,6 +130,9 @@ const Admin = () => {
             </TabsContent>
             <TabsContent value="contact">
               <ContactEditor />
+            </TabsContent>
+            <TabsContent value="admins">
+              <AdminsEditor />
             </TabsContent>
           </div>
         </Tabs>

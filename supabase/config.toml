@@ -1,1 +1,10 @@
 project_id = "ontkueksqeqypaxvysvu"
+
+[functions.invite-admin]
+verify_jwt = true
+
+[functions.remove-admin]
+verify_jwt = true
+
+[functions.list-admins]
+verify_jwt = true
