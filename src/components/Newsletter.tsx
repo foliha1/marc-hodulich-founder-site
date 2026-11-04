@@ -108,9 +108,7 @@ export const NewsletterBox = () => (
   <section className="mt-8 md:mt-12 pt-8 md:pt-10 border-t border-brand-ink/10 reveal" aria-label="Newsletter signup">
     <div className="max-w-xl text-left">
       <p className="text-xs font-medium text-brand-red tracking-[0.2em] uppercase mb-3">The Newsletter</p>
-      <p className="body-text text-brand-ink-sub mb-6">
-        Get new letters from <em>UNSETTLED with Marc Hodulich</em> in your inbox.
-      </p>
+      <p className="body-text text-brand-ink-sub mb-6">Get new letters in your inbox.</p>
       <GhostSignupForm minimal style={{ height: 64 }} />
     </div>
   </section>
