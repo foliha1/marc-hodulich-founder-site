@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
-import { NewsletterBox } from "@/components/Newsletter";
+import { NewsletterBox, NewsletterMasthead } from "@/components/Newsletter";
 import { fadeInProps, getOptimizedImageUrl, fallbackToOriginal } from "@/utils/imageOptimization";
 import { usePressFeatures } from "@/hooks/usePressFeatures";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
@@ -161,6 +161,10 @@ const Editorial = () => {
             <p className="body-text text-brand-ink-sub max-w-3xl">
               Writing on leadership, endurance, and building a life with intention.
             </p>
+          </div>
+
+          <div className="mb-16 md:mb-20">
+            <NewsletterMasthead />
           </div>
 
           {isLoading && (

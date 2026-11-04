@@ -1,4 +1,30 @@
 import { CSSProperties, useEffect, useRef } from "react";
+import { fadeInProps } from "@/utils/imageOptimization";
+
+const NEWSLETTER_MASTHEAD_URL =
+  "https://ontkueksqeqypaxvysvu.supabase.co/storage/v1/object/public/cms-images/newsletter-header-warm.png";
+
+// Masthead banner for the UNSETTLED newsletter (portrait + wordmark lockup).
+// The artwork's background was recolored to the page's exact background
+// (#F2F2F2) and is served untransformed, so it sits on the page with no box,
+// band, or seam. On phones it is scaled up past the content column for
+// legibility; only its outer padding is clipped, never the artwork.
+export const NewsletterMasthead = () => (
+  <div className="reveal py-1 md:py-2" aria-label="UNSETTLED with Marc Hodulich">
+    <div className="flex justify-center overflow-hidden">
+      <img
+        src={NEWSLETTER_MASTHEAD_URL}
+        alt="UNSETTLED with Marc Hodulich"
+        width={1200}
+        height={240}
+        className="img-fade block h-auto w-[160%] max-w-[880px] shrink-0"
+        {...fadeInProps}
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+);
 
 // Ghost signup form embed. The script injects its form next to itself,
 // so we append it into our container once the section nears the viewport.
