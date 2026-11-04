@@ -43,7 +43,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
 
   return (
     <>
-      <header className={`fixed top-0 left-0 right-0 z-50 py-6 px-6 lg:px-8 transition-all duration-300 ${scrolled ? (variant === "light" ? "bg-brand-red/95 backdrop-blur-sm" : "bg-brand-warm/95 backdrop-blur-sm") : ""}`}>
+      <header className={`fixed top-0 left-0 right-0 z-50 py-6 px-6 lg:px-8 transition-colors duration-300 [transform:translateZ(0)] ${scrolled ? (variant === "light" ? "bg-brand-red/95" : "bg-brand-warm/95") : ""}`}>
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <Link to="/" aria-label="Marc Hodulich, home">
             <svg aria-hidden="true" width="320" height="26" viewBox="0 0 318 26" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-[clamp(12rem,15vw,20rem)] h-auto">
