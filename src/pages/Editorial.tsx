@@ -89,15 +89,18 @@ const UpcomingCard = ({ item, index }: { item: UpcomingLetter; index: number }) 
 
 const LINKEDIN_URL = "https://www.linkedin.com/in/marchodulich/";
 
-const PressSection = () => {
+const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
   const { data } = usePressFeatures();
   const press = (data ?? []).filter((f) => f.kind === "press");
   const linkedin = (data ?? []).filter((f) => f.kind === "linkedin" && f.excerpt);
+  // When this block sits directly under the newsletter signup, pull it closer in.
+  const top = "mt-10 lg:mt-14 pt-8";
+  const roomy = "mt-20 lg:mt-24 pt-12";
 
   return (
     <>
       {press.length > 0 && (
-        <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10">
+        <section className={`${tightTop ? top : roomy} border-t border-brand-ink/10`}>
           <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">Features &amp; Press</p>
           <h2 className="body-text text-brand-ink mb-10 reveal">Marc in the press</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -135,7 +138,7 @@ const PressSection = () => {
         </section>
       )}
 
-      <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10">
+      <section className={`${tightTop && press.length === 0 ? top : roomy} border-t border-brand-ink/10`}>
         <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">From LinkedIn</p>
         <h2 className="body-text text-brand-ink mb-8 reveal">Notes from Marc</h2>
         {linkedin.length > 0 && (
@@ -233,7 +236,7 @@ const Editorial = () => {
 
           <NewsletterBox />
 
-          <PressSection />
+          <PressSection tightTop />
 
           <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10 reveal">
             <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">Listen</p>
