@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 interface NavigationProps {
-  variant?: "light" | "dark";
+  variant?: "light" | "dark" | "night";
 }
 
 export const Navigation = ({ variant = "light" }: NavigationProps) => {
@@ -40,6 +40,71 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
 
   const fill = variant === "light" ? "#F2F2F2" : "hsl(0, 0%, 11%)";
   const lineColor = variant === "light" ? "bg-[#F2F2F2]" : "bg-brand-ink";
+
+  if (variant === "night") {
+    const links = [
+      { to: "/", label: "Home" },
+      { to: "/unsettled", label: "Coaching" },
+      { to: "/editorial", label: "Editorial" },
+    ];
+    return (
+      <>
+        <header className={`fixed top-0 left-0 right-0 z-50 border-b border-brand-warm/10 transition-colors duration-300 [transform:translateZ(0)] ${scrolled ? "bg-brand-night/95" : "bg-brand-night/80"}`}>
+          <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+            <Link to="/" aria-label="Marc Hodulich, home" className="flex items-center gap-3 text-brand-warm">
+              <svg aria-hidden="true" viewBox="0 0 24 22" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M12 2 L22.5 20.5 H1.5 Z" />
+                <path d="M12 9 L17 17.5 H7 Z" />
+              </svg>
+              <span className="text-[0.72rem] font-bold tracking-[0.3em] uppercase">Marc Hodulich</span>
+            </Link>
+            <nav className="hidden md:flex items-center gap-10" aria-label="Main">
+              {links.map((l) => (
+                <Link key={l.to} to={l.to} className="text-[0.68rem] font-medium tracking-[0.3em] uppercase text-brand-warm/75 hover:text-brand-red transition-colors">
+                  {l.label}
+                </Link>
+              ))}
+            </nav>
+            <button
+              onClick={() => setIsOpen(true)}
+              className="md:hidden flex flex-col justify-center items-center w-11 h-11"
+              aria-label="Open menu"
+              aria-expanded={isOpen}
+              aria-controls="site-menu"
+            >
+              <span className="block w-6 h-[2px] bg-brand-warm" />
+              <span className="block w-6 h-[2px] bg-brand-warm mt-[5px]" />
+              <span className="block w-6 h-[2px] bg-brand-warm mt-[5px]" />
+            </button>
+          </div>
+        </header>
+        <div
+          id="site-menu"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+          aria-hidden={!isOpen}
+          {...(!isOpen ? { inert: "" } : {})}
+          className={`fixed inset-0 z-[60] bg-brand-night flex flex-col transition-opacity ${isOpen ? "duration-300 opacity-100 pointer-events-auto" : "duration-200 opacity-0 pointer-events-none"}`}
+        >
+          <div className="px-6 h-16 flex items-center justify-end">
+            <button onClick={() => setIsOpen(false)} className="flex items-center justify-center w-11 h-11 text-brand-warm" aria-label="Close menu">
+              <span aria-hidden="true" className="text-[32px] leading-none">×</span>
+            </button>
+          </div>
+          <nav className="flex-1 flex items-center justify-center">
+            <div className="flex flex-col items-center gap-8">
+              {links.map((l) => (
+                <Link key={l.to} to={l.to} onClick={() => setIsOpen(false)} className="font-display text-5xl text-brand-warm hover:text-brand-red transition-colors">
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          </nav>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>

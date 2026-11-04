@@ -83,10 +83,11 @@ export const Social = () => {
   }, [widgetReady]);
 
   return (
-    <section ref={sectionRef} className="w-full bg-white section-spacing">
+    <section ref={sectionRef} className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-16 reveal">
-          <h2 className="display-title text-brand-ink mb-6">{section?.title || "In the Wild"}</h2>
+          <p className="eyebrow mb-6">Proof of Life</p>
+          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
         </div>
         
         <div className="grid">

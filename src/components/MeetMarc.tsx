@@ -7,89 +7,52 @@ export const MeetMarc = () => {
 
   if (isLoading) return <MeetMarcSkeleton />;
   if (!data || data.cards.length === 0) return null;
-  
+
   const { cards, section } = data;
+  const title = (section?.title || "Meet Marc").trim();
+  const words = title.split(/\s+/);
+  const last = words.pop();
 
   return (
-    <section className="w-full bg-brand-warm section-spacing">
+    <section className="w-full bg-brand-night text-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="mb-16 lg:mb-24">
+        <div className="grid lg:grid-cols-[1fr_2fr] gap-10 lg:gap-12 mb-16 lg:mb-20">
           <div className="reveal">
-            <h2 className="hero-title text-brand-ink">
-              {section?.title || "MEET MARC"}
+            <p className="font-editorial text-brand-red text-2xl md:text-3xl mb-4">Growth lives at the edge.</p>
+            <h2 className="font-display text-[clamp(3rem,6.5vw,6rem)]">
+              {words.length > 0 && <span className="block text-brand-warm">{words.join(" ")}</span>}
+              <span className="block text-brand-red">{last}.</span>
             </h2>
           </div>
-          <div className="mt-8 lg:mt-12 max-w-3xl reveal-delay">
-            <p className="body-text text-brand-ink-sub leading-relaxed">
-              {section?.paragraph || "Marc Hodulich is a builder, athlete, and father who believes growth lives at the edge of comfort. His days are guided by simple virtues—curiosity, care, resilience, and presence. Whether starting companies, running ultramarathons, or playing with his boys - Marc leads with the conviction that struggle is a teacher, community is strength, and life is richest when built with intention and shared while fully present with others."}
-            </p>
-          </div>
+          <p className="font-editorial text-brand-warm/90 text-[clamp(1.3rem,2.3vw,2.1rem)] leading-snug reveal-delay">
+            {section?.paragraph}
+          </p>
         </div>
 
-        {/* Staggered Content Cards */}
-        <div className="space-y-20 lg:space-y-32">
-          {cards.map((card, index) => {
-            const isEven = index % 2 === 0;
-            return (
-              <MeetMarcCard 
-                key={card.id}
-                card={card}
-                isEven={isEven}
-              />
-            );
-          })}
+        <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-brand-warm/10">
+          {cards.map((card, i) => (
+            <article key={card.id} className="border-r border-b border-brand-warm/10 reveal" style={{ animationDelay: `${i * 0.08}s` }}>
+              <div className="aspect-[4/3] overflow-hidden bg-brand-warm/5">
+                <img
+                  srcSet={getResponsiveSrcSet(card.image_url, [640, 854], 80)}
+                  sizes="(min-width: 768px) 50vw, 100vw"
+                  src={getOptimizedImageUrl(card.image_url, 854, 80)}
+                  alt={card.title}
+                  className="img-fade w-full h-full object-cover"
+                  {...fadeInProps}
+                  loading="lazy"
+                  decoding="async"
+                  onError={fallbackToOriginal(card.image_url)}
+                />
+              </div>
+              <div className="p-8 lg:p-10">
+                <h3 className="text-sm md:text-base font-bold tracking-[0.3em] uppercase text-brand-warm mb-4">{card.title}</h3>
+                <p className="body-text text-brand-warm/70 leading-relaxed">{card.description}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </div>
     </section>
-  );
-};
-
-const MeetMarcCard = ({ 
-  card, 
-  isEven
-}: { 
-  card: any; 
-  isEven: boolean;
-}) => {
-  return (
-    <div 
-      className={`flex flex-col ${isEven ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center reveal`}
-    >
-      <div className="lg:w-1/2 w-full">
-        <img 
-          srcSet={getResponsiveSrcSet(card.image_url, [356, 640], 80)}
-          sizes="(max-width: 640px) 100vw, 356px"
-          src={getOptimizedImageUrl(card.image_url, 640, 80)}
-          alt={card.title}
-          width={(card as any).width || 640}
-          height={(card as any).height || 480}
-          className="img-fade w-full h-auto object-cover rounded bg-brand-stone sm:hidden"
-          {...fadeInProps}
-          loading="lazy"
-          decoding="async"
-          onError={fallbackToOriginal(card.image_url)}
-        />
-        <img 
-          srcSet={getResponsiveSrcSet(card.image_url, [640, 854], 80)}
-          sizes="(min-width: 1024px) 50vw, 100vw"
-          src={getOptimizedImageUrl(card.image_url, 854, 80)}
-          alt={card.title}
-          width={(card as any).width || 854}
-          height={(card as any).height || 480}
-          className="img-fade hidden sm:block w-full aspect-[16/9] object-cover rounded bg-brand-stone"
-          {...fadeInProps}
-          loading="lazy"
-          decoding="async"
-          onError={fallbackToOriginal(card.image_url)}
-        />
-      </div>
-      <div className="lg:w-1/2 space-y-6">
-        <h3 className="subtitle text-brand-ink text-lg">{card.title}</h3>
-        <p className="body-text text-brand-ink-sub leading-relaxed">
-          {card.description}
-        </p>
-      </div>
-    </div>
   );
 };

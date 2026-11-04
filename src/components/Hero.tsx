@@ -1,58 +1,69 @@
-import { ChevronDown } from "lucide-react";
 import { useHeroContent } from "@/hooks/useHeroContent";
 import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
 import { Navigation } from "@/components/Navigation";
+
+// Split the Admin-managed title so the last words carry the red accent
+// ("CARTOGRAPHER" / "OF LIMITS").
+const splitTitle = (html: string) => {
+  const text = html.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
+  const words = text.split(" ");
+  const redCount = words.length >= 3 ? 2 : words.length === 2 ? 1 : 0;
+  return {
+    lead: words.slice(0, words.length - redCount).join(" "),
+    accent: words.slice(words.length - redCount).join(" "),
+  };
+};
 
 export const Hero = () => {
   const { data: content } = useHeroContent();
 
   if (!content) {
     return (
-      <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
-        <Navigation variant="light" />
+      <section className="w-full bg-brand-night min-h-screen relative overflow-hidden">
+        <Navigation variant="night" />
       </section>
     );
   }
 
-  return (
-    <section className="w-full bg-brand-red text-white lg:min-h-screen relative overflow-hidden">
-      <Navigation variant="light" />
+  const { lead, accent } = splitTitle(content.title);
 
-      {/* Text Content Overlay - Left justified, starts below logo on mobile */}
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 py-12 pt-32 pb-8 lg:min-h-screen flex items-start lg:items-center">
-        <div className="max-w-2xl reveal">
-          <h1 className="hero-title text-white mb-6" dangerouslySetInnerHTML={{ __html: content.title }} />
-          <p className="body-text mb-8 text-white/90">
+  return (
+    <section className="w-full bg-brand-night text-brand-warm min-h-[100svh] relative overflow-hidden flex items-end">
+      <Navigation variant="night" />
+
+      <img
+        srcSet={getResponsiveSrcSet(content.background_image_url, [640, 854, 1280, 1920], 85)}
+        sizes="100vw"
+        src={getOptimizedImageUrl(content.background_image_url, 1920, 85)}
+        alt="Marc Hodulich - Endurance athlete and entrepreneur"
+        className="img-fade absolute inset-0 w-full h-full object-cover object-center grayscale opacity-45"
+        {...fadeInProps}
+        loading="eager"
+        {...({ fetchpriority: "high" } as object)}
+        decoding="async"
+        onError={fallbackToOriginal(content.background_image_url)}
+      />
+      <div aria-hidden="true" className="absolute inset-0 bg-gradient-to-t from-brand-night via-brand-night/50 to-brand-night/30" />
+
+      {/* Vertical side labels */}
+      <span aria-hidden="true" className="hidden lg:block absolute left-7 top-28 text-[0.62rem] tracking-[0.4em] uppercase text-brand-warm/50 [writing-mode:vertical-rl]">
+        Marc Hodulich
+      </span>
+      <span aria-hidden="true" className="hidden lg:block absolute left-7 bottom-16 text-[0.62rem] tracking-[0.4em] uppercase text-brand-red [writing-mode:vertical-rl]">
+        You vs. You
+      </span>
+
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-32 pb-16 lg:pb-24">
+        <div className="reveal">
+          <p className="eyebrow text-brand-warm mb-6 md:mb-8 [&]:text-brand-warm tracking-[0.35em]">{content.subtitle}</p>
+          <h1 className="font-display text-[clamp(2.1rem,8.6vw,9rem)]">
+            <span className="block text-brand-warm">{lead}</span>
+            {accent && <span className="block text-brand-red">{accent}</span>}
+          </h1>
+          <p className="font-editorial text-brand-warm/85 text-[clamp(1.25rem,2.2vw,1.9rem)] leading-snug max-w-3xl mt-8 md:mt-12">
             {content.description}
           </p>
-          <div className="caption-text text-white/80 mb-8">
-            {content.subtitle}
-          </div>
-
-          {/* Scroll indicator - directly beneath subtitle */}
-          <div className="animate-bounce opacity-100" aria-hidden="true">
-            <ChevronDown className="w-6 h-6 text-white/80" />
-          </div>
         </div>
-      </div>
-
-      {/* Hero Image - single responsive image (previously 3 separate tags downloaded the photo 3 times) */}
-      <div className="relative w-full min-h-80 md:min-h-0 lg:absolute lg:bottom-0 lg:right-0 lg:w-[clamp(56.16vw,70.2vw,84.24vw)] lg:min-h-[84vh] lg:max-h-[100vh] lg:h-[93.6vh]">
-        <img
-          srcSet={getResponsiveSrcSet(content.background_image_url, [640, 854, 1280, 1920], 85)}
-          sizes="(min-width: 1024px) 70vw, 100vw"
-          src={getOptimizedImageUrl(content.background_image_url, 1280, 85)}
-          alt="Marc Hodulich - Endurance athlete and entrepreneur"
-          {...(content.background_image_width && content.background_image_height
-            ? { width: content.background_image_width, height: content.background_image_height }
-            : {})}
-          className="img-fade w-full h-auto lg:h-full object-contain object-bottom"
-          {...fadeInProps}
-          loading="eager"
-          {...({ fetchpriority: "high" } as object)}
-          decoding="async"
-          onError={fallbackToOriginal(content.background_image_url)}
-        />
       </div>
     </section>
   );

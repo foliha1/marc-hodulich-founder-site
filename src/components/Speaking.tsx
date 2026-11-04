@@ -23,47 +23,46 @@ export const Speaking = () => {
   if (!podcasts || podcasts.length === 0) return null;
 
   return (
-    <section id="conversation" className="w-full bg-white section-spacing scroll-mt-20">
+    <section id="conversation" className="w-full bg-brand-night text-brand-warm section-spacing scroll-mt-20 border-t-[14px] border-brand-red">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-10 lg:mb-16 reveal">
-          <h2 className="display-title text-brand-ink mb-6">{section?.title || "Marc in Conversation"}</h2>
-          <p className="body-text text-brand-ink-sub max-w-3xl">
+        <div className="mb-12 lg:mb-16 reveal">
+          <p className="eyebrow mb-6">Marc in Conversation</p>
+          <h2 className="font-display text-brand-warm text-[clamp(2.4rem,5.5vw,5rem)] mb-6">{section?.title || "Marc in Conversation"}</h2>
+          <p className="body-text text-brand-warm/70 max-w-3xl">
             {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
           </p>
         </div>
-        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-brand-warm/10">
           {podcasts.map((podcast, index) => (
             <button
               type="button"
               key={podcast.id}
               onClick={() => setSelectedVideo(podcast.podcast_url)}
               aria-label={`Play: ${podcast.title}`}
-              className="group reveal rounded-[4px] overflow-hidden smooth-transition press active:scale-[0.97] cursor-pointer block w-full text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red focus-visible:ring-offset-4"
-              style={{ animationDelay: `${index * 0.1}s`, backgroundColor: '#f2f2f2' }}
+              className="group reveal block w-full text-left border-r border-b border-brand-warm/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-red"
+              style={{ animationDelay: `${index * 0.1}s` }}
             >
-              <div className="aspect-video overflow-hidden relative bg-brand-stone">
-                <img 
+              <div className="aspect-video overflow-hidden relative bg-brand-warm/5">
+                <img
                   srcSet={getResponsiveSrcSet(podcast.thumbnail_url, [356, 640], 80)}
                   sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
                   src={getOptimizedImageUrl(podcast.thumbnail_url, 640, 80)}
                   alt={podcast.title}
-                  className="img-fade w-full h-full object-cover group-hover:scale-105"
+                  className="img-fade w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   {...fadeInProps}
                   loading="lazy"
                   decoding="async"
                   onError={fallbackToOriginal(podcast.thumbnail_url)}
                 />
-                <div aria-hidden="true" className="absolute inset-0 bg-black/20 group-hover:bg-black/30 smooth-transition flex items-center justify-center">
-                  <div className="w-16 h-16 bg-brand-red/90 rounded-full flex items-center justify-center smooth-transition group-hover:scale-110">
-                    <svg className="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M8 5v14l11-7z" />
-                    </svg>
+                <div aria-hidden="true" className="absolute inset-0 bg-brand-night/30 group-hover:bg-brand-night/10 smooth-transition flex items-center justify-center">
+                  <div className="w-14 h-14 bg-brand-red flex items-center justify-center smooth-transition group-hover:scale-110">
+                    <svg className="w-6 h-6 text-brand-warm ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                   </div>
                 </div>
               </div>
-              <div className="p-6">
-                <span className="block body-text tracking-tight text-brand-ink group-hover:text-brand-red smooth-transition">
+              <div className="p-6 lg:p-7">
+                <span className="block font-display text-lg leading-tight text-brand-warm group-hover:text-brand-red smooth-transition">
                   {podcast.title}
                 </span>
               </div>
@@ -72,20 +71,20 @@ export const Speaking = () => {
         </div>
 
         {press.length > 0 && (
-          <div className="mt-16 lg:mt-20 pt-10 border-t border-brand-ink/10">
-            <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-8 reveal">Features &amp; Press</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="mt-16 lg:mt-20">
+            <p className="eyebrow mb-8 reveal">Features &amp; Press</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-brand-warm/10">
               {press.map((f, index) => (
                 <a
                   key={f.id}
                   href={f.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group reveal flex items-center gap-4 rounded-[4px] p-3 smooth-transition"
-                  style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+                  className="group reveal flex items-center gap-5 p-5 border-r border-b border-brand-warm/10"
+                  style={{ animationDelay: `${index * 0.08}s` }}
                 >
                   {f.image_url && (
-                    <div className="w-20 h-20 shrink-0 overflow-hidden rounded-[2px] bg-brand-stone">
+                    <div className="w-20 h-20 shrink-0 overflow-hidden bg-brand-warm/5">
                       <img
                         src={getOptimizedImageUrl(f.image_url, 160, 80)}
                         alt=""
@@ -98,9 +97,9 @@ export const Speaking = () => {
                     </div>
                   )}
                   <div className="min-w-0">
-                    <span className="block caption-text uppercase tracking-wider text-brand-red mb-1">{f.outlet}</span>
-                    <span className="block caption-text text-brand-ink group-hover:text-brand-red smooth-transition line-clamp-2">
-                      {f.title} <span aria-hidden="true" className="text-brand-muted">↗</span>
+                    <span className="block text-[0.65rem] font-semibold tracking-[0.3em] uppercase text-brand-red mb-2">{f.outlet}</span>
+                    <span className="block text-sm text-brand-warm group-hover:text-brand-red smooth-transition line-clamp-2">
+                      {f.title} <span aria-hidden="true" className="text-brand-warm/40">↗</span>
                     </span>
                   </div>
                 </a>

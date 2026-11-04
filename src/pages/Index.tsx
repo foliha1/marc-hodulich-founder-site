@@ -4,22 +4,22 @@ import { MeetMarc } from "@/components/MeetMarc";
 import { FailuresFirsts } from "@/components/FailuresFirsts";
 import { Movement } from "@/components/Movement";
 import { Speaking } from "@/components/Speaking";
-// import { Social } from "@/components/Social"; // hidden for now
+import { Social } from "@/components/Social";
 import { Newsletter } from "@/components/Newsletter";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 
 const Index = () => {
   return (
-    <main className="w-full">
+    <main className="w-full bg-brand-night">
       <Hero />
       <MeetMarc />
       
       <FailuresFirsts />
       <Movement />
       <Speaking />
+      <Social />
       <Newsletter />
-      {/* <Social /> — hidden for now */}
       <Contact />
       <Footer />
     </main>

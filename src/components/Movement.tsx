@@ -62,18 +62,24 @@ export const Movement = () => {
 
   const posterUrl = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
 
-  return <section className="w-full bg-brand-warm section-spacing">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+  return <>
+    <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-center">
         <div className="reveal">
-          <h2 className="display-title text-brand-ink mb-6">{content.title}</h2>
-          <p className="body-text text-brand-ink-sub max-w-3xl mb-12 leading-relaxed">{content.description}</p>
+          <p className="eyebrow mb-6">29029</p>
+          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,5vw,4.5rem)] mb-8">{content.title}.</h2>
+          <p className="body-text text-brand-warm/75 max-w-xl leading-relaxed mb-10">{content.description}</p>
+          <a
+            href={content.video_link_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-night bg-brand-red text-brand-warm hover:bg-brand-warm hover:text-brand-night"
+          >
+            Discover 29029 <span aria-hidden="true">→</span>
+          </a>
         </div>
-        
-        {/* Movement Video - Autoplay on scroll */}
-        <div
-          ref={videoRef}
-          className="relative w-full h-[400px] rounded-[4px] mb-24 lg:mb-[200px] overflow-hidden group reveal"
-        >
+
+        <div ref={videoRef} className="relative w-full aspect-video overflow-hidden reveal bg-brand-warm/5">
           <div
             aria-hidden="true"
             className={`skeleton absolute inset-0 pointer-events-none transition-opacity duration-500 ${
@@ -93,30 +99,19 @@ export const Movement = () => {
           >
             {hasBeenNear && <source src={content.video_url} type="video/mp4" />}
           </video>
-          
-          {/* "Discover 29029" CTA overlay on hover */}
-          <a
-            href={content.video_link_url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute inset-0 bg-gradient-to-t from-[#FB0D1B]/60 to-[#FB0D1B]/0 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 focus-visible:opacity-100 focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white smooth-transition flex items-end justify-center pb-8 lg:items-center lg:pb-0 z-10"
-          >
-            <span className="text-white text-2xl font-bold tracking-wider">DISCOVER 29029</span>
-          </a>
-        </div>
-        
-        <div className="reveal">
-          <div className="flex flex-col items-center">
-            <blockquote className="mx-auto text-left md:text-center max-w-5xl px-0 md:px-8">
-              <p className="display-title text-brand-ink italic text-[1.375rem] leading-snug md:text-4xl lg:text-5xl max-md:text-balance">
-                "{content.quote}"
-              </p>
-              <cite className="body-text text-brand-ink-sub mt-8 block not-italic">
-                — {content.quote_author}
-              </cite>
-            </blockquote>
-          </div>
         </div>
       </div>
-    </section>;
+    </section>
+
+    <section className="w-full bg-brand-red text-brand-warm py-[clamp(80px,10vw,140px)]">
+      <blockquote className="reveal max-w-5xl mx-auto px-6 lg:px-8 text-left md:text-center">
+        <p className="font-editorial text-[clamp(1.7rem,3.6vw,3.4rem)] leading-tight max-md:text-balance">
+          "{content.quote?.trim()}"
+        </p>
+        <cite className="not-italic block mt-10 text-[0.72rem] font-semibold tracking-[0.35em] uppercase text-brand-warm/80">
+          — {content.quote_author}
+        </cite>
+      </blockquote>
+    </section>
+  </>;
 };

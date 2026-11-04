@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import { useContactContent } from "@/hooks/useContactContent";
 
 export const Contact = () => {
@@ -7,23 +7,22 @@ export const Contact = () => {
   if (!content) return null;
 
   return (
-    <section className="w-full bg-white section-spacing">
-      <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center">
-        <div className="reveal">
-          <h2 className="hero-title text-brand-ink mb-8">{content.title}</h2>
-          <p className="body-text text-brand-ink-sub mb-12 max-w-xl mx-auto">
+    <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="reveal max-w-3xl">
+          <p className="eyebrow mb-6">Say Hello</p>
+          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)] mb-8">{content.title}</h2>
+          <p className="font-editorial text-brand-warm/80 text-[clamp(1.25rem,2vw,1.75rem)] leading-snug mb-12 max-w-xl">
             {content.description}
           </p>
-          
-          <Button 
-            asChild
-            size="lg"
-            className="bg-brand-ink hover:bg-brand-red text-white px-8 py-4 text-lg font-semibold press active:scale-[0.97]"
-          >
-            <a href={`mailto:${content.email}`}>
-              {content.button_text}
+          <div className="flex flex-wrap gap-4">
+            <a href={`mailto:${content.email}`} className="btn-night bg-brand-red text-brand-warm hover:bg-brand-warm hover:text-brand-night">
+              {content.button_text} <span aria-hidden="true">→</span>
             </a>
-          </Button>
+            <Link to="/unsettled" className="btn-night border border-brand-warm/30 text-brand-warm hover:border-brand-red hover:text-brand-red">
+              Unsettled Coaching <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </div>
       </div>
     </section>

@@ -440,6 +440,47 @@
     border-color: hsl(var(--brand-red));
   }
   
+  /* Night homepage system */
+  .font-display {
+    font-family: 'Archivo Black', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    line-height: 0.92;
+  }
+  .font-editorial {
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-style: italic;
+    font-weight: 400;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: hsl(var(--brand-red));
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.75rem;
+    height: 2px;
+    background: hsl(var(--brand-red));
+  }
+  .btn-night {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 1.1rem 2rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    transition: background-color .25s, color .25s, border-color .25s;
+  }
+
   .section-spacing {
     padding-top: clamp(120px, 15vw, 200px);
     padding-bottom: clamp(120px, 15vw, 200px);
