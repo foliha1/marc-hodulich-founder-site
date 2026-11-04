@@ -64,6 +64,9 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
   </Link>
 );
 
+// Placeholder cards shown until enough letters are published to fill a row.
+const UPCOMING = ["What if fulfillment happens before the finish line?", "Placeholder"];
+
 const LINKEDIN_URL = "https://www.linkedin.com/in/marchodulich/";
 
 const PressSection = () => {
@@ -163,7 +166,7 @@ const Editorial = () => {
             </p>
           </div>
 
-          <div className="mb-16 md:mb-20">
+          <div className="mb-8 md:mb-10">
             <NewsletterMasthead />
           </div>
 
@@ -200,6 +203,16 @@ const Editorial = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post, index) => (
                 <PostCard key={post.id} post={post} index={index} />
+              ))}
+              {UPCOMING.slice(0, Math.max(0, 3 - posts.length)).map((title, i) => (
+                <div
+                  key={title}
+                  className="reveal rounded-[4px] p-6 border border-dashed border-brand-ink/15"
+                  style={{ animationDelay: `${(posts.length + i) * 0.08}s` }}
+                >
+                  <span className="block caption-text uppercase tracking-wider text-brand-muted mb-3">Coming soon</span>
+                  <h3 className="body-text text-brand-ink-sub">{title}</h3>
+                </div>
               ))}
             </div>
           )}

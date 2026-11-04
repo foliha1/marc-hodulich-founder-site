@@ -11,16 +11,16 @@ const NEWSLETTER_MASTHEAD_URL =
 // legibility; only its outer padding is clipped, never the artwork.
 export const NewsletterMasthead = () => (
   <div className="reveal">
-    <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 text-center">
+    <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">
       The Newsletter
     </p>
-    <div className="flex justify-center overflow-hidden py-1 md:py-2">
+    <div className="overflow-hidden py-1 md:py-2">
       <img
         src={NEWSLETTER_MASTHEAD_URL}
         alt="UNSETTLED with Marc Hodulich"
         width={1200}
         height={240}
-        className="img-fade block h-auto w-[160%] max-w-[880px] shrink-0"
+        className="img-fade block h-auto w-[160%] md:w-full max-w-[880px] -translate-x-[20.5%]"
         {...fadeInProps}
         loading="lazy"
         decoding="async"
