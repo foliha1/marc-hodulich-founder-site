@@ -24,7 +24,7 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
     className="group reveal rounded-[4px] overflow-hidden smooth-transition block"
     style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
   >
-    {post.featured_image ? (
+    {post.featured_image && (
       <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
         <img
           src={post.featured_image}
@@ -35,8 +35,6 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
           decoding="async"
         />
       </div>
-    ) : (
-      <div className="aspect-[4/3] bg-brand-stone" />
     )}
     <div className="p-6">
       {post.tags.length > 0 && (
