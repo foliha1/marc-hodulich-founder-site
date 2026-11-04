@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { refreshPublicContent, compactDisplayOrder } from "@/lib/cmsCache";
 import { ImageUpload } from "./ImageUpload";
 
 export const HeroEditor = () => {
@@ -20,6 +22,7 @@ export const HeroEditor = () => {
   });
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     fetchData();
@@ -51,6 +54,7 @@ export const HeroEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Hero section updated" });
+      refreshPublicContent(queryClient, "hero-content");
     }
     setLoading(false);
   };

@@ -6,12 +6,15 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { refreshPublicContent, compactDisplayOrder } from "@/lib/cmsCache";
 import { ImageUpload } from "./ImageUpload";
 
 export const MovementEditor = () => {
   const [content, setContent] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     fetchData();
@@ -44,6 +47,7 @@ export const MovementEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Content updated" });
+      refreshPublicContent(queryClient, "movement-content");
     }
     setLoading(false);
   };

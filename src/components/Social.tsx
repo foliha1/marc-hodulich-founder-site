@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from "react";
+import { useSectionContent } from "@/hooks/useSectionContent";
 export const Social = () => {
+  const { data: section } = useSectionContent("social");
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
 
@@ -45,7 +47,7 @@ export const Social = () => {
     <section ref={sectionRef} className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-16 reveal">
-          <h2 className="display-title text-brand-ink mb-6">In the Wild</h2>
+          <h2 className="display-title text-brand-ink mb-6">{section?.title || "In the Wild"}</h2>
         </div>
         
         {isVisible && (

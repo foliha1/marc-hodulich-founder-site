@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { refreshPublicContent, compactDisplayOrder } from "@/lib/cmsCache";
 import { ImageUpload } from "./ImageUpload";
 
 export const MeetMarcEditor = () => {
@@ -13,6 +15,7 @@ export const MeetMarcEditor = () => {
   const [sectionContent, setSectionContent] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     fetchCards();
@@ -47,6 +50,7 @@ export const MeetMarcEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Card updated" });
+      refreshPublicContent(queryClient, "meet-marc-cards");
       fetchCards();
     }
     setLoading(false);
@@ -67,6 +71,7 @@ export const MeetMarcEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Section updated" });
+      refreshPublicContent(queryClient, "meet-marc-cards", "section-content");
       fetchSectionContent();
     }
     setLoading(false);

@@ -1,0 +1,1 @@
+- After any CMS save, call refreshPublicContent (src/lib/cmsCache.ts) with the public query keys it affects, and compactDisplayOrder after deletes — the public site caches content for 5 min.

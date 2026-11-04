@@ -5,121 +5,141 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useToast } from "@/hooks/use-toast";
 import { z } from "zod";
 
-const authSchema = z.object({
-  email: z.string().email("Invalid email address"),
-  password: z.string().min(6, "Password must be at least 6 characters"),
-});
+const emailSchema = z.string().trim().email("Please enter a valid email address.");
+const RESEND_SECONDS = 60;
+
+/** Turn auth errors into plain messages. */
+export const friendlyAuthError = (error: { message?: string; code?: string; status?: number }) => {
+  const msg = (error.message || "").toLowerCase();
+  const code = error.code || "";
+  if (code === "otp_disabled" || msg.includes("signups not allowed") || msg.includes("user not found")) {
+    return "That email doesn't have access.";
+  }
+  if (code === "over_email_send_rate_limit" || code === "over_request_rate_limit" || error.status === 429 || msg.includes("rate limit") || msg.includes("security purposes")) {
+    return "Too many login links were requested. Please wait a minute and try again.";
+  }
+  if (code === "otp_expired" || msg.includes("expired") || msg.includes("invalid")) {
+    return "That login link has expired or was already used. Request a new one below.";
+  }
+  return "Something went wrong sending your login link. Please try again.";
+};
+
+const readLinkError = () => {
+  const params = new URLSearchParams(window.location.hash.replace(/^#/, "") || window.location.search);
+  const code = params.get("error_code");
+  const description = params.get("error_description");
+  if (!code && !description) return null;
+  return friendlyAuthError({ code: code || undefined, message: description || "" });
+};
 
 const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
+  const [error, setError] = useState<string | null>(() => readLinkError());
   const navigate = useNavigate();
-  const { toast } = useToast();
-  
 
   useEffect(() => {
-    const checkUser = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        navigate("/admin");
-      }
-    };
-    checkUser();
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (session) navigate("/admin");
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) navigate("/admin");
+    });
+    return () => subscription.unsubscribe();
   }, [navigate]);
 
-  const handleAuth = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
+  useEffect(() => {
+    if (cooldown <= 0) return;
+    const t = setTimeout(() => setCooldown((c) => c - 1), 1000);
+    return () => clearTimeout(t);
+  }, [cooldown]);
 
-    const validation = authSchema.safeParse({ email, password });
-    if (!validation.success) {
-      toast({
-        variant: "destructive",
-        title: "Validation Error",
-        description: validation.error.errors[0].message,
-      });
-      setLoading(false);
+  const sendLink = async () => {
+    setError(null);
+    const parsed = emailSchema.safeParse(email);
+    if (!parsed.success) {
+      setError(parsed.error.errors[0].message);
       return;
     }
-
-    try {
-      if (isLogin) {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast({ title: "Success", description: "Logged in successfully" });
-        navigate("/admin");
-      } else {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: {
-            emailRedirectTo: `${window.location.origin}/admin`,
-          },
-        });
-        if (error) throw error;
-        toast({ title: "Success", description: "Account created successfully" });
-        navigate("/admin");
-      }
-    } catch (error: any) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.message,
-      });
-    } finally {
-      setLoading(false);
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: parsed.data,
+      options: {
+        shouldCreateUser: false,
+        emailRedirectTo: `${window.location.origin}/admin`,
+      },
+    });
+    setLoading(false);
+    if (error) {
+      setError(friendlyAuthError(error));
+      return;
     }
+    setSent(true);
+    setCooldown(RESEND_SECONDS);
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    sendLink();
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-brand-warm p-4">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl">{isLogin ? "Admin Login" : "Create Admin Account"}</CardTitle>
+          <CardTitle className="text-2xl">Admin Login</CardTitle>
           <CardDescription>
-            {isLogin ? "Sign in to access the CMS" : "Create a new admin account"}
+            {sent ? "Login link sent" : "Enter your email and we'll send you a login link."}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleAuth} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
+          {sent ? (
+            <div className="space-y-4" role="status">
+              <p className="text-sm text-foreground">
+                Check your email for a login link. You can close this tab.
+              </p>
+              <p className="text-sm text-muted-foreground">Sent to {email.trim()}</p>
+              {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full"
+                onClick={sendLink}
+                disabled={loading || cooldown > 0}
+              >
+                {loading ? "Sending..." : cooldown > 0 ? `Send again (${cooldown}s)` : "Send again"}
+              </Button>
+              <button
+                type="button"
+                className="w-full text-sm text-brand-ink hover:underline"
+                onClick={() => { setSent(false); setError(null); }}
+              >
+                Use a different email
+              </button>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Loading..." : isLogin ? "Sign In" : "Sign Up"}
-            </Button>
-          </form>
-          <div className="mt-4 text-center">
-            <button
-              type="button"
-              className="text-sm text-brand-ink hover:underline"
-              onClick={() => setIsLogin(!isLogin)}
-            >
-              {isLogin ? "Need an account? Sign up" : "Already have an account? Sign in"}
-            </button>
-          </div>
+          ) : (
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              {error && <p className="text-sm text-destructive" role="alert">{error}</p>}
+              <Button type="submit" className="w-full" disabled={loading}>
+                {loading ? "Sending..." : "Send login link"}
+              </Button>
+            </form>
+          )}
         </CardContent>
       </Card>
     </div>

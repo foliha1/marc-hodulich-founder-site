@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { VideoModal } from "@/components/VideoModal";
 import { usePodcasts } from "@/hooks/usePodcasts";
+import { useSectionContent } from "@/hooks/useSectionContent";
 import { SpeakingSkeleton } from "@/components/SpeakingSkeleton";
 import { getOptimizedImageUrl, getResponsiveSrcSet, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
 
 export const Speaking = () => {
   const { data: podcasts, isLoading } = usePodcasts();
+  const { data: section } = useSectionContent("speaking");
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   if (isLoading) return <SpeakingSkeleton />;
@@ -15,9 +17,9 @@ export const Speaking = () => {
     <section className="w-full bg-white section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-16 reveal">
-          <h2 className="display-title text-brand-ink mb-6">Marc in Conversation</h2>
+          <h2 className="display-title text-brand-ink mb-6">{section?.title || "Marc in Conversation"}</h2>
           <p className="body-text text-brand-ink-sub max-w-3xl">
-            Talks and conversations on leadership, endurance, and designing a life with intention.
+            {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
           </p>
         </div>
         

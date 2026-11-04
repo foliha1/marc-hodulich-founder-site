@@ -6,6 +6,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { refreshPublicContent, compactDisplayOrder } from "@/lib/cmsCache";
 import { ImageUpload } from "./ImageUpload";
 import { ArrowUp, ArrowDown, Plus } from "lucide-react";
 
@@ -14,6 +16,7 @@ export const CarouselEditor = () => {
   const [sectionContent, setSectionContent] = useState<any>(null);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     fetchSlides();
@@ -48,6 +51,7 @@ export const CarouselEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Slide updated" });
+      refreshPublicContent(queryClient, "carousel-slides");
       fetchSlides();
     }
     setLoading(false);
@@ -68,6 +72,7 @@ export const CarouselEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Section updated" });
+      refreshPublicContent(queryClient, "carousel-slides", "section-content");
       fetchSectionContent();
     }
     setLoading(false);
@@ -87,6 +92,7 @@ export const CarouselEditor = () => {
     ]);
     
     toast({ title: "Success", description: "Slide moved up" });
+    refreshPublicContent(queryClient, "carousel-slides");
     fetchSlides();
     setLoading(false);
   };
@@ -106,6 +112,7 @@ export const CarouselEditor = () => {
     ]);
     
     toast({ title: "Success", description: "Slide moved down" });
+    refreshPublicContent(queryClient, "carousel-slides");
     fetchSlides();
     setLoading(false);
   };
@@ -127,6 +134,7 @@ export const CarouselEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Slide added" });
+      refreshPublicContent(queryClient, "carousel-slides");
       fetchSlides();
     }
     setLoading(false);
@@ -142,7 +150,9 @@ export const CarouselEditor = () => {
     if (error) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
+      await compactDisplayOrder("carousel_slides");
       toast({ title: "Success", description: "Slide deleted" });
+      refreshPublicContent(queryClient, "carousel-slides");
       fetchSlides();
     }
     setLoading(false);

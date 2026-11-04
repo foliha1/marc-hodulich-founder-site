@@ -5,7 +5,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
+import { useQueryClient } from "@tanstack/react-query";
+import { refreshPublicContent, compactDisplayOrder } from "@/lib/cmsCache";
 import { ImageUpload } from "./ImageUpload";
+import { SectionTextEditor } from "./SectionTextEditor";
 import { Plus, Download } from "lucide-react";
 import { extractYouTubeId, getYouTubeThumbnail } from "@/utils/youtube";
 
@@ -13,6 +16,7 @@ export const PodcastsEditor = () => {
   const [podcasts, setPodcasts] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     fetchPodcasts();
@@ -50,6 +54,7 @@ export const PodcastsEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Podcast updated" });
+      refreshPublicContent(queryClient, "podcasts");
       fetchPodcasts();
     }
     setLoading(false);
@@ -73,6 +78,7 @@ export const PodcastsEditor = () => {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
       toast({ title: "Success", description: "Podcast added" });
+      refreshPublicContent(queryClient, "podcasts");
       fetchPodcasts();
     }
     setLoading(false);
@@ -88,7 +94,9 @@ export const PodcastsEditor = () => {
     if (error) {
       toast({ variant: "destructive", title: "Error", description: error.message });
     } else {
+      await compactDisplayOrder("podcasts");
       toast({ title: "Success", description: "Podcast deleted" });
+      refreshPublicContent(queryClient, "podcasts");
       fetchPodcasts();
     }
     setLoading(false);
@@ -96,6 +104,7 @@ export const PodcastsEditor = () => {
 
   return (
     <div className="space-y-6">
+      <SectionTextEditor sectionName="speaking" heading="Marc in Conversation Section Content" />
       <Card>
         <CardContent className="pt-6">
           <Button onClick={handleAddPodcast} disabled={loading}>
