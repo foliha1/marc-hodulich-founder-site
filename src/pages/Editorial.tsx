@@ -231,6 +231,8 @@ const Editorial = () => {
             </div>
           )}
 
+          <NewsletterBox />
+
           <PressSection />
 
           <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10 reveal">
@@ -246,8 +248,6 @@ const Editorial = () => {
               Watch the conversations →
             </a>
           </section>
-
-          <NewsletterBox />
         </div>
       </div>
     </section>
