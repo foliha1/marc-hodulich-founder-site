@@ -463,7 +463,7 @@
     line-height: 0.92;
   }
   .font-editorial {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Libre Baskerville', Georgia, serif;
     font-style: italic;
     font-weight: 500;
   }
@@ -476,7 +476,7 @@
     .hero-composition .font-editorial { margin-top: 1.5rem; }
   }
   .testimonial-copy {
-    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-family: 'Libre Baskerville', Georgia, serif;
     font-style: italic;
     font-weight: 500;
     font-size: 1.4rem;
