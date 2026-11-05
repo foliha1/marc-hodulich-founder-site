@@ -53,14 +53,23 @@ const GHOST_MINIMAL_ATTRS: Record<string, string> = {
   "data-locale": "en",
 };
 
+// Night, form-only variant for dark-themed pages (Editorial).
+const GHOST_MINIMAL_NIGHT_ATTRS: Record<string, string> = {
+  ...GHOST_MINIMAL_ATTRS,
+  "data-background-color": "#08090c",
+  "data-text-color": "#FFFFFF",
+};
+
 export const GhostSignupForm = ({
   style,
   className,
   minimal = false,
+  night = false,
 }: {
   style?: CSSProperties;
   className?: string;
   minimal?: boolean;
+  night?: boolean;
 }) => {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -74,7 +83,7 @@ export const GhostSignupForm = ({
       const s = document.createElement("script");
       s.src = "https://cdn.jsdelivr.net/ghost/signup-form@~0.4/umd/signup-form.min.js";
       s.async = true;
-      Object.entries(minimal ? GHOST_MINIMAL_ATTRS : GHOST_SIGNUP_ATTRS).forEach(([k, v]) => s.setAttribute(k, v));
+      Object.entries(minimal ? (night ? GHOST_MINIMAL_NIGHT_ATTRS : GHOST_MINIMAL_ATTRS) : GHOST_SIGNUP_ATTRS).forEach(([k, v]) => s.setAttribute(k, v));
       el.appendChild(s);
     };
     const io = new IntersectionObserver(
@@ -88,7 +97,7 @@ export const GhostSignupForm = ({
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [minimal]);
+  }, [minimal, night]);
 
   return <div ref={ref} className={className} style={style} />;
 };
@@ -109,12 +118,12 @@ export const Newsletter = () => (
 );
 
 // Quiet, minimal signup row at the bottom of the Editorial page.
-export const NewsletterBox = () => (
+export const NewsletterBox = ({ night = false }: { night?: boolean }) => (
   <section className="mt-8 md:mt-12 pt-8 md:pt-10 border-t border-brand-ink/10 reveal" aria-label="Newsletter signup">
     <div className="max-w-xl text-left">
       <p className="text-xs font-medium text-brand-red tracking-[0.2em] uppercase mb-3">The Newsletter</p>
       <p className="body-text text-brand-ink-sub mb-6">Get new letters in your inbox.</p>
-      <GhostSignupForm minimal style={{ height: 64 }} />
+      <GhostSignupForm minimal night={night} style={{ height: 64 }} />
     </div>
   </section>
 );

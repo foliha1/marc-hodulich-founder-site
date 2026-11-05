@@ -23,8 +23,8 @@ const EditorialPost = () => {
   useDocumentTitle(post?.title, post?.meta_description || post?.excerpt);
 
   return (
-    <section className="w-full bg-brand-warm text-brand-ink min-h-screen flex flex-col">
-      <Navigation variant="dark" />
+    <section className="theme-night w-full text-brand-ink min-h-screen flex flex-col">
+      <Navigation variant="night" />
 
       <div className="flex-1 px-6 lg:px-8 pt-32 pb-24">
         <div className="max-w-3xl mx-auto w-full">

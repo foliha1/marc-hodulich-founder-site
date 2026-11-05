@@ -22,8 +22,8 @@ const formatDate = (iso: string | null): string => {
 const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) => (
   <Link
     to={`/editorial/${post.slug}`}
-    className="group reveal rounded-[4px] overflow-hidden smooth-transition block"
-    style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+    className="group reveal night-card overflow-hidden smooth-transition block"
+    style={{ animationDelay: `${index * 0.08}s` }}
   >
     {post.featured_image && (
       <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
@@ -76,8 +76,8 @@ const UPCOMING: UpcomingLetter[] = [
 
 const UpcomingCard = ({ item, index }: { item: UpcomingLetter; index: number }) => (
   <div
-    className="group reveal rounded-[4px] overflow-hidden smooth-transition flex flex-col p-6"
-    style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+    className="group reveal night-card overflow-hidden smooth-transition flex flex-col p-6"
+    style={{ animationDelay: `${index * 0.08}s` }}
   >
     <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition mb-3">{item.title}</h3>
     <div className="flex items-center justify-between text-brand-muted mt-auto pt-4">
@@ -101,8 +101,8 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
     <>
       {press.length > 0 && (
         <section className={`${tightTop ? top : roomy} border-t border-brand-ink/10`}>
-          <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">Features &amp; Press</p>
-          <h2 className="body-text text-brand-ink mb-10 reveal">Marc in the press</h2>
+          <p className="eyebrow mb-4 flex reveal">Features &amp; Press</p>
+          <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-10 reveal">Marc in the press</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {press.map((f, index) => (
               <a
@@ -110,8 +110,8 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
                 href={f.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group reveal rounded-[4px] overflow-hidden smooth-transition block"
-                style={{ animationDelay: `${index * 0.08}s`, backgroundColor: "#f2f2f2" }}
+                className="group reveal night-card overflow-hidden smooth-transition block"
+                style={{ animationDelay: `${index * 0.08}s` }}
               >
                 {f.image_url && (
                   <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
@@ -139,8 +139,8 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
       )}
 
       <section className={`${tightTop && press.length === 0 ? top : roomy} border-t border-brand-ink/10`}>
-        <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3 reveal">From LinkedIn</p>
-        <h2 className="body-text text-brand-ink mb-8 reveal">Notes from Marc</h2>
+        <p className="eyebrow mb-4 flex reveal">From LinkedIn</p>
+        <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-8 reveal">Notes from Marc</h2>
         {linkedin.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
             {linkedin.map((p) => (
@@ -177,11 +177,11 @@ const Editorial = () => {
   useDocumentTitle("Editorial");
 
   return (
-    <section className="w-full bg-brand-warm text-brand-ink min-h-screen flex flex-col">
-      <Navigation variant="dark" />
+    <section className="theme-night w-full text-brand-ink min-h-screen flex flex-col">
+      <Navigation variant="night" />
 
-      <div className="flex-1 px-6 lg:px-8 pt-32 pb-24">
-        <div className="max-w-7xl mx-auto w-full">
+      <div className="flex-1 pt-32 pb-24">
+        <div className="container-wide">
           <div className="mb-16 reveal">
             <h1 className="display-title text-brand-ink text-center">Editorial</h1>
           </div>
@@ -193,7 +193,7 @@ const Editorial = () => {
           {isLoading && (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="rounded-[4px] overflow-hidden" style={{ backgroundColor: "#f2f2f2" }}>
+                <div key={i} className="night-card overflow-hidden">
                   <div className="aspect-[4/3] bg-brand-stone animate-pulse" />
                   <div className="p-6">
                     <div className="h-4 w-1/3 bg-brand-stone animate-pulse mb-3" />
@@ -230,13 +230,13 @@ const Editorial = () => {
             </div>
           )}
 
-          <NewsletterBox />
+          <NewsletterBox night />
 
           <PressSection tightTop />
 
           <section className="mt-20 lg:mt-24 pt-12 border-t border-brand-ink/10 reveal">
-            <p className="caption-text uppercase tracking-[0.2em] text-brand-red mb-3">Listen</p>
-            <h2 className="body-text text-brand-ink mb-2">Marc in Conversation</h2>
+            <p className="eyebrow mb-4 flex">Listen</p>
+            <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-2">Marc in Conversation</h2>
             <p className="caption-text text-brand-ink-sub mb-5 max-w-xl">
               Podcasts and talks on leadership, endurance, and designing a life with intention.
             </p>

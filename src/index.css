@@ -547,3 +547,22 @@
     transform: translateY(0);
   }
 }
+
+/* Editorial pages: night theme matching the redesigned homepage (scoped, homepage untouched). */
+.theme-night {
+  --brand-ink: 0 0% 95%;
+  --brand-ink-sub: 0 0% 70%;
+  --brand-muted: 0 0% 55%;
+  --brand-stone: 225 10% 14%;
+  --brand-red-dark: 4 84% 65%;
+  background-color: hsl(var(--brand-night));
+  color: hsl(0 0% 95%);
+}
+.theme-night .night-card {
+  background-color: hsl(0 0% 100% / 0.03);
+  border: 1px solid hsl(0 0% 95% / 0.1);
+  border-radius: 0;
+}
+.theme-night .night-card:hover { border-color: hsl(var(--brand-red) / 0.6); }
+.theme-night .display-title { font-family: 'Archivo Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 400; text-transform: uppercase; letter-spacing: -0.01em; line-height: 0.95; }
+.theme-night .prose-editorial h2, .theme-night .prose-editorial h3 { font-family: 'Archivo Black', 'Helvetica Neue', Arial, sans-serif; font-weight: 400; text-transform: uppercase; }
