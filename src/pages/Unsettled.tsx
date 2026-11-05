@@ -1,11 +1,12 @@
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
-import { useContactContent } from "@/hooks/useContactContent";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
+
+// Coaching-page contact address (kept separate from the homepage contact settings).
+const COACHING_EMAIL = "marc@29029.co";
 
 const Unsettled = () => {
   useDocumentTitle("Unsettled Coaching");
-  const { data: contact } = useContactContent();
 
   return (
     <>
@@ -19,16 +20,14 @@ const Unsettled = () => {
             <p className="body-text text-white/80 mb-10">
               Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services.
             </p>
-            {contact?.email && (
-              <p className="text-center text-xs uppercase tracking-[0.25em] text-white/70">
-                <a
-                  href={`mailto:${contact.email}`}
-                  className="underline underline-offset-4 decoration-white/40 hover:text-white hover:decoration-white smooth-transition"
-                >
-                  {contact.email}
-                </a>
-              </p>
-            )}
+            <p className="text-center text-xs uppercase tracking-[0.25em] text-white/70">
+              <a
+                href={`mailto:${COACHING_EMAIL}`}
+                className="underline underline-offset-4 decoration-white/40 hover:text-white hover:decoration-white smooth-transition"
+              >
+                {COACHING_EMAIL}
+              </a>
+            </p>
             {/* Payment button hidden for now
             <Button
               asChild
