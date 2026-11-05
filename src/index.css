@@ -464,7 +464,7 @@
   }
   .font-editorial {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 500;
   }
   .eyebrow.eyebrow-readable { font-size: 0.9rem; letter-spacing: 0; }
@@ -477,7 +477,7 @@
   }
   .testimonial-copy {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-style: italic;
+    font-style: normal;
     font-weight: 500;
     font-size: 1.4rem;
   }
