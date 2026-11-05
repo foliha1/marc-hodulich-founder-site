@@ -21,7 +21,7 @@ export const Contact = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="reveal max-w-3xl">
           <p className="eyebrow mb-6">Say Hello</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)] mb-8">{content.title}</h2>
+          <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] mb-8">{content.title}</h2>
           <p className="font-editorial text-brand-warm/80 text-[clamp(1.25rem,2vw,1.75rem)] leading-snug mb-12 max-w-xl">
             {content.description}
           </p>
