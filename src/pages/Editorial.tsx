@@ -99,8 +99,39 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
 
   return (
     <>
+      <section className={`${tightTop ? top : roomy} border-t border-brand-ink/10`}>
+        <p className="eyebrow mb-4 flex reveal">From LinkedIn</p>
+        <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-8 reveal">Notes from Marc</h2>
+        {linkedin.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+            {linkedin.map((p) => (
+              <a
+                key={p.id}
+                href={p.url || LINKEDIN_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group reveal block border-l-2 border-brand-red pl-5"
+              >
+                <p className="body-text italic text-brand-ink line-clamp-5 mb-3">“{p.excerpt}”</p>
+                <span className="caption-text text-brand-muted group-hover:text-brand-red smooth-transition">
+                  Read on LinkedIn ↗
+                </span>
+              </a>
+            ))}
+          </div>
+        )}
+        <a
+          href={LINKEDIN_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="reveal inline-block caption-text uppercase tracking-wider text-brand-ink hover:text-brand-red smooth-transition border-b border-current pb-0.5"
+        >
+          Follow Marc on LinkedIn ↗
+        </a>
+      </section>
+
       {press.length > 0 && (
-        <section className={`${tightTop ? top : roomy} border-t border-brand-ink/10`}>
+        <section className={`${roomy} border-t border-brand-ink/10`}>
           <p className="eyebrow mb-4 flex reveal">Features &amp; Press</p>
           <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-8 reveal">Marc in the press</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -137,37 +168,6 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
           </div>
         </section>
       )}
-
-      <section className={`${tightTop && press.length === 0 ? top : roomy} border-t border-brand-ink/10`}>
-        <p className="eyebrow mb-4 flex reveal">From LinkedIn</p>
-        <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-8 reveal">Notes from Marc</h2>
-        {linkedin.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-            {linkedin.map((p) => (
-              <a
-                key={p.id}
-                href={p.url || LINKEDIN_URL}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group reveal block border-l-2 border-brand-red pl-5"
-              >
-                <p className="body-text italic text-brand-ink line-clamp-5 mb-3">“{p.excerpt}”</p>
-                <span className="caption-text text-brand-muted group-hover:text-brand-red smooth-transition">
-                  Read on LinkedIn ↗
-                </span>
-              </a>
-            ))}
-          </div>
-        )}
-        <a
-          href={LINKEDIN_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="reveal inline-block caption-text uppercase tracking-wider text-brand-ink hover:text-brand-red smooth-transition border-b border-current pb-0.5"
-        >
-          Follow Marc on LinkedIn ↗
-        </a>
-      </section>
     </>
   );
 };
