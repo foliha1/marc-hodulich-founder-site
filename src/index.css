@@ -463,9 +463,9 @@
     line-height: 0.92;
   }
   .font-editorial {
-    font-family: 'Instrument Serif', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
   }
   .eyebrow.eyebrow-readable { font-size: 0.9rem; letter-spacing: 0; }
   /* Short desktop windows need a lower, more compact composition to clear both faces. */
@@ -476,9 +476,9 @@
     .hero-composition .font-editorial { margin-top: 1.5rem; }
   }
   .testimonial-copy {
-    font-family: 'Instrument Serif', Georgia, serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-style: italic;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 1.4rem;
   }
   @media (min-width: 768px) { .testimonial-copy { font-size: 2rem; } }
