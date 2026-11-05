@@ -102,23 +102,23 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
       {press.length > 0 && (
         <section className={`${tightTop ? top : roomy} border-t border-brand-ink/10`}>
           <p className="eyebrow mb-4 flex reveal">Features &amp; Press</p>
-          <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-10 reveal">Marc in the press</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="font-display text-brand-ink text-[clamp(1.4rem,2.4vw,2.1rem)] mb-8 reveal">Marc in the press</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {press.map((f, index) => (
               <a
                 key={f.id}
                 href={f.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group reveal night-card overflow-hidden smooth-transition block"
+                className="group reveal night-card overflow-hidden smooth-transition flex items-stretch"
                 style={{ animationDelay: `${index * 0.08}s` }}
               >
                 {f.image_url && (
-                  <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
+                  <div className="w-[38%] shrink-0 overflow-hidden bg-brand-stone">
                     <img
-                      src={getOptimizedImageUrl(f.image_url, 640, 80)}
+                      src={getOptimizedImageUrl(f.image_url, 480, 80)}
                       alt={f.title}
-                      className="img-fade w-full h-full object-cover object-top group-hover:scale-105"
+                      className="img-fade h-full w-full object-cover object-top group-hover:scale-105"
                       {...fadeInProps}
                       onError={fallbackToOriginal(f.image_url)}
                       loading="lazy"
@@ -126,10 +126,10 @@ const PressSection = ({ tightTop = false }: { tightTop?: boolean }) => {
                     />
                   </div>
                 )}
-                <div className="p-6">
-                  <span className="block caption-text uppercase tracking-wider text-brand-red mb-3">{f.outlet}</span>
-                  <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition mb-3">{f.title}</h3>
-                  {f.excerpt && <p className="caption-text text-brand-ink-sub line-clamp-3 mb-4">{f.excerpt}</p>}
+                <div className="flex-1 p-5">
+                  <span className="block caption-text uppercase tracking-wider text-brand-red mb-2">{f.outlet}</span>
+                  <h3 className="body-text text-brand-ink group-hover:text-brand-red smooth-transition mb-2">{f.title}</h3>
+                  {f.excerpt && <p className="caption-text text-brand-ink-sub line-clamp-2 mb-3">{f.excerpt}</p>}
                   <span className="caption-text text-brand-muted">Read the feature ↗</span>
                 </div>
               </a>
