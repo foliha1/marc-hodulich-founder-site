@@ -1,6 +1,7 @@
 # Roadmap — Homepage redesign (match new design screenshots)
 
 ## Open
+- [ ] Restore /concept milestone copy and four-column Failures & Firsts layout with Admin editing and preserved old data/widths. Blocked: /concept requires sign-in; original screenshot shows four milestones, not five, and some copy is clipped. Need accessible source or complete copy and milestone-count clarification.
 - [ ] Copy typed into the page, not yet Admin-editable: "Growth lives at the edge.", "Failure isn't the end.", "Proof of Life", "Unsettled Coaching" button label.
 - [ ] Unsettled page buy button still points to a placeholder payment link — needs the real one.
 
