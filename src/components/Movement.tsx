@@ -67,7 +67,7 @@ export const Movement = () => {
       <div className="container-wide grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-12 lg:gap-x-[6%] items-center">
         <div className="reveal">
           <p className="eyebrow eyebrow-readable mb-6">29029</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,4.6vw,5rem)] mb-8">{content.title}.</h2>
+          <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] mb-8">{content.title}.</h2>
           <p className="text-[clamp(1rem,1.1vw,1.25rem)] text-brand-warm/75 max-w-[38rem] leading-[1.6] mb-12">{content.description}</p>
           <a
             href={content.video_link_url}

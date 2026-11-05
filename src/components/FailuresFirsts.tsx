@@ -15,7 +15,7 @@ export const FailuresFirsts = () => {
       <div className="container-wide">
         <div className="reveal mb-14 lg:mb-20">
           <p className="eyebrow eyebrow-readable mb-6">Fulfillment Over Achievement</p>
-          <h2 className="font-display text-brand-warm text-[clamp(1.85rem,4.6vw,4.25rem)] tracking-normal leading-[1.05] text-balance">
+          <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] tracking-normal leading-[1.05] text-balance">
             {section?.title || "Failures, Firsts, and Foundations"}
           </h2>
           {section?.paragraph && (

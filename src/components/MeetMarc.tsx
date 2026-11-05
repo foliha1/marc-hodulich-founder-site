@@ -23,7 +23,7 @@ export const MeetMarc = () => {
             <p className="font-editorial text-brand-red text-xl md:text-2xl mb-3">
               Growth Imperative
             </p>
-            <h2 className="font-display text-[clamp(3rem,5.2vw,6rem)] mb-8 lg:mb-10">
+            <h2 className="font-display text-[clamp(2.1rem,4.1vw,3.9rem)] mb-8 lg:mb-10">
               {words.length > 0 && (
                 <span className="block text-brand-warm">{words.join(" ")}</span>
               )}

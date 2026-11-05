@@ -26,8 +26,8 @@ export const Speaking = () => {
     <section id="conversation" className="w-full bg-brand-night text-brand-warm scroll-mt-20 border-t-[14px] border-brand-red pt-[clamp(120px,15vw,200px)] pb-[clamp(64px,7vw,100px)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-12 reveal">
-          <h2 className="font-display text-brand-warm text-[clamp(1.95rem,4.9vw,4.5rem)] mb-4">{section?.title || "Marc in Conversation"}</h2>
-          <p className="body-text text-brand-warm/70 max-w-2xl">
+          <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] mb-4">{section?.title || "Marc in Conversation"}</h2>
+          <p className="text-[clamp(1rem,1.1vw,1.25rem)] text-brand-warm/75 max-w-[38rem] leading-[1.6]">
             {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
           </p>
         </div>
