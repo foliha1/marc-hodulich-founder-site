@@ -21,7 +21,7 @@ export const MeetMarc = () => {
           {/* Left: heading + portrait */}
           <div className="reveal">
             <p className="font-editorial text-brand-red text-xl md:text-2xl mb-3">
-              Growth lives at the edge.
+              Growth Imperative
             </p>
             <h2 className="font-display text-[clamp(3rem,5.2vw,6rem)] mb-8 lg:mb-10">
               {words.length > 0 && (

@@ -3,7 +3,7 @@
 ## Open
 - [ ] Populate Instagram gallery with authentic thumbnails: four existing social records use stock images; three also lack original post URLs. Await actual media and missing links.
 - [ ] In the Wild grid restyled to the reference (3 columns, portrait tiles, thin gaps, no icon badge) — needs the real photos to confirm visually.
-- [ ] Copy typed into the page, not yet Admin-editable: "Growth lives at the edge.", "Failure isn't the end.", "Proof of Life", "Unsettled Coaching" button label.
+- [ ] Copy typed into the page, not yet Admin-editable: "Unsettled Coaching" button label. ("Growth lives at the edge." → "Growth Imperative", "Failure isn't the end." → "Failure, Firsts, and Fulfillment Over Achievement", and the "Proof of Life" label was deleted — all in code per request.)
 - [ ] Unsettled page buy button still points to a placeholder payment link — needs the real one.
 
 ## Done

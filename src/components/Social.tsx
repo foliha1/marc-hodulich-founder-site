@@ -90,7 +90,6 @@ export const Social = () => {
   return <section className="w-full bg-brand-night text-brand-warm border-t border-brand-warm/10 pt-[clamp(40px,4.5vw,72px)] pb-[clamp(120px,15vw,200px)]">
     <div className="mx-auto w-full max-w-[760px] px-6 md:w-[72%] md:max-w-[980px] md:px-0">
       <div className="mb-10 lg:mb-16 reveal">
-        <p className="eyebrow mb-6">Proof of Life</p>
         <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
