@@ -83,11 +83,11 @@ export const Speaking = () => {
                   style={{ animationDelay: `${index * 0.08}s` }}
                 >
                   {f.image_url && (
-                    <div className="w-32 sm:w-40 lg:w-48 h-48 sm:h-56 lg:h-64 shrink-0 overflow-hidden bg-brand-warm/5">
+                    <div className="w-32 h-auto sm:h-56 sm:w-40 lg:h-64 lg:w-48 shrink-0 overflow-hidden bg-brand-warm/5">
                       <img
                         src={getOptimizedImageUrl(f.image_url, 480, 85)}
                         alt=""
-                        className="img-fade w-full h-full object-contain"
+                        className="img-fade w-full h-auto sm:h-full object-contain"
                         {...fadeInProps}
                         onError={fallbackToOriginal(f.image_url)}
                         loading="lazy"
