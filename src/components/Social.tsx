@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { Instagram, Linkedin, ArrowUpRight } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
@@ -16,22 +16,28 @@ const useSocialLinks = () => useQuery({
   },
 });
 
-const TileMedia = ({ post }: { post: SocialPost }) => {
+// `active` is driven by pointer/focus events in JS (not CSS :hover), so the
+// color reveal and video teaser work on every device, including touch laptops
+// where the hover media query reports no hover support.
+const TileMedia = ({ post, active }: { post: SocialPost; active: boolean }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const poster = getOptimizedImageUrl(post.image_url, 640);
-  const treatment = `w-full h-full object-cover transition-[transform,filter] duration-500 motion-safe:group-hover:scale-[1.03]${post.is_grayscale ? " grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0" : ""}`;
+  // The filter lives on a wrapper so re-renders never reset the img's load-fade class.
+  const wrapper = `w-full h-full transition-[transform,filter] duration-500 ${active ? "motion-safe:scale-[1.03]" : ""} ${post.is_grayscale && !active ? "grayscale" : "grayscale-0"}`;
+  const treatment = "w-full h-full object-cover";
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    if (active) void video.play().catch(() => undefined);
+    else { video.pause(); video.currentTime = 0; }
+  }, [active]);
 
   if (!post.video_url) {
-    return <img src={poster} alt={post.alt_text} loading="lazy" decoding="async" className={`img-fade ${treatment}`} {...fadeInProps} onError={fallbackToOriginal(post.image_url)} />;
+    return <div className={wrapper}><img src={poster} alt={post.alt_text} loading="lazy" decoding="async" className={`img-fade ${treatment}`} {...fadeInProps} onError={fallbackToOriginal(post.image_url)} /></div>;
   }
 
-  const play = () => { void videoRef.current?.play().catch(() => undefined); };
-  const stop = () => {
-    const video = videoRef.current;
-    if (video) { video.pause(); video.currentTime = 0; }
-  };
-
-  return <video
+  return <div className={wrapper}><video
     ref={videoRef}
     src={post.video_url}
     poster={poster}
@@ -41,19 +47,33 @@ const TileMedia = ({ post }: { post: SocialPost }) => {
     preload="none"
     aria-label={post.alt_text}
     className={treatment}
-    onMouseEnter={play}
-    onMouseLeave={stop}
-    onFocus={play}
-    onBlur={stop}
-  />;
+  /></div>;
 };
 
-// Hover/focus overlay: no darkening, so the tile's full color shows on hover;
-// a small Instagram mark appears in the corner. On touch devices it stays visible.
-const TileOverlay = () => <>
-  <Instagram aria-hidden="true" className="pointer-events-none absolute bottom-3 right-3 h-6 w-6 text-brand-warm opacity-0 drop-shadow-md transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
-  <Instagram aria-hidden="true" className="pointer-events-none absolute bottom-2 right-2 h-4 w-4 text-brand-warm/90 opacity-100 transition-opacity duration-300 group-hover:opacity-0 [@media(hover:hover)]:hidden" />
-</>;
+const Tile = ({ post }: { post: SocialPost }) => {
+  const [active, setActive] = useState(false);
+  const url = getInstagramPostUrl(post.instagram_url);
+  const on = () => setActive(true);
+  const off = () => setActive(false);
+  const base = "relative aspect-[3/4] overflow-hidden bg-brand-warm/5";
+
+  if (!url) return <div className={base} onPointerEnter={on} onPointerLeave={off}><TileMedia post={post} active={active} /></div>;
+
+  return <a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`View on Instagram: ${post.alt_text}`}
+    className={`${base} cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red`}
+    onPointerEnter={on}
+    onPointerLeave={off}
+    onFocus={on}
+    onBlur={off}
+  >
+    <TileMedia post={post} active={active} />
+    <Instagram aria-hidden="true" className={`pointer-events-none absolute bottom-3 right-3 h-6 w-6 text-brand-warm drop-shadow-md transition-opacity duration-300 ${active ? "opacity-100" : "opacity-0"}`} />
+  </a>;
+};
 
 export const Social = () => {
   const { data: section } = useSectionContent("social");
@@ -73,13 +93,7 @@ export const Social = () => {
         <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
-        {visiblePosts.map(post => {
-          const url = getInstagramPostUrl(post.instagram_url);
-          const media = <TileMedia post={post} />;
-          return url
-            ? <a key={post.id} href={url} target="_blank" rel="noopener noreferrer" aria-label={`View on Instagram: ${post.alt_text}`} className="group relative aspect-[3/4] overflow-hidden bg-brand-warm/5 cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red">{media}<TileOverlay /></a>
-            : <div key={post.id} className="group relative aspect-[3/4] overflow-hidden bg-brand-warm/5">{media}</div>;
-        })}
+        {visiblePosts.map(post => <Tile key={post.id} post={post} />)}
       </div>
       {(instagram || linkedin) && <div className="mt-10 flex flex-col items-start gap-5 sm:flex-row sm:items-center sm:gap-12 reveal">
         {instagram && <a href={instagram.url} target="_blank" rel="noopener noreferrer" className="group/link inline-flex items-center gap-3 text-sm uppercase tracking-[0.2em] text-brand-warm transition-colors hover:text-brand-red focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red">

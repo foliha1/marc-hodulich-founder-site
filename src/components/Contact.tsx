@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { useContactContent } from "@/hooks/useContactContent";
+import { toast } from "@/hooks/use-toast";
 
 export const Contact = () => {
   const { data: content } = useContactContent();
@@ -16,7 +17,15 @@ export const Contact = () => {
             {content.description}
           </p>
           <div className="flex flex-wrap gap-4">
-            <a href={`mailto:${content.email}`} className="btn-night bg-brand-red text-brand-warm hover:bg-brand-warm hover:text-brand-night">
+            <a
+              href={`mailto:${content.email}`}
+              onClick={() => {
+                // mailto does nothing when no email app is set up, so also copy the
+                // address and confirm on screen — the click always has a visible result.
+                void navigator.clipboard?.writeText(content.email).catch(() => undefined);
+                toast({ title: "Email address copied", description: `${content.email} — paste it into your email to reach Marc's team.` });
+              }}
+              className="btn-night bg-brand-red text-brand-warm hover:bg-brand-warm hover:text-brand-night">
               {content.button_text} <span aria-hidden="true">→</span>
             </a>
             <Link to="/unsettled" className="btn-night border border-brand-warm/30 text-brand-warm hover:border-brand-red hover:text-brand-red">
