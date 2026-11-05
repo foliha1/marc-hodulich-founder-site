@@ -29,10 +29,21 @@ export const SocialPostsEditor = () => {
   const save = (row: SocialPost) => run(async () => {
     if (row.instagram_url?.trim() && !getInstagramPostUrl(row.instagram_url.trim())) throw new Error("Enter an original Instagram post or reel URL, not a profile URL.");
     if (!Number.isInteger(row.display_order) || row.display_order < 1) throw new Error("Display order must be a positive whole number.");
-    const { error } = await supabase.from("social_posts").update({ image_url: row.image_url, alt_text: row.alt_text, instagram_url: row.instagram_url?.trim() || null, display_order: row.display_order, updated_at: new Date().toISOString() }).eq("id", row.id);
+    const { error } = await supabase.from("social_posts").update({ image_url: row.image_url, video_url: row.video_url || null, alt_text: row.alt_text, instagram_url: row.instagram_url?.trim() || null, display_order: row.display_order, updated_at: new Date().toISOString() }).eq("id", row.id);
     if (error) throw error;
     await compactDisplayOrder("social_posts");
   }, "Instagram post updated");
+  const uploadVideo = (row: SocialPost, file: File) => run(async () => {
+    if (file.type !== "video/mp4") throw new Error("Please upload an MP4 video file.");
+    if (file.size > 100 * 1024 * 1024) throw new Error("Video must be smaller than 100MB.");
+    const filePath = `social/${Date.now()}-${Math.random().toString(36).substring(7)}.mp4`;
+    const { error: uploadError } = await supabase.storage.from("cms-images").upload(filePath, file, { cacheControl: "3600", upsert: false });
+    if (uploadError) throw uploadError;
+    const { data: { publicUrl } } = supabase.storage.from("cms-images").getPublicUrl(filePath);
+    const { error } = await supabase.from("social_posts").update({ video_url: publicUrl }).eq("id", row.id);
+    if (error) throw error;
+    local(row.id, { video_url: publicUrl });
+  }, "Video updated");
   const move = (index: number, direction: number) => run(async () => {
     const a = rows[index], b = rows[index + direction];
     if (!a || !b) return;
@@ -62,6 +73,19 @@ export const SocialPostsEditor = () => {
             const { error } = await supabase.from("social_posts").update({ image_url: url }).eq("id", row.id);
             if (error) throw error;
           }, "Instagram thumbnail updated"); }} />
+          <div className="space-y-2">
+            <Label>Hover Video (optional MP4)</Label>
+            {row.video_url && <video src={row.video_url} muted loop playsInline className="w-full h-32 object-cover rounded-lg border" onMouseEnter={e => void e.currentTarget.play().catch(() => undefined)} onMouseLeave={e => { e.currentTarget.pause(); e.currentTarget.currentTime = 0; }} />}
+            <div className="flex gap-2">
+              <Button type="button" variant="outline" size="sm" disabled={busy} onClick={() => document.getElementById(`social-video-${row.id}`)?.click()}>{row.video_url ? "Change Video" : "Upload Video"}</Button>
+              {row.video_url && <Button type="button" variant="destructive" size="sm" disabled={busy} onClick={() => run(async () => {
+                const { error } = await supabase.from("social_posts").update({ video_url: null }).eq("id", row.id);
+                if (error) throw error;
+                local(row.id, { video_url: null });
+              }, "Video removed")}>Remove</Button>}
+            </div>
+            <input id={`social-video-${row.id}`} type="file" accept="video/mp4" className="hidden" onChange={e => { const file = e.target.files?.[0]; if (file) uploadVideo(row, file); e.target.value = ""; }} />
+          </div>
           <div><Label htmlFor={`social-alt-${row.id}`}>Image Description</Label><Input id={`social-alt-${row.id}`} value={row.alt_text} onChange={e => local(row.id, { alt_text: e.target.value })} /></div>
           <div><Label htmlFor={`social-url-${row.id}`}>Instagram Post URL</Label><Input id={`social-url-${row.id}`} type="url" value={row.instagram_url || ""} onChange={e => local(row.id, { instagram_url: e.target.value })} /></div>
           <div><Label htmlFor={`social-order-${row.id}`}>Display Order</Label><Input id={`social-order-${row.id}`} type="number" min={1} step={1} value={row.display_order} onChange={e => local(row.id, { display_order: Number(e.target.value) })} /></div>

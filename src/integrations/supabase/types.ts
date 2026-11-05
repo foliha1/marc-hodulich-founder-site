@@ -347,6 +347,7 @@ export type Database = {
           instagram_url: string | null
           post_type: string
           updated_at: string | null
+          video_url: string | null
         }
         Insert: {
           alt_text: string
@@ -356,6 +357,7 @@ export type Database = {
           instagram_url?: string | null
           post_type?: string
           updated_at?: string | null
+          video_url?: string | null
         }
         Update: {
           alt_text?: string
@@ -365,6 +367,7 @@ export type Database = {
           instagram_url?: string | null
           post_type?: string
           updated_at?: string | null
+          video_url?: string | null
         }
         Relationships: []
       }
