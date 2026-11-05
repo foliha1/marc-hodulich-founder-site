@@ -58,6 +58,7 @@ export default {
           ink: "hsl(var(--brand-ink))",
           "ink-sub": "hsl(var(--brand-ink-sub))",
           warm: "hsl(var(--brand-warm))",
+          night: "hsl(var(--brand-night))",
           muted: "hsl(var(--brand-muted))",
           cream: "hsl(var(--brand-cream))",
           stone: "hsl(var(--brand-stone))",
