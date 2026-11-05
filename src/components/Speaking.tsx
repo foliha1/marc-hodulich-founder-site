@@ -23,7 +23,7 @@ export const Speaking = () => {
   if (!podcasts || podcasts.length === 0) return null;
 
   return (
-    <section id="conversation" className="w-full bg-brand-night text-brand-warm section-spacing scroll-mt-20 border-t-[14px] border-brand-red">
+    <section id="conversation" className="w-full bg-brand-night text-brand-warm scroll-mt-20 border-t-[14px] border-brand-red pt-[clamp(120px,15vw,200px)] pb-[clamp(64px,7vw,100px)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-12 lg:mb-16 reveal">
           <p className="eyebrow eyebrow-readable mb-6">Marc in Conversation</p>
