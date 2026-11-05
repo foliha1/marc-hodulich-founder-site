@@ -14,7 +14,7 @@ export const FailuresFirsts = () => {
     <section className="w-full bg-brand-night text-brand-warm pt-16 md:pt-24 pb-20 md:pb-32 border-t border-brand-warm/10">
       <div className="container-wide">
         <div className="reveal mb-14 lg:mb-20">
-          <p className="eyebrow mb-6">{section?.title || "Failures, Firsts, and Foundations"}</p>
+          <p className="eyebrow eyebrow-readable mb-6">{section?.title || "Failures, Firsts, and Foundations"}</p>
           <h2 className="font-display text-brand-warm text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-normal">
             Failure isn't<br />the end.
           </h2>

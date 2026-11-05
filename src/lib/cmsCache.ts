@@ -12,7 +12,8 @@ export type PublicContentKey =
   | "podcasts"
   | "contact-content"
   | "section-content"
-  | "press-features";
+  | "press-features"
+  | "social-posts";
 
 /** Drop cached public content so the live site shows fresh data after a CMS save. */
 export const refreshPublicContent = (queryClient: QueryClient, ...keys: PublicContentKey[]) => {
@@ -30,7 +31,7 @@ export const refreshPublicContent = (queryClient: QueryClient, ...keys: PublicCo
 
 /** Renumber display_order to 1..n (no gaps, no duplicates), keeping the current sequence. */
 export const compactDisplayOrder = async (
-  table: "meet_marc_cards" | "carousel_slides" | "podcasts" | "press_features" | "entrepreneurial_milestones",
+  table: "meet_marc_cards" | "carousel_slides" | "podcasts" | "press_features" | "entrepreneurial_milestones" | "social_posts",
 ) => {
   const { data, error } = await supabase.from(table).select("id, display_order").order("display_order").order("id");
   if (error || !data) return;

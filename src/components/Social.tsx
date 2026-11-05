@@ -1,121 +1,34 @@
-import { useEffect, useRef, useState } from "react";
+import { Instagram, ArrowUpRight } from "lucide-react";
 import { useSectionContent } from "@/hooks/useSectionContent";
+import { useSocialPosts } from "@/hooks/useSocialPosts";
+import { getInstagramPostUrl, hasSocialThumbnail } from "@/lib/socialMedia";
+import { getOptimizedImageUrl, fallbackToOriginal, fadeInProps } from "@/utils/imageOptimization";
+
 export const Social = () => {
   const { data: section } = useSectionContent("social");
-  const [isVisible, setIsVisible] = useState(false);
-  const [widgetReady, setWidgetReady] = useState(false);
-  const [placeholderGone, setPlaceholderGone] = useState(false);
-  const sectionRef = useRef<HTMLDivElement>(null);
-  const widgetRef = useRef<HTMLDivElement>(null);
+  const { data: posts } = useSocialPosts();
+  const visiblePosts = (posts ?? []).filter(post => hasSocialThumbnail(post.image_url));
+  // Never present the old stock images as Marc's Instagram posts.
+  if (!visiblePosts.length) return null;
 
-  useEffect(() => {
-    // Lazy load Instagram widget using Intersection Observer
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            observer.disconnect();
-          }
-        });
-      },
-      {
-        rootMargin: '300px', // Start loading shortly before section is visible
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    if (document.querySelector('script[src*="elfsight"]')) return;
-
-    const script = document.createElement('script');
-    script.src = 'https://elfsightcdn.com/platform.js';
-    script.defer = true;
-    script.onerror = () => console.error('Failed to load Elfsight script');
-    document.body.appendChild(script);
-  }, [isVisible]);
-
-  // Hold the placeholder until the widget has actually rendered something
-  useEffect(() => {
-    if (!isVisible) return;
-
-    const el = widgetRef.current;
-    const hasContent = () => !!el && el.childElementCount > 0;
-
-    if (hasContent()) {
-      setWidgetReady(true);
-      return;
-    }
-
-    let observer: MutationObserver | undefined;
-    if (el) {
-      observer = new MutationObserver(() => {
-        if (hasContent()) {
-          setWidgetReady(true);
-          observer?.disconnect();
-        }
-      });
-      observer.observe(el, { childList: true, subtree: true });
-    }
-
-    // Don't leave a shimmering box on screen if the widget never arrives
-    const safety = window.setTimeout(() => setWidgetReady(true), 12000);
-
-    return () => {
-      observer?.disconnect();
-      window.clearTimeout(safety);
-    };
-  }, [isVisible]);
-
-  // Unmount the placeholder once its fade-out has finished
-  useEffect(() => {
-    if (!widgetReady) return;
-    const t = window.setTimeout(() => setPlaceholderGone(true), 500);
-    return () => window.clearTimeout(t);
-  }, [widgetReady]);
-
-  return (
-    <section ref={sectionRef} className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-10 lg:mb-16 reveal">
-          <p className="eyebrow mb-6">Proof of Life</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
-        </div>
-        
-        <div className="grid">
-          {isVisible && (
-            <div
-              ref={widgetRef}
-              className="col-start-1 row-start-1 elfsight-app-7e1de5f0-11d6-4bf3-ae86-6bef6e382f63"
-              data-elfsight-app-lazy
-            ></div>
-          )}
-
-          {!placeholderGone && (
-            <div
-              aria-hidden="true"
-              className={`col-start-1 row-start-1 pointer-events-none grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 transition-opacity duration-500 ${
-                widgetReady ? "opacity-0" : "opacity-100"
-              }`}
-            >
-              {Array.from({ length: 8 }).map((_, i) => (
-                <div
-                  key={i}
-                  className={`skeleton aspect-square rounded-[4px] ${i > 3 ? "hidden sm:block" : ""}`}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+  return <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+    <div className="container-wide">
+      <div className="mb-10 lg:mb-16 reveal">
+        <p className="eyebrow mb-6">Proof of Life</p>
+        <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
       </div>
-    </section>
-  );
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+        {visiblePosts.map(post => {
+          const url = getInstagramPostUrl(post.instagram_url);
+          const thumbnail = <>
+            <img src={getOptimizedImageUrl(post.image_url, 640)} alt={post.alt_text} loading="lazy" decoding="async" className="img-fade w-full h-full object-cover grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0 motion-safe:transition-[filter,transform] motion-safe:duration-500 motion-safe:group-hover:scale-105" {...fadeInProps} onError={fallbackToOriginal(post.image_url)} />
+            {url && <span className="absolute right-3 bottom-3 flex items-center gap-2 bg-brand-night/80 text-brand-warm p-2"><Instagram className="h-5 w-5" /><ArrowUpRight className="h-4 w-4" /></span>}
+          </>;
+          return url
+            ? <a key={post.id} href={url} target="_blank" rel="noopener noreferrer" aria-label={`View on Instagram: ${post.alt_text}`} className="group relative aspect-square overflow-hidden bg-brand-warm/5 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-red">{thumbnail}</a>
+            : <div key={post.id} className="relative aspect-square overflow-hidden bg-brand-warm/5">{thumbnail}</div>;
+        })}
+      </div>
+    </div>
+  </section>;
 };

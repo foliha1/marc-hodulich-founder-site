@@ -1,2 +1,3 @@
 - After any CMS save, call refreshPublicContent (src/lib/cmsCache.ts) with the public query keys it affects, and compactDisplayOrder after deletes — the public site caches content for 5 min.
 - Store entrepreneurial milestones separately from legacy carousel slides; the homepage and Failures & Firsts editor share their React Query hook so slide data is preserved without appearing as milestones.
+- Social gallery and Admin post editor share social_posts via React Query; only CMS-library thumbnails appear publicly, and only validated original Instagram post URLs are clickable, avoiding legacy stock placeholders and widget autoplay.

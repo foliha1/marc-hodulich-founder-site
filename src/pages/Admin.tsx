@@ -13,6 +13,7 @@ import { ContactEditor } from "@/components/admin/ContactEditor";
 import { SectionTextEditor } from "@/components/admin/SectionTextEditor";
 import { AdminsEditor } from "@/components/admin/AdminsEditor";
 import { PressEditor } from "@/components/admin/PressEditor";
+import { SocialPostsEditor } from "@/components/admin/SocialPostsEditor";
 const Admin = () => {
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -129,6 +130,7 @@ const Admin = () => {
             </TabsContent>
             <TabsContent value="social">
               <SectionTextEditor sectionName="social" heading="In the Wild Section Content" showParagraph={false} />
+              <div className="mt-6"><SocialPostsEditor /></div>
             </TabsContent>
             <TabsContent value="press">
               <PressEditor />

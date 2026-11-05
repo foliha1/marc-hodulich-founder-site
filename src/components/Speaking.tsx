@@ -26,7 +26,7 @@ export const Speaking = () => {
     <section id="conversation" className="w-full bg-brand-night text-brand-warm section-spacing scroll-mt-20 border-t-[14px] border-brand-red">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-12 lg:mb-16 reveal">
-          <p className="eyebrow mb-6">Marc in Conversation</p>
+          <p className="eyebrow eyebrow-readable mb-6">Marc in Conversation</p>
           <h2 className="font-display text-brand-warm text-[clamp(2.4rem,5.5vw,5rem)] mb-6">{section?.title || "Marc in Conversation"}</h2>
           <p className="body-text text-brand-warm/70 max-w-3xl">
             {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
@@ -72,8 +72,8 @@ export const Speaking = () => {
 
         {press.length > 0 && (
           <div className="mt-16 lg:mt-20">
-            <p className="eyebrow mb-8 reveal">Features &amp; Press</p>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-brand-warm/10">
+            <p className="eyebrow eyebrow-readable mb-8 reveal">Features &amp; Press</p>
+            <div className="grid grid-cols-1 md:grid-cols-2 border-t border-l border-brand-warm/10">
               {press.map((f, index) => (
                 <a
                   key={f.id}
@@ -84,11 +84,11 @@ export const Speaking = () => {
                   style={{ animationDelay: `${index * 0.08}s` }}
                 >
                   {f.image_url && (
-                    <div className="w-20 h-20 shrink-0 overflow-hidden bg-brand-warm/5">
+                    <div className="w-32 sm:w-40 lg:w-48 h-48 sm:h-56 lg:h-64 shrink-0 overflow-hidden bg-brand-warm/5">
                       <img
-                        src={getOptimizedImageUrl(f.image_url, 160, 80)}
+                        src={getOptimizedImageUrl(f.image_url, 480, 85)}
                         alt=""
-                        className="img-fade w-full h-full object-cover object-top"
+                        className="img-fade w-full h-full object-contain"
                         {...fadeInProps}
                         onError={fallbackToOriginal(f.image_url)}
                         loading="lazy"

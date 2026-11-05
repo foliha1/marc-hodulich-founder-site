@@ -467,6 +467,16 @@
     font-style: italic;
     font-weight: 400;
   }
+  .eyebrow.eyebrow-readable { font-size: 0.9rem; letter-spacing: 0; }
+  .testimonial-copy {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.4rem;
+  }
+  @media (min-width: 768px) { .testimonial-copy { font-size: 2rem; } }
+  @media (min-width: 1280px) { .testimonial-copy { font-size: 2.5rem; } }
+  @media (min-width: 1536px) { .testimonial-copy { font-size: 3.5rem; } }
   /* Shared homepage content width: fluid (~88% of viewport on desktop), capped on very wide screens. */
   .container-wide {
     width: 100%;

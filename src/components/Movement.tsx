@@ -66,7 +66,7 @@ export const Movement = () => {
     <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
       <div className="container-wide grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-12 lg:gap-x-[6%] items-center">
         <div className="reveal">
-          <p className="eyebrow mb-6">29029</p>
+          <p className="eyebrow eyebrow-readable mb-6">29029</p>
           <h2 className="font-display text-brand-warm text-[clamp(2.6rem,4.6vw,5rem)] mb-8">{content.title}.</h2>
           <p className="text-[clamp(1rem,1.1vw,1.25rem)] text-brand-warm/75 max-w-[38rem] leading-[1.6] mb-12">{content.description}</p>
           <a
@@ -103,12 +103,12 @@ export const Movement = () => {
       </div>
     </section>
 
-    <section className="w-full bg-brand-red text-brand-warm py-[clamp(80px,10vw,140px)]">
-      <blockquote className="reveal container-wide text-left md:text-center">
-        <p className="font-editorial text-[clamp(1.9rem,4.2vw,5rem)] leading-[1.3] max-w-[62rem] md:mx-auto text-balance">
+    <section className="w-full bg-brand-red text-brand-warm py-14 md:py-20">
+      <blockquote className="reveal container-wide text-center">
+        <p className="testimonial-copy leading-[1.4] max-w-[62rem] mx-auto text-balance">
           "{content.quote?.trim()}"
         </p>
-        <cite className="not-italic block mt-10 text-[0.72rem] font-semibold tracking-[0.35em] uppercase text-brand-warm/80">
+        <cite className="not-italic block mt-8 text-2xl font-bold tracking-normal uppercase text-brand-warm">
           — {content.quote_author}
         </cite>
       </blockquote>
