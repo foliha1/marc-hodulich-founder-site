@@ -53,14 +53,14 @@ export const Hero = () => {
         You vs. You
       </span>
 
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:pl-16 lg:pr-8 pt-32 pb-16 lg:pb-24">
+      <div className="relative z-10 container-wide pt-32 pb-16 lg:pb-24">
         <div className="reveal">
           <p className="eyebrow text-brand-warm mb-6 md:mb-8 [&]:text-brand-warm tracking-[0.35em]">{content.subtitle}</p>
-          <h1 className="font-display text-[clamp(2.1rem,8.6vw,9rem)]">
+          <h1 className="font-display text-[clamp(2.1rem,8.6vw,10rem)]">
             <span className="block text-brand-warm">{lead}</span>
             {accent && <span className="block text-brand-red">{accent}</span>}
           </h1>
-          <p className="font-editorial text-brand-warm/85 text-[clamp(1.25rem,2.2vw,1.9rem)] leading-snug max-w-3xl mt-8 md:mt-12">
+          <p className="font-editorial text-brand-warm/85 text-[clamp(1.25rem,1.7vw,2rem)] leading-[1.5] max-w-[46rem] mt-8 md:mt-12">
             {content.description}
           </p>
         </div>

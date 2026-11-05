@@ -64,11 +64,11 @@ export const Movement = () => {
 
   return <>
     <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-[1fr_1.2fr] gap-12 lg:gap-16 items-center">
+      <div className="container-wide grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-12 lg:gap-x-[6%] items-center">
         <div className="reveal">
           <p className="eyebrow mb-6">29029</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,5vw,4.5rem)] mb-8">{content.title}.</h2>
-          <p className="body-text text-brand-warm/75 max-w-xl leading-relaxed mb-10">{content.description}</p>
+          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,4.6vw,5rem)] mb-8">{content.title}.</h2>
+          <p className="text-[clamp(1rem,1.1vw,1.25rem)] text-brand-warm/75 max-w-[38rem] leading-[1.6] mb-12">{content.description}</p>
           <a
             href={content.video_link_url}
             target="_blank"
@@ -104,8 +104,8 @@ export const Movement = () => {
     </section>
 
     <section className="w-full bg-brand-red text-brand-warm py-[clamp(80px,10vw,140px)]">
-      <blockquote className="reveal max-w-5xl mx-auto px-6 lg:px-8 text-left md:text-center">
-        <p className="font-editorial text-[clamp(1.7rem,3.6vw,3.4rem)] leading-tight max-md:text-balance">
+      <blockquote className="reveal container-wide text-left md:text-center">
+        <p className="font-editorial text-[clamp(1.9rem,4.2vw,5rem)] leading-[1.3] max-w-[62rem] md:mx-auto text-balance">
           "{content.quote?.trim()}"
         </p>
         <cite className="not-italic block mt-10 text-[0.72rem] font-semibold tracking-[0.35em] uppercase text-brand-warm/80">

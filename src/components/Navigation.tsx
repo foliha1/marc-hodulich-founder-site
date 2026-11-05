@@ -50,7 +50,7 @@ export const Navigation = ({ variant = "light" }: NavigationProps) => {
     return (
       <>
         <header className="fixed top-0 left-0 right-0 z-50 border-b border-brand-warm/10 bg-brand-night [transform:translateZ(0)]">
-          <div className="max-w-7xl mx-auto px-6 lg:px-8 h-16 flex items-center justify-between">
+          <div className="container-wide h-16 flex items-center justify-between">
             <Link to="/" aria-label="Marc Hodulich, home" className="flex items-center gap-3 text-brand-warm">
               <svg aria-hidden="true" viewBox="0 0 24 22" className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M12 2 L22.5 20.5 H1.5 Z" />

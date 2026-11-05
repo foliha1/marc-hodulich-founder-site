@@ -16,7 +16,7 @@ export const MeetMarc = () => {
 
   return (
     <section className="w-full bg-brand-night text-brand-warm section-spacing">
-      <div className="w-full px-6 md:px-0 md:w-[88%] max-w-[1600px] mx-auto">
+      <div className="container-wide">
         <div className="grid lg:grid-cols-[minmax(0,1fr)_minmax(0,2.09fr)] gap-10 lg:gap-x-[3%]">
           {/* Left: heading + portrait */}
           <div className="reveal">
