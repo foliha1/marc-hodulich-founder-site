@@ -48,11 +48,10 @@ const TileMedia = ({ post }: { post: SocialPost }) => {
   />;
 };
 
-// Hover/focus overlay: darkens the tile and reveals a centered Instagram mark.
-// On touch devices (no hover), a small corner mark stays visible instead.
+// Hover/focus overlay: no darkening, so the tile's full color shows on hover;
+// a small Instagram mark appears in the corner. On touch devices it stays visible.
 const TileOverlay = () => <>
-  <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-brand-night/0 transition-colors duration-300 group-hover:bg-brand-night/40 group-focus-visible:bg-brand-night/40" />
-  <Instagram aria-hidden="true" className="pointer-events-none absolute left-1/2 top-1/2 h-8 w-8 -translate-x-1/2 -translate-y-1/2 text-brand-warm opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
+  <Instagram aria-hidden="true" className="pointer-events-none absolute bottom-3 right-3 h-6 w-6 text-brand-warm opacity-0 drop-shadow-md transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100" />
   <Instagram aria-hidden="true" className="pointer-events-none absolute bottom-2 right-2 h-4 w-4 text-brand-warm/90 opacity-100 transition-opacity duration-300 group-hover:opacity-0 [@media(hover:hover)]:hidden" />
 </>;
 
