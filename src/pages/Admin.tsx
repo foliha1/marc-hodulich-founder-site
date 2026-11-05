@@ -102,7 +102,7 @@ const Admin = () => {
           <TabsList className="flex h-auto w-full flex-wrap justify-start gap-1 lg:grid lg:grid-cols-9">
             <TabsTrigger value="hero">Hero</TabsTrigger>
             <TabsTrigger value="meet-marc">Meet Marc</TabsTrigger>
-            <TabsTrigger value="carousel">Carousel</TabsTrigger>
+            <TabsTrigger value="carousel">Failures &amp; Firsts</TabsTrigger>
             <TabsTrigger value="movement">Movement</TabsTrigger>
             <TabsTrigger value="podcasts">Podcasts</TabsTrigger>
             <TabsTrigger value="social">Social</TabsTrigger>

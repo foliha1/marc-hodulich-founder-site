@@ -74,6 +74,33 @@ export type Database = {
         }
         Relationships: []
       }
+      entrepreneurial_milestones: {
+        Row: {
+          contextual_label: string
+          description: string
+          display_order: number
+          id: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          contextual_label?: string
+          description?: string
+          display_order?: number
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          contextual_label?: string
+          description?: string
+          display_order?: number
+          id?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       hero_content: {
         Row: {
           background_image_height: number | null

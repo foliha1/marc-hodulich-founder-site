@@ -1,41 +1,41 @@
-import { useCarouselSlides } from "@/hooks/useCarouselSlides";
+import { useMilestones } from "@/hooks/useMilestones";
 import { FailuresFirstsSkeleton } from "@/components/FailuresFirstsSkeleton";
 
-// Numbered chapter list. Every row comes from the Admin "Failures & Firsts"
-// slides: caption = chapter name, subcaption = description (text-only list).
+// Text-only entrepreneurial milestones, managed in Admin → Failures & Firsts.
 export const FailuresFirsts = () => {
-  const { data, isLoading } = useCarouselSlides();
+  const { data, isLoading } = useMilestones();
 
   if (isLoading) return <FailuresFirstsSkeleton />;
-  if (!data || data.slides.length === 0) return null;
+  if (!data) return null;
 
-  const { slides, section } = data;
+  const { milestones, section } = data;
 
   return (
-    <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+    <section className="w-full bg-brand-night text-brand-warm pt-16 md:pt-24 pb-20 md:pb-32 border-t border-brand-warm/10">
       <div className="container-wide">
         <div className="reveal mb-14 lg:mb-20">
           <p className="eyebrow mb-6">{section?.title || "Failures, Firsts, and Foundations"}</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.6rem,5.2vw,5.5rem)]">
+          <h2 className="font-display text-brand-warm text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-normal">
             Failure isn't<br />the end.
           </h2>
           {section?.paragraph && (
-            <p className="font-editorial text-brand-warm/80 text-[clamp(1.2rem,1.8vw,1.6rem)] leading-[1.5] max-w-[48rem] mt-10">
+            <p className="font-editorial text-brand-warm/80 text-xl md:text-2xl leading-[1.5] max-w-[60rem] mt-8">
               {section.paragraph}
             </p>
           )}
         </div>
 
         <ol className="border-t border-brand-warm/10">
-          {slides.map((slide, i) => (
+          {milestones.map((milestone, i) => (
             <li
-              key={slide.id}
-              className="grid grid-cols-[3rem_1fr] md:grid-cols-[minmax(0,0.55fr)_minmax(0,3.6fr)_minmax(0,2fr)] gap-x-6 gap-y-3 items-start py-8 md:py-12 border-b border-brand-warm/10 reveal"
+              key={milestone.id}
+              className="grid grid-cols-[2.5rem_minmax(0,1fr)] lg:grid-cols-[minmax(0,0.5fr)_minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,2fr)] gap-x-5 lg:gap-x-8 gap-y-4 items-start py-8 lg:py-12 border-b border-brand-warm/10 reveal"
               style={{ animationDelay: `${i * 0.06}s` }}
             >
               <span className="font-display text-brand-red text-2xl md:text-3xl">{String(i + 1).padStart(2, "0")}</span>
-              <h3 className="font-display text-brand-warm text-2xl md:text-[clamp(1.75rem,2vw,2.25rem)] max-w-[28rem]">{slide.caption}</h3>
-              <p className="col-start-2 md:col-start-auto text-base text-brand-warm/75 leading-[1.65]">{slide.subcaption}</p>
+              <h3 className="font-display text-brand-warm text-2xl xl:text-3xl tracking-normal break-words">{milestone.title}</h3>
+              <p className="col-start-2 lg:col-start-auto text-brand-red text-[10px] xl:text-xs font-semibold uppercase tracking-normal leading-relaxed lg:pt-1">{milestone.contextual_label}</p>
+              <p className="col-start-2 lg:col-start-auto text-sm text-brand-warm/75 leading-[1.65]">{milestone.description}</p>
             </li>
           ))}
         </ol>

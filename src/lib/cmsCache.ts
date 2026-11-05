@@ -7,6 +7,7 @@ export type PublicContentKey =
   | "hero-content"
   | "meet-marc-cards"
   | "carousel-slides"
+  | "entrepreneurial-milestones"
   | "movement-content"
   | "podcasts"
   | "contact-content"
@@ -29,7 +30,7 @@ export const refreshPublicContent = (queryClient: QueryClient, ...keys: PublicCo
 
 /** Renumber display_order to 1..n (no gaps, no duplicates), keeping the current sequence. */
 export const compactDisplayOrder = async (
-  table: "meet_marc_cards" | "carousel_slides" | "podcasts" | "press_features",
+  table: "meet_marc_cards" | "carousel_slides" | "podcasts" | "press_features" | "entrepreneurial_milestones",
 ) => {
   const { data, error } = await supabase.from(table).select("id, display_order").order("display_order").order("id");
   if (error || !data) return;
