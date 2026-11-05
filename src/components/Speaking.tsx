@@ -25,15 +25,15 @@ export const Speaking = () => {
   return (
     <section id="conversation" className="w-full bg-brand-night text-brand-warm scroll-mt-20 border-t-[14px] border-brand-red pt-[clamp(120px,15vw,200px)] pb-[clamp(64px,7vw,100px)]">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
-        <div className="mb-12 lg:mb-16 reveal">
-          <p className="eyebrow eyebrow-readable mb-6">Marc in Conversation</p>
-          <h2 className="font-display text-brand-warm text-[clamp(2.4rem,5.5vw,5rem)] mb-6">{section?.title || "Marc in Conversation"}</h2>
-          <p className="body-text text-brand-warm/70 max-w-3xl">
+        <div className="mb-10 lg:mb-12 reveal">
+          <p className="eyebrow eyebrow-readable mb-4">Marc in Conversation</p>
+          <h2 className="font-display text-brand-warm text-[clamp(1.6rem,2.7vw,2.5rem)] mb-4">{section?.title || "Marc in Conversation"}</h2>
+          <p className="body-text text-brand-warm/70 max-w-2xl">
             {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 border-t border-l border-brand-warm/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-brand-warm/10">
           {podcasts.map((podcast, index) => (
             <button
               type="button"
@@ -46,7 +46,7 @@ export const Speaking = () => {
               <div className="aspect-video overflow-hidden relative bg-brand-warm/5">
                 <img
                   srcSet={getResponsiveSrcSet(podcast.thumbnail_url, [356, 640], 80)}
-                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
                   src={getOptimizedImageUrl(podcast.thumbnail_url, 640, 80)}
                   alt={podcast.title}
                   className="img-fade w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
@@ -56,13 +56,13 @@ export const Speaking = () => {
                   onError={fallbackToOriginal(podcast.thumbnail_url)}
                 />
                 <div aria-hidden="true" className="absolute inset-0 bg-brand-night/30 group-hover:bg-brand-night/10 smooth-transition flex items-center justify-center">
-                  <div className="w-14 h-14 bg-brand-red flex items-center justify-center smooth-transition group-hover:scale-110">
-                    <svg className="w-6 h-6 text-brand-warm ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
+                  <div className="w-11 h-11 bg-brand-red flex items-center justify-center smooth-transition group-hover:scale-110">
+                    <svg className="w-5 h-5 text-brand-warm ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></svg>
                   </div>
                 </div>
               </div>
-              <div className="p-6 lg:p-7">
-                <span className="block font-display text-lg leading-tight text-brand-warm group-hover:text-brand-red smooth-transition">
+              <div className="p-4 lg:p-5 pb-6">
+                <span className="block font-display text-sm leading-snug text-brand-warm group-hover:text-brand-red smooth-transition">
                   {podcast.title}
                 </span>
               </div>
