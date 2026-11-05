@@ -19,7 +19,7 @@ const useSocialLinks = () => useQuery({
 const TileMedia = ({ post }: { post: SocialPost }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const poster = getOptimizedImageUrl(post.image_url, 640);
-  const treatment = `w-full h-full object-cover motion-safe:transition-transform motion-safe:duration-500 motion-safe:group-hover:scale-[1.03]${post.is_grayscale ? " grayscale" : ""}`;
+  const treatment = `w-full h-full object-cover transition-[transform,filter] duration-500 motion-safe:group-hover:scale-[1.03]${post.is_grayscale ? " grayscale group-hover:grayscale-0 group-focus-visible:grayscale-0" : ""}`;
 
   if (!post.video_url) {
     return <img src={poster} alt={post.alt_text} loading="lazy" decoding="async" className={`img-fade ${treatment}`} {...fadeInProps} onError={fallbackToOriginal(post.image_url)} />;
@@ -72,7 +72,6 @@ export const Social = () => {
       <div className="mb-10 lg:mb-16 reveal">
         <p className="eyebrow mb-6">Proof of Life</p>
         <h2 className="font-display text-brand-warm text-[clamp(2.6rem,6vw,5.5rem)]">{section?.title || "In the Wild"}.</h2>
-        <p className="mt-4 text-xs uppercase tracking-[0.25em] text-brand-warm/50">Moments from the Journey · On Instagram</p>
       </div>
       <div className="grid grid-cols-2 md:grid-cols-3 gap-1">
         {visiblePosts.map(post => {
