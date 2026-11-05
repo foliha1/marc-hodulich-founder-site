@@ -60,20 +60,26 @@ export const MeetMarc = () => {
                   className="reveal"
                   style={{ animationDelay: `${i * 0.08}s` }}
                 >
-                  <div className="aspect-[4/3] overflow-hidden bg-brand-warm/5">
-                    <img
-                      srcSet={getResponsiveSrcSet(card.image_url, [640, 854], 80)}
-                      sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
-                      src={getOptimizedImageUrl(card.image_url, 854, 80)}
-                      alt={card.title}
-                      className="img-fade w-full h-full object-cover"
-                      {...fadeInProps}
-                      loading="lazy"
-                      decoding="async"
-                      onError={fallbackToOriginal(card.image_url)}
-                    />
-                  </div>
-                  <div className="px-8 lg:px-9 pt-10 pb-10 lg:pt-11">
+                  {card.image_url && (
+                    <div className="aspect-[4/3] overflow-hidden bg-brand-warm/5">
+                      <img
+                        srcSet={getResponsiveSrcSet(card.image_url, [640, 854], 80)}
+                        sizes="(min-width: 1024px) 34vw, (min-width: 768px) 50vw, 100vw"
+                        src={getOptimizedImageUrl(card.image_url, 854, 80)}
+                        alt={card.title}
+                        className="img-fade w-full h-full object-cover"
+                        {...fadeInProps}
+                        loading="lazy"
+                        decoding="async"
+                        onError={fallbackToOriginal(card.image_url)}
+                      />
+                    </div>
+                  )}
+                  <div
+                    className={`px-8 lg:px-9 pb-10 ${
+                      card.image_url ? "pt-10 lg:pt-11" : "pt-12 lg:pt-14"
+                    }`}
+                  >
                     <h3 className="text-base md:text-lg font-bold tracking-[0.3em] uppercase text-brand-warm mb-6">
                       {card.title}
                     </h3>
