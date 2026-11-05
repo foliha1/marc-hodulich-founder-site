@@ -345,6 +345,7 @@ export type Database = {
           id: string
           image_url: string
           instagram_url: string | null
+          is_grayscale: boolean
           post_type: string
           updated_at: string | null
           video_url: string | null
@@ -355,6 +356,7 @@ export type Database = {
           id?: string
           image_url: string
           instagram_url?: string | null
+          is_grayscale?: boolean
           post_type?: string
           updated_at?: string | null
           video_url?: string | null
@@ -365,6 +367,7 @@ export type Database = {
           id?: string
           image_url?: string
           instagram_url?: string | null
+          is_grayscale?: boolean
           post_type?: string
           updated_at?: string | null
           video_url?: string | null

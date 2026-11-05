@@ -1,0 +1,1 @@
+ALTER TABLE public.social_posts ADD COLUMN is_grayscale boolean NOT NULL DEFAULT false;

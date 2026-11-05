@@ -29,7 +29,7 @@ export const SocialPostsEditor = () => {
   const save = (row: SocialPost) => run(async () => {
     if (row.instagram_url?.trim() && !getInstagramPostUrl(row.instagram_url.trim())) throw new Error("Enter an original Instagram post or reel URL, not a profile URL.");
     if (!Number.isInteger(row.display_order) || row.display_order < 1) throw new Error("Display order must be a positive whole number.");
-    const { error } = await supabase.from("social_posts").update({ image_url: row.image_url, video_url: row.video_url || null, alt_text: row.alt_text, instagram_url: row.instagram_url?.trim() || null, display_order: row.display_order, updated_at: new Date().toISOString() }).eq("id", row.id);
+    const { error } = await supabase.from("social_posts").update({ image_url: row.image_url, video_url: row.video_url || null, alt_text: row.alt_text, instagram_url: row.instagram_url?.trim() || null, display_order: row.display_order, is_grayscale: row.is_grayscale, updated_at: new Date().toISOString() }).eq("id", row.id);
     if (error) throw error;
     await compactDisplayOrder("social_posts");
   }, "Instagram post updated");
@@ -85,6 +85,10 @@ export const SocialPostsEditor = () => {
               }, "Video removed")}>Remove</Button>}
             </div>
             <input id={`social-video-${row.id}`} type="file" accept="video/mp4" className="hidden" onChange={e => { const file = e.target.files?.[0]; if (file) uploadVideo(row, file); e.target.value = ""; }} />
+          </div>
+          <div className="flex items-center gap-2">
+            <input id={`social-gray-${row.id}`} type="checkbox" checked={row.is_grayscale} onChange={e => local(row.id, { is_grayscale: e.target.checked })} className="h-4 w-4 accent-current" />
+            <Label htmlFor={`social-gray-${row.id}`}>Show in black &amp; white</Label>
           </div>
           <div><Label htmlFor={`social-alt-${row.id}`}>Image Description</Label><Input id={`social-alt-${row.id}`} value={row.alt_text} onChange={e => local(row.id, { alt_text: e.target.value })} /></div>
           <div><Label htmlFor={`social-url-${row.id}`}>Instagram Post URL</Label><Input id={`social-url-${row.id}`} type="url" value={row.instagram_url || ""} onChange={e => local(row.id, { instagram_url: e.target.value })} /></div>

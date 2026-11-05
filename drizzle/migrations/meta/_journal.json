@@ -36,6 +36,13 @@
       "when": 1793842593183,
       "tag": "0004_add_video_url_to_social_posts",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1793844147921,
+      "tag": "0005_social_posts_grayscale",
+      "breakpoints": true
     }
   ]
 }
