@@ -56,7 +56,7 @@ export const Hero = () => {
       <div className="relative z-10 container-wide pt-32 pb-16 lg:pb-24">
         <div className="reveal">
           <p className="eyebrow text-brand-warm mb-6 md:mb-8 [&]:text-brand-warm tracking-[0.35em]">{content.subtitle}</p>
-          <h1 className="font-display text-[clamp(2.1rem,8.6vw,10rem)]">
+          <h1 className="font-display text-[clamp(1.85rem,7.4vw,8.75rem)]">
             <span className="block text-brand-warm">{lead}</span>
             {accent && <span className="block text-brand-red">{accent}</span>}
           </h1>
