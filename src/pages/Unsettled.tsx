@@ -3,7 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 // Coaching-page contact address (kept separate from the homepage contact settings).
-const COACHING_EMAIL = "marc@29029.co";
+const COACHING_EMAIL = "unsettled@marchodulich.com";
 
 const Unsettled = () => {
   useDocumentTitle("Unsettled Coaching");
