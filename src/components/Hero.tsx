@@ -56,7 +56,7 @@ export const Hero = () => {
       <div className="hero-composition relative z-10 container-wide pt-32 pb-12 lg:pb-16">
         <div className="reveal">
           <p className="eyebrow eyebrow-readable text-brand-warm font-bold mb-5 md:mb-7 [&]:text-brand-warm tracking-normal">{content.subtitle}</p>
-          <h1 className="hero-headline font-display text-[clamp(1.62rem,6.45vw,7.65rem)]">
+          <h1 className="hero-headline font-display text-[clamp(1.5rem,5.5vw,6.6rem)]">
             <span className="block text-brand-warm">{lead}</span>
             {accent && <span className="block text-brand-red">{accent}</span>}
           </h1>

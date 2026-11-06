@@ -471,7 +471,7 @@
   /* Short desktop windows need a lower, more compact composition to clear both faces. */
   @media (min-width: 768px) and (max-height: 700px) {
     .hero-composition { padding-bottom: 2rem; }
-    .hero-composition .hero-headline { font-size: min(6.45vw, 4rem); }
+    .hero-composition .hero-headline { font-size: min(5.5vw, 3.5rem); }
     .hero-composition .eyebrow { margin-bottom: 1rem; }
     .hero-composition .font-editorial { margin-top: 1.5rem; }
   }
