@@ -11,7 +11,7 @@ export const FailuresFirsts = () => {
   const { milestones, section } = data;
 
   return (
-    <section className="w-full bg-brand-night text-brand-warm pt-16 md:pt-24 pb-20 md:pb-32 border-t border-brand-warm/10">
+    <section className="w-full bg-brand-night text-brand-warm pt-16 md:pt-24 pb-20 md:pb-32">
       <div className="container-wide">
         <div className="reveal mb-14 lg:mb-20">
           <p className="eyebrow eyebrow-readable mb-6">Fulfillment Over Achievement</p>
