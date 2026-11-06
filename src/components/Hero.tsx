@@ -45,14 +45,6 @@ export const Hero = () => {
       />
       <div aria-hidden="true" className="absolute inset-0 hero-shade" />
 
-      {/* Vertical side labels */}
-      <span aria-hidden="true" className="hidden lg:block absolute left-7 top-28 text-[0.62rem] tracking-[0.4em] uppercase text-brand-warm/50 [writing-mode:vertical-rl]">
-        Marc Hodulich
-      </span>
-      <span aria-hidden="true" className="hidden lg:block absolute left-7 bottom-16 text-[0.62rem] tracking-[0.4em] uppercase text-brand-red [writing-mode:vertical-rl]">
-        You vs. You
-      </span>
-
       <div className="hero-composition relative z-10 container-wide pt-32 pb-12 lg:pb-16">
         <div className="reveal">
           <p className="eyebrow eyebrow-readable text-brand-warm font-bold mb-5 md:mb-7 [&]:text-brand-warm tracking-normal">{content.subtitle}</p>
