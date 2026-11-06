@@ -63,7 +63,7 @@ export const Movement = () => {
   const posterUrl = content.video_url.replace(/\.mp4(\?.*)?$/, '.jpg$1');
 
   return <>
-    <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+    <section className="w-full bg-brand-night text-brand-warm section-spacing">
       <div className="container-wide grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.5fr)] gap-12 lg:gap-x-[6%] items-center">
         <div className="reveal">
           <p className="eyebrow eyebrow-readable mb-6">29029</p>
