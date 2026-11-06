@@ -27,9 +27,6 @@ export const Speaking = () => {
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="mb-10 lg:mb-12 reveal">
           <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] mb-4">{section?.title || "Marc in Conversation"}</h2>
-          <p className="text-[clamp(1rem,1.1vw,1.25rem)] text-brand-warm/75 max-w-[38rem] leading-[1.6]">
-            {section?.paragraph || "Talks and conversations on leadership, endurance, and designing a life with intention."}
-          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-l border-brand-warm/10">
