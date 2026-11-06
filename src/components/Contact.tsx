@@ -17,7 +17,7 @@ export const Contact = () => {
   };
 
   return (
-    <section className="w-full bg-brand-night text-brand-warm section-spacing border-t border-brand-warm/10">
+    <section className="w-full bg-brand-night text-brand-warm section-spacing">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="reveal max-w-3xl">
           <p className="eyebrow mb-6">Say Hello</p>

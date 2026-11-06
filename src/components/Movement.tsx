@@ -108,7 +108,7 @@ export const Movement = () => {
         <p className="testimonial-copy leading-[1.4] max-w-[62rem] mx-auto text-balance">
           "{content.quote?.trim()}"
         </p>
-        <cite className="not-italic block mt-8 text-2xl font-bold tracking-normal uppercase text-brand-warm">
+        <cite className="not-italic block mt-8 text-lg font-bold tracking-normal uppercase text-brand-warm">
           — {content.quote_author}
         </cite>
       </blockquote>

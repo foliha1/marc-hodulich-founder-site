@@ -105,7 +105,7 @@ export const GhostSignupForm = ({
 // Full-width dark band used on the homepage.
 export const Newsletter = () => (
   <section
-    className="w-full bg-brand-night border-t border-brand-warm/10 pt-[clamp(100px,12vw,160px)] pb-[clamp(40px,5vw,72px)]"
+    className="w-full bg-brand-night pt-[clamp(100px,12vw,160px)] pb-[clamp(40px,5vw,72px)]"
     aria-label="Newsletter signup"
   >
     <div className="max-w-3xl mx-auto px-6 lg:px-8 text-center">
