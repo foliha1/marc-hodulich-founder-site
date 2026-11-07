@@ -58,25 +58,17 @@ export const FailuresFirsts = () => {
                     </div>
                     <span
                       aria-hidden="true"
-                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-red/60 lg:hidden"
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-red/60"
                     >
                       <Plus
                         className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
                       />
                     </span>
                   </div>
-                  <div className="col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 flex items-start justify-between gap-5">
+                  <div className="col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1">
                     {!isOpen && (
                       <p className="text-sm text-brand-warm/75 leading-[1.65] lg:pt-1">{milestone.teaser}</p>
                     )}
-                    <span
-                      aria-hidden="true"
-                      className={`mt-0.5 hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-red/60 lg:flex ${isOpen ? "ml-auto" : ""}`}
-                    >
-                      <Plus
-                        className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
-                      />
-                    </span>
                   </div>
                 </button>
                 <div
