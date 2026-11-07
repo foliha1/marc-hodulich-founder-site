@@ -49,21 +49,35 @@ export const FailuresFirsts = () => {
                   aria-expanded={isOpen}
                   aria-controls={panelId}
                   onClick={() => toggle(milestone.id)}
-                  className="grid w-full text-left grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,2fr)_auto] gap-x-5 lg:gap-x-8 gap-y-3 items-start py-8 lg:py-12"
+                  className="grid w-full text-left grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-x-5 lg:gap-x-10 gap-y-3 items-start py-8 lg:py-12"
                 >
-                  <h3 className="font-display text-brand-warm text-2xl xl:text-3xl tracking-normal break-words">{milestone.title}</h3>
-                  <span
-                    aria-hidden="true"
-                    className="row-start-1 col-start-2 lg:col-start-4 mt-0.5 flex h-9 w-9 items-center justify-center rounded-full border border-brand-red/60"
-                  >
-                    <Plus
-                      className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
-                    />
-                  </span>
-                  <p className="col-start-1 lg:col-start-2 lg:row-start-1 text-brand-red text-[10px] xl:text-xs font-semibold uppercase tracking-normal leading-relaxed lg:pt-1">{milestone.contextual_label}</p>
-                  {!isOpen && (
-                    <p className="col-start-1 col-span-2 lg:col-start-3 lg:col-span-1 lg:row-start-1 text-sm text-brand-warm/75 leading-[1.65]">{milestone.teaser}</p>
-                  )}
+                  <div className="col-span-2 lg:col-span-1 flex items-start justify-between gap-5">
+                    <div>
+                      <h3 className="font-display text-brand-warm text-2xl xl:text-3xl tracking-normal break-words">{milestone.title}</h3>
+                      <p className="text-brand-red text-[10px] xl:text-xs font-semibold uppercase tracking-normal leading-relaxed mt-3">{milestone.contextual_label}</p>
+                    </div>
+                    <span
+                      aria-hidden="true"
+                      className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-red/60 lg:hidden"
+                    >
+                      <Plus
+                        className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
+                      />
+                    </span>
+                  </div>
+                  <div className="col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1 flex items-start justify-between gap-5">
+                    {!isOpen && (
+                      <p className="text-sm text-brand-warm/75 leading-[1.65] lg:pt-1">{milestone.teaser}</p>
+                    )}
+                    <span
+                      aria-hidden="true"
+                      className={`mt-0.5 hidden h-9 w-9 shrink-0 items-center justify-center rounded-full border border-brand-red/60 lg:flex ${isOpen ? "ml-auto" : ""}`}
+                    >
+                      <Plus
+                        className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
+                      />
+                    </span>
+                  </div>
                 </button>
                 <div
                   id={panelId}
@@ -71,8 +85,8 @@ export const FailuresFirsts = () => {
                   style={{ gridTemplateRows: isOpen ? "1fr" : "0fr" }}
                 >
                   <div className="overflow-hidden">
-                    <div className="grid lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,2fr)_auto] gap-x-5 lg:gap-x-8">
-                      <p className="lg:col-start-3 text-sm text-brand-warm/75 leading-[1.65] pb-8 lg:pb-12">{milestone.description}</p>
+                    <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-x-5 lg:gap-x-10">
+                      <p className="lg:col-start-2 text-sm text-brand-warm/75 leading-[1.65] pb-8 lg:pb-12 pr-14">{milestone.description}</p>
                     </div>
                   </div>
                 </div>
