@@ -54,7 +54,7 @@ export const FailuresFirsts = () => {
                   <div className="col-span-2 lg:col-span-1 flex items-start justify-between gap-5">
                     <div>
                       <h3 className="font-display text-brand-warm text-2xl xl:text-3xl tracking-normal break-words">{milestone.title}</h3>
-                      <p className="text-brand-red text-[10px] xl:text-xs font-semibold uppercase tracking-normal leading-relaxed mt-3">{milestone.contextual_label}</p>
+                      <p className="text-brand-red text-xs xl:text-sm font-semibold uppercase tracking-normal leading-relaxed mt-3">{milestone.contextual_label}</p>
                     </div>
                     <span
                       aria-hidden="true"
@@ -67,7 +67,7 @@ export const FailuresFirsts = () => {
                   </div>
                   <div className="col-span-2 lg:col-span-1 lg:col-start-2 lg:row-start-1">
                     {!isOpen && (
-                      <p className="text-sm text-brand-warm/75 leading-[1.65] lg:pt-1">{milestone.teaser}</p>
+                      <p className="text-base xl:text-lg text-brand-warm/80 leading-[1.65] lg:pt-1">{milestone.teaser}</p>
                     )}
                   </div>
                 </button>
@@ -78,7 +78,7 @@ export const FailuresFirsts = () => {
                 >
                   <div className="overflow-hidden">
                     <div className="grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,1fr)] gap-x-5 lg:gap-x-10">
-                      <p className="lg:col-start-2 text-sm text-brand-warm/75 leading-[1.65] pb-8 lg:pb-12 pr-14">{milestone.description}</p>
+                      <p className="lg:col-start-2 text-base xl:text-lg text-brand-warm/80 leading-[1.65] pb-8 lg:pb-12 pr-14">{milestone.description}</p>
                     </div>
                   </div>
                 </div>
