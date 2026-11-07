@@ -52,10 +52,14 @@ export const FailuresFirsts = () => {
                   className="grid w-full text-left grid-cols-[minmax(0,1fr)_auto] lg:grid-cols-[minmax(0,2.2fr)_minmax(0,1.6fr)_minmax(0,2fr)_auto] gap-x-5 lg:gap-x-8 gap-y-3 items-start py-8 lg:py-12"
                 >
                   <h3 className="font-display text-brand-warm text-2xl xl:text-3xl tracking-normal break-words">{milestone.title}</h3>
-                  <Plus
+                  <span
                     aria-hidden="true"
-                    className={`row-start-1 col-start-2 lg:col-start-4 h-5 w-5 mt-1 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
-                  />
+                    className="row-start-1 col-start-2 lg:col-start-4 mt-0.5 flex h-9 w-9 items-center justify-center rounded-full border border-brand-red/60"
+                  >
+                    <Plus
+                      className={`h-5 w-5 text-brand-red transition-transform duration-200 ease-out ${isOpen ? "rotate-45" : ""}`}
+                    />
+                  </span>
                   <p className="col-start-1 lg:col-start-2 lg:row-start-1 text-brand-red text-[10px] xl:text-xs font-semibold uppercase tracking-normal leading-relaxed lg:pt-1">{milestone.contextual_label}</p>
                   {!isOpen && (
                     <p className="col-start-1 col-span-2 lg:col-start-3 lg:col-span-1 lg:row-start-1 text-sm text-brand-warm/75 leading-[1.65]">{milestone.teaser}</p>
