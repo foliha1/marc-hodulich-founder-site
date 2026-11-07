@@ -42,7 +42,7 @@ export const CarouselEditor = () => {
   const save = (row: Milestone) => run(async () => {
     if (!Number.isInteger(row.display_order) || row.display_order < 1) throw new Error("Display order must be a positive whole number.");
     const { error } = await supabase.from("entrepreneurial_milestones").update({
-      title: row.title, contextual_label: row.contextual_label, description: row.description,
+      title: row.title, contextual_label: row.contextual_label, teaser: row.teaser, description: row.description,
       display_order: row.display_order, updated_at: new Date().toISOString(),
     }).eq("id", row.id);
     if (error) throw error;
@@ -88,6 +88,7 @@ export const CarouselEditor = () => {
         <CardContent className="space-y-4">
           <div><Label htmlFor={`title-${row.id}`}>Title</Label><Input id={`title-${row.id}`} value={row.title} onChange={e => updateLocal(row.id, { title: e.target.value })} /></div>
           <div><Label htmlFor={`label-${row.id}`}>Contextual Label</Label><Input id={`label-${row.id}`} value={row.contextual_label} onChange={e => updateLocal(row.id, { contextual_label: e.target.value })} /></div>
+          <div><Label htmlFor={`teaser-${row.id}`}>Teaser (shown when row is closed)</Label><Input id={`teaser-${row.id}`} value={row.teaser} onChange={e => updateLocal(row.id, { teaser: e.target.value })} /></div>
           <div><Label htmlFor={`description-${row.id}`}>Description</Label><Textarea id={`description-${row.id}`} rows={4} value={row.description} onChange={e => updateLocal(row.id, { description: e.target.value })} /></div>
           <div><Label htmlFor={`order-${row.id}`}>Display Order</Label><Input id={`order-${row.id}`} type="number" min={1} step={1} value={row.display_order} onChange={e => updateLocal(row.id, { display_order: Number(e.target.value) })} /></div>
           <div className="flex justify-between gap-3">

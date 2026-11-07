@@ -43,6 +43,13 @@
       "when": 1793844147921,
       "tag": "0005_social_posts_grayscale",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1794064368068,
+      "tag": "0006_add_milestone_teaser",
+      "breakpoints": true
     }
   ]
 }

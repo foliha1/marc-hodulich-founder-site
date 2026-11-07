@@ -80,6 +80,7 @@ export type Database = {
           description: string
           display_order: number
           id: string
+          teaser: string
           title: string
           updated_at: string
         }
@@ -88,6 +89,7 @@ export type Database = {
           description?: string
           display_order?: number
           id?: string
+          teaser?: string
           title?: string
           updated_at?: string
         }
@@ -96,6 +98,7 @@ export type Database = {
           description?: string
           display_order?: number
           id?: string
+          teaser?: string
           title?: string
           updated_at?: string
         }

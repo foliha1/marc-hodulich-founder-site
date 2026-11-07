@@ -1,0 +1,1 @@
+ALTER TABLE public.entrepreneurial_milestones ADD COLUMN IF NOT EXISTS teaser text NOT NULL DEFAULT '';
