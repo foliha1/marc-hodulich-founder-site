@@ -3,6 +3,7 @@ import { Navigation } from "@/components/Navigation";
 import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGhostPost } from "@/hooks/useGhostPosts";
+import { isDuplicativeExcerpt } from "@/utils/excerpt";
 
 const formatDate = (iso: string | null): string => {
   if (!iso) return "";
@@ -105,7 +106,7 @@ const EditorialPost = () => {
                 </div>
               )}
 
-              {post.excerpt && (
+              {post.excerpt && !isDuplicativeExcerpt(post.excerpt, post.content_html) && (
                 <p className="body-text text-brand-ink-sub font-medium mb-10 leading-relaxed">
                   {post.excerpt}
                 </p>
