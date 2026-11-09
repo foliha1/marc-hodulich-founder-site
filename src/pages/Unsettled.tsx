@@ -1,5 +1,6 @@
 import { Footer } from "@/components/Footer";
 import { Navigation } from "@/components/Navigation";
+import { Signature } from "@/components/Signature";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 
 // Coaching-page contact address (kept separate from the homepage contact settings).
@@ -28,6 +29,7 @@ const Unsettled = () => {
                 {COACHING_EMAIL}
               </a>
             </p>
+            <Signature className="mx-auto mt-10 h-12 w-auto" />
             {/* Payment button hidden for now
             <Button
               asChild
