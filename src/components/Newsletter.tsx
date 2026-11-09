@@ -38,7 +38,7 @@ const GHOST_SIGNUP_ATTRS: Record<string, string> = {
   "data-button-text-color": "#FFFFFF",
   "data-title": "UNSETTLED with Marc Hodulich",
   "data-description":
-    "My observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise.",
+    "Marc's observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise.",
   "data-site": "https://marc-hodulich-1.ghost.io/",
   "data-locale": "en",
 };
