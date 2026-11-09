@@ -188,7 +188,7 @@ const Editorial = () => {
           </div>
 
           <div className="mb-8 md:mb-10">
-            <NewsletterMasthead subtitle="My observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise." />
+            <NewsletterMasthead subtitle="Marc's observations, learnings, and challenges, meant to bring a little authenticity, levity, and direction to a world full of noise." />
           </div>
 
           {isLoading && (
