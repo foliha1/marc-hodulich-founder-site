@@ -49,7 +49,7 @@ export const MeetMarc = () => {
 
           {/* Right: paragraph + cards */}
           <div>
-            <p className="font-editorial text-brand-warm/90 text-[clamp(1.25rem,1.6vw,1.75rem)] leading-[1.7] reveal-delay">
+            <p className="font-editorial text-brand-warm/90 text-[clamp(1.1rem,1.4vw,1.55rem)] leading-[1.7] reveal-delay">
               {section?.paragraph}
             </p>
 
@@ -80,10 +80,10 @@ export const MeetMarc = () => {
                       card.image_url ? "pt-10 lg:pt-11" : "pt-10 lg:pt-11"
                     }`}
                   >
-                    <h3 className="text-sm md:text-[15px] font-bold tracking-[0.3em] uppercase text-brand-warm mb-5">
+                    <h3 className="text-[15px] md:text-base font-bold tracking-[0.3em] uppercase text-brand-warm mb-5">
                       {card.title}
                     </h3>
-                    <p className="text-sm text-brand-warm/75 leading-[1.75]">
+                    <p className="text-base text-brand-warm/75 leading-[1.7]">
                       {card.description}
                     </p>
                   </div>

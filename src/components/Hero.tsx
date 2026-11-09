@@ -52,7 +52,7 @@ export const Hero = () => {
             <span className="block text-brand-warm">{lead}</span>
             {accent && <span className="block text-brand-red">{accent}</span>}
           </h1>
-          <p className="font-editorial text-brand-warm/85 text-[clamp(1.25rem,1.7vw,2rem)] leading-[1.5] max-w-[46rem] mt-7 md:mt-10">
+          <p className="font-editorial text-brand-warm/85 text-[clamp(1.1rem,1.4vw,1.55rem)] leading-[1.5] max-w-[46rem] mt-7 md:mt-10">
             {content.description}
           </p>
         </div>

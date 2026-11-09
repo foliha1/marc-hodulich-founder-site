@@ -33,7 +33,7 @@ export const FailuresFirsts = () => {
             {section?.title || "Fulfillment Over Achievement"}
           </h2>
           {section?.paragraph && (
-            <p className="font-editorial text-brand-warm/80 text-xl md:text-2xl leading-[1.5] max-w-[60rem] mt-6">
+            <p className="font-editorial text-brand-warm/80 text-base md:text-lg leading-[1.55] max-w-[60rem] mt-6">
               {section.paragraph}
             </p>
           )}
