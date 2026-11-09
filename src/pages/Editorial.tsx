@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
+import { Signature } from "@/components/Signature";
 import { NewsletterBox, NewsletterMasthead } from "@/components/Newsletter";
 import { fadeInProps, getOptimizedImageUrl, fallbackToOriginal } from "@/utils/imageOptimization";
 import { usePressFeatures } from "@/hooks/usePressFeatures";
@@ -247,6 +248,8 @@ const Editorial = () => {
               Watch the conversations →
             </a>
           </section>
+
+          <Signature className="mx-auto mt-20 h-12 w-auto" />
         </div>
       </div>
     </section>
