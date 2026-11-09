@@ -28,7 +28,7 @@ export const FailuresFirsts = () => {
     <section className="w-full bg-brand-night text-brand-warm pt-16 md:pt-24 pb-20 md:pb-32">
       <div className="container-wide">
         <div className="reveal mb-10 lg:mb-14">
-          <p className="eyebrow eyebrow-readable mb-6">What Matters</p>
+          <p className="eyebrow eyebrow-readable mb-6">Six Principles</p>
           <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] tracking-normal leading-[1.05] text-balance">
             {section?.title || "Fulfillment Over Achievement"}
           </h2>
