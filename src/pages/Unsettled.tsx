@@ -10,20 +10,20 @@ const Unsettled = () => {
 
   return (
     <>
-      <section className="w-full bg-brand-red text-white min-h-screen flex flex-col">
-        <Navigation variant="light" />
+      <section className="theme-night w-full text-brand-ink min-h-screen flex flex-col">
+        <Navigation variant="night" />
 
         {/* Centered Content */}
         <div className="flex-1 flex items-center justify-center px-6 lg:px-8">
           <div className="max-w-2xl text-center reveal">
-            <h1 className="hero-title text-white mb-6">UNSETTLED</h1>
-            <p className="body-text text-white/80 mb-10">
+            <h1 className="display-title text-brand-ink mb-6">UNSETTLED</h1>
+            <p className="font-editorial text-lg md:text-xl text-brand-ink/80 mb-10">
               Unsettled is Marc Hodulich's executive coaching business and provides executive coaching services.
             </p>
-            <p className="text-center text-xs uppercase tracking-[0.25em] text-white/70">
+            <p className="text-center text-xs uppercase tracking-[0.25em] text-brand-red">
               <a
                 href={`mailto:${COACHING_EMAIL}`}
-                className="underline underline-offset-4 decoration-white/40 hover:text-white hover:decoration-white smooth-transition"
+                className="underline underline-offset-4 decoration-brand-red/40 hover:text-brand-ink hover:decoration-brand-ink smooth-transition"
               >
                 {COACHING_EMAIL}
               </a>
