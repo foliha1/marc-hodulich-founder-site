@@ -68,7 +68,7 @@ export const Movement = () => {
         <div className="reveal">
           <p className="eyebrow eyebrow-readable mb-6">29029</p>
           <h2 className="font-display text-brand-warm text-[clamp(1.6rem,3.6vw,3.25rem)] mb-8">{content.title}.</h2>
-          <p className="font-editorial text-brand-warm/75 text-[clamp(1.1rem,1.4vw,1.55rem)] leading-[1.7] max-w-[38rem] mb-12">{content.description}</p>
+          <p className="text-brand-warm/75 text-[clamp(1.1rem,1.4vw,1.55rem)] leading-[1.7] max-w-[38rem] mb-12">{content.description}</p>
           <a
             href={content.video_link_url}
             target="_blank"
