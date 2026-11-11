@@ -4,6 +4,7 @@ import { fadeInProps } from "@/utils/imageOptimization";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGhostPost } from "@/hooks/useGhostPosts";
 import { isDuplicativeExcerpt } from "@/utils/excerpt";
+import { displayDateOverride } from "@/utils/letterDates";
 
 const formatDate = (iso: string | null): string => {
   if (!iso) return "";
@@ -22,6 +23,7 @@ const EditorialPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const { data: post, isLoading, error } = useGhostPost(slug);
   useDocumentTitle(post?.title, post?.meta_description || post?.excerpt);
+  const date = displayDateOverride(post?.slug) ?? formatDate(post?.published_at ?? null);
 
   return (
     <section className="theme-night w-full text-brand-ink min-h-screen flex flex-col">
@@ -79,10 +81,10 @@ const EditorialPost = () => {
 
               <div className="flex items-center gap-4 mb-10 text-brand-muted">
                 {post.author?.name && <span className="caption-text">{post.author.name}</span>}
-                {post.published_at && (
+                {date && (
                   <>
                     <span className="text-brand-stone">•</span>
-                    <span className="caption-text">{formatDate(post.published_at)}</span>
+                    <span className="caption-text">{date}</span>
                   </>
                 )}
                 {post.reading_time ? (

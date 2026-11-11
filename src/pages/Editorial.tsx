@@ -6,6 +6,7 @@ import { fadeInProps, getOptimizedImageUrl, fallbackToOriginal } from "@/utils/i
 import { usePressFeatures } from "@/hooks/usePressFeatures";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useGhostPostList, type GhostPostListItem } from "@/hooks/useGhostPosts";
+import { displayDateOverride } from "@/utils/letterDates";
 
 const formatDate = (iso: string | null): string => {
   if (!iso) return "";
@@ -20,12 +21,15 @@ const formatDate = (iso: string | null): string => {
   }
 };
 
-const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) => (
-  <Link
-    to={`/editorial/${post.slug}`}
-    className="group reveal night-card overflow-hidden smooth-transition block"
-    style={{ animationDelay: `${index * 0.08}s` }}
-  >
+const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) => {
+  const date = displayDateOverride(post.slug) ?? formatDate(post.published_at);
+
+  return (
+    <Link
+      to={`/editorial/${post.slug}`}
+      className="group reveal night-card overflow-hidden smooth-transition block"
+      style={{ animationDelay: `${index * 0.08}s` }}
+    >
     {post.featured_image && (
       <div className="aspect-[4/3] overflow-hidden bg-brand-stone">
         <img
@@ -59,11 +63,12 @@ const PostCard = ({ post, index }: { post: GhostPostListItem; index: number }) =
       )}
       <div className="flex items-center justify-between text-brand-muted">
         <span className="caption-text">{post.author?.name ?? ""}</span>
-        <span className="caption-text">{formatDate(post.published_at)}</span>
+        <span className="caption-text">{date}</span>
       </div>
     </div>
-  </Link>
-);
+    </Link>
+  );
+};
 
 // Upcoming letters shown until they are published in Ghost.
 interface UpcomingLetter {
@@ -72,7 +77,7 @@ interface UpcomingLetter {
 }
 
 const UPCOMING: UpcomingLetter[] = [
-  { title: "What if fulfillment happens before the finish line?", date: "Nov. 10" },
+  { title: "What if fulfillment happens before the finish line?", date: "Nov. 18" },
 ];
 
 const UpcomingCard = ({ item, index }: { item: UpcomingLetter; index: number }) => (
